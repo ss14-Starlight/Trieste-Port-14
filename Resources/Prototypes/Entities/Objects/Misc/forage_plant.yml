@@ -35,7 +35,7 @@
   parent: ForagePlant
   id: SerpentsMane
   suffix: plant
-  description: a
+  description: lorem ipsum dolor
   components:
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
@@ -47,15 +47,15 @@
 - type: entityLootTable
   id: SerpentsManeGather
   entries:
-  - id: FoodSerpentsManeBulb
+  - id: SerpentsManeBulb
 #    amount: 1
 #    maxAmount: 2
 
 - type: entity
   name: serpent's mane bulb
   parent: FoodInjectableBase
-  id: FoodSerpentsManeBulb
-  description: b
+  id: SerpentsManeBulb
+  description: lorem ipsum dolor
   components:
   - type: Produce
   - type: Sprite
@@ -79,3 +79,52 @@
           Quantity: 3
         - ReagentId: Vitamin
           Quantity: 2
+
+- type: entity
+  name: trenchlight weed
+  parent: ForagePlant
+  id: trenchlightWeed
+  suffix: plant
+  description: lorem ipsum dolor
+  components:
+    - type: Sprite
+      sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+      state: plant
+    - type: Gatherable
+      loot:
+        All: TrenchlightWeed
+
+- type: entityLootTable
+  id: TrenchlightWeed
+  entries:
+  - id: TrenchlightLeaf
+
+- type: entity
+  name: trenchlight leaf
+  parent: FoodInjectableBase
+  id: TrenchlightLeaf
+  description: lorem ipsum dolor
+  components:
+  - type: Produce
+  - type: Sprite
+    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    state: leaf
+    scale: 0.7, 0.7
+  - type: FlavorProfile
+    flavors:
+      - spaceshroom
+  - type: Extractable
+    juiceSolution:
+      reagents:
+      - ReagentId: SpaceDrugs #
+        Quantity: 10
+  - type: SolutionContainerManager #
+    solutions:
+      food:
+        maxVol: 20
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 3
+        - ReagentId: Vitamin
+          Quantity: 2
+
