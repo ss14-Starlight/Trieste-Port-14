@@ -20,7 +20,7 @@ namespace Content.Server.StationEvents.Events
                 return;
             }
 
-            var locations = EntityQueryEnumerator<DeathWhaleSpawnLocationComponent, TransformComponent>();
+            var locations = EntityQueryEnumerator<DeathWhaleSpawnLocationComponent, TransformComponent>(); // TODO: Make choosing the location possible.
             var validLocations = new List<EntityCoordinates>();
 
             while (locations.MoveNext(out var _, out var spawnLocation, out var transform))
@@ -53,8 +53,8 @@ namespace Content.Server.StationEvents.Events
 
             foreach (var whales in EntityManager.EntityQuery<DeathWhaleComponent>())
             {
-                var whaleUid = whales.Owner;  // Renamed to avoid conflict with method 'uid'
-                QueueDel(whaleUid);  // Deleting the whale entity
+                var whaleUid = whales.Owner;
+                QueueDel(whaleUid);  // Deleting the whale entity, they've left!!
             }
         }
     }
