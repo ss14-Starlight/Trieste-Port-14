@@ -38,4 +38,6 @@ McJak - Music
 
 Målingen - Spriting, Lore help, General help
 
+Quri1q - Spriting
+
 Piss Wizard - Jellid concept
