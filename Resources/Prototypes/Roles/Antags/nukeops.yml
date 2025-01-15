@@ -42,23 +42,21 @@
 - type: startingGear
   id: SyndicateOperativeGearFull
   equipment:
-    jumpsuit: ClothingUniformJumpsuitOperative
-    back: ClothingBackpackDuffelSyndicate
-    mask: ClothingMaskGasSyndicate
+    jumpsuit: ClothingUniformJumpsuitDeathSquad
+    back: ClothingBackpackDuffel
+    mask: ClothingMaskGasERT
     eyes: ClothingEyesHudSyndicate
-    ears: ClothingHeadsetAltSyndicate
+    ears: ClothingHeadsetAltCaskie
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterHardsuitSyndie
+    outerClothing: ClothingOuterHardsuitERTLeader
     shoes: ClothingShoesBootsCombatFilled
-    id: SyndiPDA
+    id: NanotrasenPDA
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: BaseUplinkRadio40TC
+    pocket2: BaseUplinkRadioNT
     belt: ClothingBeltMilitaryWebbing
   storage:
     back:
-    - BoxSurvivalSyndicate
-    - WeaponPistolViper
-    - PinpointerSyndicateNuclear
+    - TP14WeaponNtBlaster
     - DeathAcidifierImplanter
 
 #Nuclear Operative Commander Gear
@@ -66,8 +64,7 @@
   id: SyndicateCommanderGearFull
   parent: SyndicateOperativeGearFull
   equipment:
-    neck: SyndicateWhistle
-    outerClothing: ClothingOuterHardsuitSyndieCommander
+    outerClothing: ClothingOuterHardsuitERTLeader
   inhand:
     - NukeOpsDeclarationOfWar
 
@@ -77,19 +74,17 @@
   parent: SyndicateOperativeGearFull
   equipment:
     eyes: ClothingEyesHudSyndicateAgent
-    outerClothing: ClothingOuterHardsuitSyndieMedic
+    outerClothing: ClothingOuterHardsuitERTMedical
     shoes: ClothingShoesBootsMagSyndie
-    id: SyndiAgentPDA
+    id: NanotrasenPDA
     belt: ClothingBeltMilitaryWebbingMedFilled
   storage:
     back:
     - SyndiHypo
-    - BoxSurvivalSyndicate
     - SawAdvanced
     - Cautery
     - CombatKnife
-    - WeaponPistolViper
-    - PinpointerSyndicateNuclear
+    - TP14WeaponNtBlaster
     - HandheldHealthAnalyzer
     - CombatMedipen
     - DeathAcidifierImplanter

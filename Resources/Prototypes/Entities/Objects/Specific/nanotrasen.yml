@@ -52,7 +52,7 @@
   id: TP14BaseUplinkRadioNT
   name: nanotrasen uplink
   description: Suspiciously looking old radio...
-  suffix: Empty
+  suffix: 40
   components:
   - type: Sprite
     sprite: Objects/Devices/communication.rsi
@@ -69,5 +69,5 @@
     key: enum.StoreUiKey.Key
   - type: Store
     balance:
-      BluespaceCrystal: 0
+      BluespaceCrystal: 40
 

@@ -27,6 +27,17 @@
     sprite: Clothing/Ears/Headsets/cargo.rsi
 
 - type: entity
+  parent: ClothingHeadsetAltCentCom
+  id: ClothingHeadsetAltCaskie
+  name: operative headset
+  description: A modular earpiece assigned to Nanotrasen footsoldiers.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - TP14EncryptionKeyNanotrasen
+
+- type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltCentCom
   name: CentCom over-ear headset
