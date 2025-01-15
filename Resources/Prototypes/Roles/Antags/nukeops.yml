@@ -38,9 +38,8 @@
   # should be changed to nukie playtime when thats tracked (wyci)
   guides: [ NuclearOperatives ]
 
-#Nuclear Operative Gear
 - type: startingGear
-  id: SyndicateOperativeGearFull
+  id: SyndicateOperativeGearFullNoUplink
   equipment:
     jumpsuit: ClothingUniformJumpsuitDeathSquad
     back: ClothingBackpackDuffel
@@ -59,6 +58,13 @@
     - TP14WeaponNtBlaster
     - DeathAcidifierImplanter
 
+#Nuclear Operative Gear
+- type: startingGear
+  id: SyndicateOperativeGearFull
+  parent: SyndicateOperativeGearFullNoUplink
+  equipment:
+    pocket2: BaseUplinkRadio40TC
+
 #Nuclear Operative Commander Gear
 - type: startingGear
   id: SyndicateCommanderGearFull
@@ -66,7 +72,7 @@
   equipment:
     outerClothing: ClothingOuterHardsuitERTLeader
   inhand:
-    - NukeOpsDeclarationOfWar
+  - NukeOpsDeclarationOfWar
 
 #Nuclear Operative Medic Gear
 - type: startingGear

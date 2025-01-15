@@ -1,4 +1,6 @@
 using Content.Shared.Dataset;
+using Content.Shared.FixedPoint;
+﻿using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Prototypes;
 using Content.Shared.Random;
 using Content.Shared.Roles;
@@ -37,6 +39,26 @@ namespace Content.Server.GameTicking.Rules.Components
         [DataField]
         public ProtoId<DatasetPrototype> CodewordVerbs = "verbs";
 
+    [DataField]
+    public ProtoId<DatasetPrototype> ObjectiveIssuers = "TraitorCorporations";
+
+    /// <summary>
+    /// Give this traitor an Uplink on spawn.
+    /// </summary>
+    [DataField]
+    public bool GiveUplink = true;
+
+    /// <summary>
+    /// Give this traitor the codewords.
+    /// </summary>
+    [DataField]
+    public bool GiveCodewords = true;
+
+    /// <summary>
+    /// Give this traitor a briefing in chat.
+    /// </summary>
+    [DataField]
+    public bool GiveBriefing = true;
         [DataField]
         public ProtoId<DatasetPrototype> ObjectiveIssuers = "TraitorCorporations";
 
@@ -76,9 +98,12 @@ namespace Content.Server.GameTicking.Rules.Components
         [DataField]
         public int CodewordCount = 4;
 
+    /// <summary>
+    /// The amount of TC traitors start with.
+    /// </summary>
+    [DataField]
+    public FixedPoint2 StartingBalance = 20;
         // Starting TC for traitors
-        [DataField]
-        public int StartingBalance = 20;
 
         // Constructor or methods for functionality
         // Add any additional methods you need to interact with these fields
