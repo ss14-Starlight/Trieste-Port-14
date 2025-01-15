@@ -688,6 +688,25 @@
     state: pda-centcom
 
 - type: entity
+  parent: BasePDA
+  id: NanotrasenPDA
+  name: Nanotrasen PDA
+  description: Light green sign of walking bureaucracy, now including free bulletholes and fire!
+  components:
+  - type: Pda
+    id: CentcomIDCardSyndie
+    state: pda-centcom
+    penSlot:
+      startingItem: PenCentcom
+      whitelist:
+        tags:
+        - Write
+  - type: PdaBorderColor
+    borderColor: "#00842e"
+  - type: Icon
+    state: pda-centcom
+
+- type: entity
   parent: CentcomPDA
   id: AdminPDA
   name: Admin PDA

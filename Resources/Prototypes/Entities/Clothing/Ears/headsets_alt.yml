@@ -26,6 +26,21 @@
   - type: Clothing
     sprite: Clothing/Ears/Headsets/cargo.rsi
 
+﻿- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltCaskie
+  name: operative headset
+  description: A modular earpiece assigned to Nanotrasen footsoldiers.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyNanotrasen
+  - type: Sprite
+    state: icon_alt
+  - type: Clothing
+    equippedPrefix: alt
+
 - type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltCentCom
