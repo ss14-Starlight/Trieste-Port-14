@@ -1,7 +1,7 @@
 - type: entity
   name: Urist McJellid
   parent: BaseMobSpeciesOrganic
-  id: TP14BaseMobJellidPerson
+  id: BaseMobJellidPerson
   abstract: true
   components:
   - type: Icon
