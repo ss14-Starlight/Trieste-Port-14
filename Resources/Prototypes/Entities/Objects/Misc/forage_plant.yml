@@ -34,8 +34,7 @@
   name: serpent's mane
   parent: ForagePlant
   id: SerpentsMane
-  suffix: plant
-  description: lorem ipsum dolor
+  description: This plant tries to ward off potential predators by imitating an animal. The currents will make it's light stem move around, scaring off other creatures and the unexperienced.
   components:
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
@@ -48,14 +47,12 @@
   id: SerpentsManeGather
   entries:
   - id: SerpentsManeBulb
-#    amount: 1
-#    maxAmount: 2
 
 - type: entity
   name: serpent's mane bulb
   parent: FoodInjectableBase
   id: SerpentsManeBulb
-  description: lorem ipsum dolor
+  description: Rich in chemicals Serpents Mane is known for. Due to a high risk of overdosing, it is not advised to utilize without refining first.
   components:
   - type: Produce
   - type: Sprite
@@ -68,24 +65,25 @@
   - type: Extractable
     juiceSolution:
       reagents:
-      - ReagentId: SpaceDrugs #
+      - ReagentId: Teratin
+        Quantity: 16
+      - ReagentId: Hiscylin
         Quantity: 10
-  - type: SolutionContainerManager #
+  - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 20
         reagents:
-        - ReagentId: Nutriment
-          Quantity: 3
-        - ReagentId: Vitamin
-          Quantity: 2
+        - ReagentId: Teratin
+          Quantity: 16
+        - ReagentId: Hiscylin
+          Quantity: 10
 
 - type: entity
   name: trenchlight weed
   parent: ForagePlant
   id: trenchlightWeed
-  suffix: plant
-  description: lorem ipsum dolor
+  description: An invasive species, brought to the planet from Limoris-2b by inter-sector cargo ships. It's known for it's moderate healing properties even before proper processing.
   components:
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
@@ -103,7 +101,7 @@
   name: trenchlight leaf
   parent: FoodInjectableBase
   id: TrenchlightLeaf
-  description: lorem ipsum dolor
+  description: The leaves of Trenchlight weed. It's known as a snack to expedition teams due to it's medicinal properties.
   components:
   - type: Produce
   - type: Sprite
@@ -116,15 +114,13 @@
   - type: Extractable
     juiceSolution:
       reagents:
-      - ReagentId: SpaceDrugs #
-        Quantity: 10
-  - type: SolutionContainerManager #
+      - ReagentId: Vounarin
+        Quantity: 4
+  - type: SolutionContainerManager
     solutions:
       food:
-        maxVol: 20
+#        maxVol: 20
         reagents:
-        - ReagentId: Nutriment
-          Quantity: 3
-        - ReagentId: Vitamin
-          Quantity: 2
+        - ReagentId: Vounarin
+          Quantity: 4
 
