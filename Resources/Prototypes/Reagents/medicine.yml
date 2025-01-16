@@ -1424,19 +1424,10 @@
     Medicine:
       effects:
       - !type:HealthChange
-        conditions:
-        - !type:ReagentThreshold
-          min: 15
-        damage:
-          types:
-            Poison: 3
-      - !type:HealthChange
         damage:
           types:
             Asphyxiation: 1
             Piercing: 2
-      - !type:ModifyBleedAmount
-        amount: -0.25
       - !type:GenericStatusEffect
         conditions:
         - !type:ReagentThreshold
@@ -1460,8 +1451,8 @@
         - !type:ReagentThreshold
           min: 10
         damage:
-          types:
-            Blunt: 0.5
+          groups:
+            Brute: 0.5
       - !type:HealthChange
         damage:
           types:
@@ -1485,8 +1476,8 @@
         - !type:ReagentThreshold
           min: 10
         damage:
-          types:
-            Blunt: 0.5
+          groups:
+            Brute: 0.5
       - !type:HealthChange
         damage:
           groups:
