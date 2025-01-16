@@ -1390,7 +1390,7 @@
   name: reagent-name-teratin
   group: Medicine
   desc: reagent-desc-teratin
-  physicalDesc: reagent-physical-desc-murky
+  physicalDesc: reagent-physical-desc-fibrous
   flavor: bitter
   color: "#4d0099"
   metabolisms:
@@ -1417,7 +1417,7 @@
   name: reagent-name-hiscylin
   group: Medicine
   desc: reagent-desc-hiscylin
-  physicalDesc: reagent-physical-desc-murky
+  physicalDesc: reagent-physical-desc-milky
   flavor: bitter
   color: "#990073"
   metabolisms:
@@ -1440,7 +1440,7 @@
   name: reagent-name-vounarin
   group: Medicine
   desc: reagent-desc-vounarin
-  physicalDesc: reagent-physical-desc-murky
+  physicalDesc: reagent-physical-desc-milky
   flavor: oily
   color: "#ccccff"
   metabolisms:
@@ -1464,7 +1464,7 @@
   name: reagent-name-vounarin-plus
   group: Medicine
   desc: reagent-desc-vounarin-plus
-  physicalDesc: reagent-physical-desc-murky
+  physicalDesc: reagent-physical-desc-viscous
   flavor: medicine
   color: "#9898e6"
   metabolisms:
