@@ -21,6 +21,8 @@
   - type: Currency
     price:
       BluespaceCrystal: 1
+  - type: Contraband
+    severity: Nanotrasen
 
 - type: entity
   parent: TP14BluespaceCrystal
