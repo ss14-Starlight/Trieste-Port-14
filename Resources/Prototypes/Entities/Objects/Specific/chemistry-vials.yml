@@ -100,11 +100,12 @@
         acts: [ "Destruction" ]
   - type: Spillable
     solution: beaker
+  - type: DnaSubstanceTrace
 
 - type: entity
   id: VestineChemistryVial
-  name: vestine vial
   parent: BaseChemistryEmptyVial
+  suffix: vestine
   components:
     - type: SolutionContainerManager
       solutions:
@@ -116,7 +117,7 @@
     - type: Tag
       tags: []
 
-      
+
 - type: entity
   id: VestineChemistryVialHalf
   name: vestine vial

@@ -2,6 +2,7 @@ using Content.Server.GameTicking.Rules.Components;
 using Content.Server.StationEvents.Components;
 using Content.Server.Traits.Assorted;
 using Content.Shared.GameTicking.Components;
+using Content.Shared.Humanoid;
 using Content.Shared.Mind.Components;
 using Content.Shared.Traits.Assorted;
 using Robust.Shared.Map;
@@ -48,7 +49,6 @@ public sealed class MassHallucinationsRule : StationEventSystem<MassHallucinatio
         {
             if (!HasComp<ParacusiaComponent>(ent))
             {
-                EnsureComp<MassHallucinationsComponent>(ent);
                 var paracusia = EnsureComp<ParacusiaComponent>(ent);
                 _paracusia.SetSounds(ent, component.Sounds, paracusia);
                 _paracusia.SetTime(ent, component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents, paracusia);
@@ -65,7 +65,6 @@ public sealed class MassHallucinationsRule : StationEventSystem<MassHallucinatio
         {
             if (HasComp<MindContainerComponent>(ent) && !HasComp<ParacusiaComponent>(ent))
             {
-                EnsureComp<MassHallucinationsComponent>(ent);
                 var paracusia = EnsureComp<ParacusiaComponent>(ent);
                 _paracusia.SetSounds(ent, component.Sounds, paracusia);
                 _paracusia.SetTime(ent, component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents, paracusia);
@@ -92,10 +91,12 @@ public sealed class MassHallucinationsRule : StationEventSystem<MassHallucinatio
     protected override void Ended(EntityUid uid, MassHallucinationsRuleComponent component, GameRuleComponent gameRule, GameRuleEndedEvent args)
     {
         base.Ended(uid, component, gameRule, args);
-        var query = EntityQueryEnumerator<MassHallucinationsComponent>();
-        while (query.MoveNext(out var ent, out _))
+
+        foreach (var ent in component.AffectedEntities)
         {
             RemComp<ParacusiaComponent>(ent);
         }
+
+        component.AffectedEntities.Clear();
     }
 }
