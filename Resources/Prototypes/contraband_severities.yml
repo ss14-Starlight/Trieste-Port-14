@@ -25,3 +25,8 @@
 - type: contrabandSeverity
   id: Syndicate
   examineText: contraband-examine-text-Syndicate
+
+# This is clear syndicate contraband and is illegal to own IC.
+- type: contrabandSeverity
+  id: Nanotrasen
+  examineText: contraband-examine-text-Nanotrasen
