@@ -40,4 +40,6 @@ Målingen - Spriting, Lore help, General help
 
 Quri1q - Spriting
 
-Piss Wizard - Jellid concept
+Legally Aquired Monvi Plushie - Foraging Design
+
+Puce - Programming
