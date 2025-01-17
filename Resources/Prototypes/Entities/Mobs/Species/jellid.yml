@@ -15,6 +15,7 @@
   - type: IgnitionSource
     temperature: 700
     ignited: true
+  - type: Firestarter
   - type: AlwaysHot
   - type: TemperatureProtection
     coefficient: 0.6
