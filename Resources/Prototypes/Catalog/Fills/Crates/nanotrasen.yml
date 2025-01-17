@@ -5,6 +5,8 @@
   name: portable chemistry lab crate
   description: Contains everything needed to go breaking bad. Does not include a second cook. # Walter we need to COOK
   components:
+  - type: Contraband
+    severity: Nanotrasen
   - type: StorageFill
     contents:
       - id: ReagentGrinderFlatpack
@@ -35,6 +37,8 @@
   name: NT borging kit
   description: The label reads 'We will add your financial and economical assets to our own' # da borg
   components:
+  - type: Contraband
+    severity: Nanotrasen
   - type: StorageFill
     contents:
       - id: MMI
