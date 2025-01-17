@@ -698,7 +698,7 @@
       settings: PlanetarySettler
 
 - type: entity
-  id: RandomHumanoidSettler
+  id: RandomHumanoidTheThingy
   name: the thingy
   components:
     - type: Sprite
