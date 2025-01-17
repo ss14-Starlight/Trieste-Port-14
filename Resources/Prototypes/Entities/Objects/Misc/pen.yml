@@ -80,16 +80,6 @@
     useSound:
       collection: Screwdriver
 
-- type: entity
-  name: overseer's fountain pen
-  parent: PenEmbeddable
-  id: PenCap
-  description: A luxurious fountain pen for the overseer of Trieste.
-  components:
-  - type: Sprite
-    state: overpriced_pen
-  - type: Item
-    heldPrefix: overpriced_pen
 
 - type: entity
   name: CentComm pen

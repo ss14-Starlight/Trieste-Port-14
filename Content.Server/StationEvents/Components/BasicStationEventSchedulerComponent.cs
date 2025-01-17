@@ -7,7 +7,23 @@ namespace Content.Server.StationEvents.Components;
 [RegisterComponent, Access(typeof(BasicStationEventSchedulerSystem))]
 public sealed partial class BasicStationEventSchedulerComponent : Component
 {
-    public const float MinimumTimeUntilFirstEvent = 150;
+    /// <summary>
+    /// How long the the scheduler waits to begin starting rules.
+    /// </summary>
+    [DataField]
+    public float MinimumTimeUntilFirstEvent = 200;
+
+    /// <summary>
+    /// The minimum and maximum time between rule starts in seconds.
+    /// </summary>
+    [DataField]
+    public MinMax MinMaxEventTiming = new(3 * 60, 10 * 60);
+
+    /// <summary>
+    /// How long until the next check for an event runs, is initially set based on MinimumTimeUntilFirstEvent & MinMaxEventTiming.
+    /// </summary>
+    [DataField]
+    public float TimeUntilNextEvent;
 
     /// <summary>
     /// The gamerules that the scheduler can choose from

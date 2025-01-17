@@ -33,7 +33,6 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
 
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly SharedJobSystem _jobs = default!;
     [Dependency] private readonly MindSystem _mindSystem = default!;
     [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
@@ -121,10 +120,9 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
         _antag.SendBriefing(traitor, GenerateBriefing(component.SyndicateCodewords, code, issuer), null, component.GreetSoundNotification);
         component.TraitorMinds.Add(mindId);
 
-        _roleSystem.MindAddRole(mindId, new RoleBriefingComponent
-        {
-            Log.Debug($"MakeTraitor {ToPrettyString(traitor)} - did not get traitor briefing");
-        }
+        // In the MakeSyndicateTraitor method
+        _roleSystem.MindAddRole(mindId, "roleBriefing");  // Assuming "roleBriefing" is the prototype ID for this role
+
 
         // Send codewords to only the traitor client
         var color = TraitorCodewordColor; // Fall back to a dark red Syndicate color if a prototype is not found
@@ -162,10 +160,8 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
     _antag.SendBriefing(traitor, GenerateBriefingNT(component.NanoTrasenCodewords, code, issuer), null, component. GreetSoundNotificationNT);
     component.TraitorMinds.Add(mindId);
 
-    _roleSystem.MindAddRole(mindId, new RoleBriefingComponent
-    {
-        Briefing = briefing
-    }, mind, true);
+        _roleSystem.MindAddRole(mindId, "roleBriefing", mind, true);
+
 
     _npcFaction.RemoveFaction(traitor, component.NanoTrasenFaction, false);
     _npcFaction.AddFaction(traitor, component.NanoTrasenTraitorFaction);

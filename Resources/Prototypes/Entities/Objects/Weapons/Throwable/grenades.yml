@@ -497,35 +497,6 @@
         volume: 12
 
 - type: entity
-  parent: GrenadeBase
-  id: TP14IncendiaryGrenade
-  name: incendiary grenade
-  description: Releases superheated plasma microparticles upon detonation.
-  components:
-  - type: Sprite
-    sprite: Objects/Weapons/Grenades/pyrogrenade.rsi
-    layers:
-    - state: icon
-      map: ["enum.TriggerVisualLayers.Base"]
-  - type: ClusterGrenade
-    fillPrototype: PelletClusterIncendiaryNT
-    maxGrenadesCount: 15
-    grenadeType: enum.GrenadeType.Shoot
-  - type: OnUseTimerTrigger
-    beepSound:
-      path: "/Audio/Effects/beep1.ogg"
-      params:
-        volume: 5
-    initialBeepDelay: 0
-    beepInterval: 2
-  - type: EmitSoundOnTrigger
-    sound:
-      path: "/Audio/Weapons/Guns/Gunshots/batrifle.ogg"
-  - type: ContainerContainer
-    containers:
-      cluster-payload: !type:Container
-
-- type: entity
   name: beachball
   description: A NT-brand beachball. This one is strangely firm.
   parent: BaseGrenade

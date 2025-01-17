@@ -927,7 +927,7 @@
   description: Light green sign of walking bureaucracy, now including free bulletholes and fire!
   components:
   - type: Pda
-    id: CentcomIDCardSyndie
+    id: CentcomIDCardDeathsquad
     state: pda-centcom
     penSlot:
       startingItem: PenCentcom

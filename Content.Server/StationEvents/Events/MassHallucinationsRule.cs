@@ -49,7 +49,6 @@ public sealed class MassHallucinationsRule : StationEventSystem<MassHallucinatio
         {
             if (!HasComp<ParacusiaComponent>(ent))
             {
-                EnsureComp<MassHallucinationsComponent>(ent);
                 var paracusia = EnsureComp<ParacusiaComponent>(ent);
                 _paracusia.SetSounds(ent, component.Sounds, paracusia);
                 _paracusia.SetTime(ent, component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents, paracusia);
@@ -66,7 +65,6 @@ public sealed class MassHallucinationsRule : StationEventSystem<MassHallucinatio
         {
             if (HasComp<MindContainerComponent>(ent) && !HasComp<ParacusiaComponent>(ent))
             {
-                EnsureComp<MassHallucinationsComponent>(ent);
                 var paracusia = EnsureComp<ParacusiaComponent>(ent);
                 _paracusia.SetSounds(ent, component.Sounds, paracusia);
                 _paracusia.SetTime(ent, component.MinTimeBetweenIncidents, component.MaxTimeBetweenIncidents, paracusia);

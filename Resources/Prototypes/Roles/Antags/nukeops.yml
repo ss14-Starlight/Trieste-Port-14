@@ -51,7 +51,7 @@
     shoes: ClothingShoesBootsCombatFilled
     id: NanotrasenPDA
     pocket1: DoubleEmergencyOxygenTankFilled
-    pocket2: BaseUplinkRadioNT
+    pocket2: TP14BaseUplinkRadioNT
     belt: ClothingBeltMilitaryWebbing
   storage:
     back:

@@ -59,8 +59,6 @@ namespace Content.Server.GameTicking.Rules.Components
     /// </summary>
     [DataField]
     public bool GiveBriefing = true;
-        [DataField]
-        public ProtoId<DatasetPrototype> ObjectiveIssuers = "TraitorCorporations";
 
         // Codeword arrays
         public string[] SyndicateCodewords = new string[3];

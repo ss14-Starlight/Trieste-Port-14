@@ -77,14 +77,6 @@
     scheduledGameRules: !type:NestedSelector
       tableId: MeteorSwarmMildTable
 
-- type: entity
-  parent: BaseGameRule
-  id: KesslerSyndromeScheduler
-  components:
-  - type: GameRule
-    minPlayers: 255
-    cancelPresetOnTooFewPlayers: false
-  - type: MeteorScheduler
 
 - type: weightedRandomEntity
   id: DefaultConfig

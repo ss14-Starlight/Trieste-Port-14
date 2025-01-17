@@ -9,6 +9,8 @@ using Content.Shared.PDA;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Content.Shared.Radio.Components;
+using Robust.Shared.Prototypes;
+using Content.Server.Traitor.Uplink;
 
 public sealed class UplinkSystem : EntitySystem
 {

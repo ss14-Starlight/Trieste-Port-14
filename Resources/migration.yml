@@ -380,6 +380,7 @@ MobFish3: TP14MobFish3
 MobFishMimic: TP14MobFishMimic
 MobMimic: TP14MobMimic
 HarpoonGun: TP14HarpoonGun
+FloorInvisibleReal: null
 Harpoon: TP14Harpoon
 HarpoonBomb: TP14HarpoonBomb
 PiezoHarpoon: TP14PiezoHarpoon
@@ -393,22 +394,16 @@ EncryptionKeyNanotrasen: TP14EncryptionKeyNanotrasen
 WeaponTrident: TP14WeaponTrident
 EnergyBomb: TP14EnergyBomb
 BeachballGrenade: TP14BeachballGrenade
-IncendiaryGrenade: TP14IncendiaryGrenade
 BluespaceCrystal: TP14BluespaceCrystal
 BaseUplinkRadioNT: TP14BaseUplinkRadioNT
 CrateChemicalLabBundle: TP14CrateChemicalLabBundle
 WaterCanister: TP14WaterCanister
 SpawnMechStepfather: TP14SpawnMechStepfather
 MechStepfather: TP14MechStepfather
-SettlerSpawner: TP14SettlerSpawner
-PirateSpawner: TP14PirateSpawner
-PirateCaptainSpawner: TP14PirateCaptainSpawner
-HermitSpawner: TP14HermitSpawner
 TheArtifact: TP14TheArtifact
 PinpointerPilot: TP14PinpointerPilot
 ResonanceDelaminator: TP14ResonanceDelaminator
 PlanktonScanner: TP14PlanktonScanner
-SlashBang: TP14SlashBang
 MagCellDisabler: TP14MagCellDisabler
 BaseMagCell: TP14BaseMagCell
 MagCellAdvanced: TP14MagCellAdvanced
@@ -600,3 +595,7 @@ LightTree06: LightTree
 
 #2024-12-28
 DrinkIrishCarBomb: DrinkIrishSlammer
+
+SettlerSpawner: null
+HermitSpawner: null
+TP14SeaWreckRoomMarker: null

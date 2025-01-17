@@ -182,7 +182,6 @@
       Plastic: 100
   - type: StaticPrice
     price: 12.5
-    price: 30 # increases in price after decomposed into raw materials
 
 - type: entity
   parent: ClothingMaskBase

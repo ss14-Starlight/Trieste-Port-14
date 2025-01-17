@@ -60,7 +60,6 @@
     state: telecrystal
   content:
   - RadioJammer
-  - TraitorCodePaper
   - Emag
   - Lighter
   - CigPackSyndicate
