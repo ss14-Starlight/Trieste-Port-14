@@ -787,6 +787,8 @@
     walkModifier: 0.9
     sprintModifier: 0.9
   - type: HeldSpeedModifier
+  - type: Contraband
+    severity: Nanotrasen
 
 #ERT Chaplain Hardsuit
 - type: entity
@@ -829,6 +831,8 @@
     sprite: Clothing/OuterClothing/Hardsuits/ERTSuits/ertmedical.rsi
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitERTMedical
+  - type: Contraband
+    severity: Nanotrasen
 
 #ERT Security Hardsuit
 - type: entity
@@ -898,6 +902,8 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitDeathsquad
+  - type: Contraband
+    severity: Nanotrasen
 
 #CBURN Hardsuit
 - type: entity
