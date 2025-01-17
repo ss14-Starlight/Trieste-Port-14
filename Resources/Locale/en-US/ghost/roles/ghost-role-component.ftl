@@ -328,3 +328,9 @@ ghost-role-information-gingerbread-name = Gingerbread Man
 ghost-role-information-gingerbread-description = A being of pure holiday spirit.
                                      Spread molassesy goodness and to all good cheer.
 
+ghost-role-information-settler-name = Planetary Settler
+ghost-role-information-settler-description = You live in a settlement near Trieste Port. You are not affilitated to them, and are a free agent. DO NOT ATTACK OTHER SETTLERS.
+
+ghost-role-information-thethingy-name = The Thingy
+ghost-role-information-thethingy-description = You found this costume long ago, resting in the seabed. You meandered for decades, listening to the speech of the two legged beings. Now, you have found your new feeding ground.
+
