@@ -521,6 +521,8 @@
       fireRate: 3
       soundGunshot:
         path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
+    - type: Contraband
+    severity: Nanotrasen
 
 - type: entity
   name: NT-331 energy carbine
@@ -556,6 +558,8 @@
     fireCost: 33
   - type: StaticPrice
     price: 260
+  - type: Contraband
+    severity: Nanotrasen
 
 
 - type: entity
