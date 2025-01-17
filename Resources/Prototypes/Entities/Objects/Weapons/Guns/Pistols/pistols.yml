@@ -209,10 +209,12 @@
 
 - type: entity
   name: N1984
-  parent: [BaseWeaponPistol, BaseRestrictedContraband]
+  parent: BaseWeaponPistol
   id: WeaponPistolN1984 # the spaces in description are for formatting.
   description: The sidearm of any self respecting officer.     Comes in .45 magnum, the lord's caliber.
   components:
+  - type: Contraband
+    severity: Nanotrasen
   - type: Sprite
     sprite: Objects/Weapons/Guns/Pistols/N1984.rsi
     layers:
