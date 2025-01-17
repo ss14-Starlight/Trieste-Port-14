@@ -36,6 +36,8 @@
     containers:
       key_slots:
       - TP14EncryptionKeyNanotrasen
+  - type: Contraband
+    severity: Nanotrasen
 
 - type: entity
   parent: ClothingHeadsetAlt
