@@ -34,7 +34,7 @@ Lyroth - Programming
 
 Lupino - Debugging, General help
 
-McJak - Music
+McJak - Antagonist Music
 
 Målingen - Spriting, Lore help, General help
 
