@@ -342,6 +342,8 @@
   name: CBURN equipment bundle
   description: "The label on the strap reads 'Turn and burn, Agent.'"
   components:
+  - type: Contraband
+    severity: Nanotrasen
   - type: StorageFill
     contents:
       - id: WeaponShotgunDoubleBarreled
