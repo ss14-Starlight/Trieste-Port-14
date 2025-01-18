@@ -7,8 +7,6 @@
   description: survival-description
   rules:
     - RampingStationEventScheduler
-    - SpaceTrafficControlEventScheduler
-    - SpaceTrafficControlFriendlyEventScheduler
     - BasicRoundstartVariation
 
 - type: gamePreset
@@ -113,7 +111,6 @@
   description: secret-description
   rules:
     - BasicStationEventScheduler
-    - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
 - type: gamePreset
@@ -150,7 +147,6 @@
     - Traitor
     - SubGamemodesRule
     - BasicStationEventScheduler
-    - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
 - type: gamePreset
@@ -188,7 +184,6 @@
     - Nukeops
     - SubGamemodesRule
     - BasicStationEventScheduler
-    - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
 - type: gamePreset
