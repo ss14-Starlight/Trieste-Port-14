@@ -1,14 +1,11 @@
 - type: entity
-  name: forage plant
+  id: ForagePlant
   parent: BaseStructure
   abstract: true
-  id: ForagePlant
   suffix: plant
   components:
-    - type: Transform
-      anchored: true
     - type: Physics
-      bodyType: Static
+      hard: false
     - type: Fixtures
       fixtures:
         fix1:
@@ -27,17 +24,32 @@
               acts: [ "Destruction" ]
 
 - type: entity
+  parent: BaseStructure
+  abstract: true
+  id: ForagePlantRegrowing
+  suffix: plant
+  components:
+    - type: Appearance
+    - type: GenericVisualizer
+      visuals:
+        enum.RegrowVisuals.Regrowing:
+          enum.RegrowVisuals.Layer:
+            True: { state: plant-regrowing }
+            False: { state: plant }
+
+- type: entity
   name: serpent's mane
-  parent: ForagePlant
+  parent: ForagePlantRegrowing
   id: SerpentsMane
   description: This plant tries to ward off potential predators by imitating an animal. The currents will make it's light stem move around, scaring off other creatures and the unexperienced.
   components:
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+    - type: Icon
+      sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
       state: plant
     - type: Forage
       regrowTime: 300
-      regrowSprite: null
       loot:
         All: SerpentsManeGather
 
@@ -79,16 +91,17 @@
 
 - type: entity
   name: trenchlight weed
-  parent: ForagePlant
+  parent: ForagePlantRegrowing
   id: trenchlightWeed
   description: An invasive species, brought to the planet from Limoris-2b by inter-sector cargo ships. It's known for it's moderate healing properties even before proper processing.
   components:
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    - type: Icon
+      sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
       state: plant
     - type: Forage
       regrowTime: 300
-      regrowSprite: null #
       loot:
         All: TrenchlightWeed
 

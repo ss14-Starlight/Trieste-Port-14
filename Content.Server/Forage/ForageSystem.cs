@@ -1,4 +1,5 @@
 using Content.Server.Destructible;
+using Content.Shared.Forage;
 using Content.Shared.Interaction;
 using Content.Shared.Tag;
 using Robust.Server.GameObjects;
@@ -14,12 +15,19 @@ public sealed class ForageSystem : EntitySystem
     [Dependency] private readonly DestructibleSystem _destructible = default!;
     [Dependency] private readonly TagSystem _tagSystem = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly AppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<ForageComponent, ActivateInWorldEvent>(OnActivate);
+        SubscribeLocalEvent<ForageComponent, ComponentInit>(OnInit);
+    }
+
+    private void OnInit(Entity<ForageComponent> ent, ref ComponentInit args)
+    {
+        UpdateAppearance(ent);
     }
 
     private void OnActivate(Entity<ForageComponent> forageable, ref ActivateInWorldEvent args)
@@ -31,21 +39,21 @@ public sealed class ForageSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void Forage(EntityUid foragedUid, EntityUid? forager = null, ForageComponent? component = null)
+    private void Forage(EntityUid uid, EntityUid? forager = null, ForageComponent? component = null)
     {
-        if (!Resolve(foragedUid, ref component))
+        if (!Resolve(uid, ref component))
             return;
 
         if (component.Regrowing)
             return;
 
         if (component.DestroyOnForage)
-            _destructible.DestroyEntity(foragedUid);
+            _destructible.DestroyEntity(uid);
 
         if (component.Loot == null)
             return;
 
-        var pos = _transform.GetMapCoordinates(foragedUid);
+        var pos = _transform.GetMapCoordinates(uid);
 
         foreach (var (tag, table) in component.Loot)
         {
@@ -62,23 +70,29 @@ public sealed class ForageSystem : EntitySystem
         }
 
         component.Regrowing = true;
+        UpdateAppearance((uid, component));
     }
 
     public override void Update(float frameTime)
     {
         var query = EntityQueryEnumerator<ForageComponent>();
-        while (query.MoveNext(out _, out var forage))
+        while (query.MoveNext(out var ent, out var forage))
         {
             if (!forage.Regrowing)
                 continue;
 
             forage.TimeSinceForage += frameTime;
+            if (forage.TimeSinceForage < forage.RegrowTime)
+                continue;
 
-            if (forage.TimeSinceForage > forage.RegrowTime)
-            {
-                forage.TimeSinceForage = 0.0f;
-                forage.Regrowing = false;
-            }
+            forage.TimeSinceForage = 0.0f;
+            forage.Regrowing = false;
+            UpdateAppearance((ent, forage));
         }
+    }
+
+    private void UpdateAppearance(Entity<ForageComponent> ent)
+    {
+        _appearance.SetData(ent, RegrowVisuals.Regrowing, ent.Comp.Regrowing);
     }
 }

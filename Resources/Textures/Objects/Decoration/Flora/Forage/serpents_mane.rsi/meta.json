@@ -18,7 +18,7 @@
             ]
         },
         {
-            "name": "plant_regrowing",
+            "name": "plant-regrowing",
             "directions": 1,
             "delays": [
                 [
