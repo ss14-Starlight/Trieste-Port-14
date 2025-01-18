@@ -4,8 +4,6 @@
   abstract: true
   suffix: plant
   components:
-    - type: Physics
-      hard: false
     - type: Fixtures
       fixtures:
         fix1:
@@ -24,8 +22,8 @@
               acts: [ "Destruction" ]
 
 - type: entity
-  parent: BaseStructure
   abstract: true
+  parent: ForagePlant
   id: ForagePlantRegrowing
   suffix: plant
   components:
