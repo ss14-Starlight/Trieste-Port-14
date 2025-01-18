@@ -6,7 +6,6 @@
   showInVote: false # secret
   description: survival-description
   rules:
-    - MeteorSwarmScheduler
     - RampingStationEventScheduler
     - SpaceTrafficControlEventScheduler
     - SpaceTrafficControlFriendlyEventScheduler
@@ -114,7 +113,6 @@
   description: secret-description
   rules:
     - BasicStationEventScheduler
-    - MeteorSwarmScheduler
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
@@ -152,7 +150,6 @@
     - Traitor
     - SubGamemodesRule
     - BasicStationEventScheduler
-    - MeteorSwarmScheduler
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
@@ -191,7 +188,6 @@
     - Nukeops
     - SubGamemodesRule
     - BasicStationEventScheduler
-    - MeteorSwarmScheduler
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
@@ -208,7 +204,6 @@
     - Revolutionary
     - SubGamemodesRule
     - BasicStationEventScheduler
-    - MeteorSwarmScheduler
     - SpaceTrafficControlEventScheduler
     - BasicRoundstartVariation
 
@@ -226,7 +221,6 @@
   rules:
   - Zombie
   - BasicStationEventScheduler
-  - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 
