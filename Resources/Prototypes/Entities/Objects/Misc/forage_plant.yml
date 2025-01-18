@@ -14,10 +14,6 @@
         fix1:
           hard: false
     - type: InteractionOutline
-    - type: Gatherable
-      toolWhitelist:
-        components:
-          - Hands
     - type: Damageable
       damageContainer: Inorganic
       damageModifierSet: Wood
@@ -39,7 +35,9 @@
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
       state: plant
-    - type: Gatherable
+    - type: Forage
+      regrowTime: 300
+      regrowSprite: null
       loot:
         All: SerpentsManeGather
 
@@ -88,7 +86,9 @@
     - type: Sprite
       sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
       state: plant
-    - type: Gatherable
+    - type: Forage
+      regrowTime: 300
+      regrowSprite: null #
       loot:
         All: TrenchlightWeed
 
