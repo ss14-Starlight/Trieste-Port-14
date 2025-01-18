@@ -402,7 +402,8 @@
 # Nuclear Reactor
 # This is SOLELY for the Settler Outpost, since they shouldn't have to constantly worry about power.
 # Easily powers an outpost for a long time without needing a refuel.
-﻿- type: entity
+- type: entity
+  parent: PortableGeneratorSuperPacman
   id: TP14NuclearReactor
   name: nuclear reactor
   description: A reactor that violently enriches and detonates uranium to generate energy. Shockingly safe.
@@ -437,19 +438,26 @@
           False: { visible: False }
   - type: Appearance
   - type: FuelGenerator
-      minTargetPower: 10000
-      maxTargetPower: 50000
-      targetPower: 50000
-      optimalPower: 50000
-      optimalBurnRate: 0.006666666
-      fuelEfficiencyConstant: 0.1
-  - type: SolidFuelGeneratorAdapter
-      fuelMaterial: Uranium
-      multiplier: 0.01
-  - type: MaterialStorage
-      storageLimit: 3000
-      materialWhiteList: [Uranium]
+    minTargetPower: 10000
+    maxTargetPower: 100000
+    targetPower: 50000
+    optimalPower: 50000
+    optimalBurnRate: 0.006666666
+    fuelEfficiencyConstant: 0.1
+  - type: PowerSupplier
+    supplyRampRate: 5000
+    supplyRampTolerance: 1500
+  - type: GeneratorExhaustGas
+    gasType: Tritium
+    moleRatio: 0.005
   - type: PortableGenerator
+    startChance: 1
+  - type: SolidFuelGeneratorAdapter
+    fuelMaterial: Uranium
+    multiplier: 0.01
+  - type: MaterialStorage
+    storageLimit: 3000
+    materialWhiteList: [Uranium]
   - type: Fixtures
     fixtures:
       fix1:

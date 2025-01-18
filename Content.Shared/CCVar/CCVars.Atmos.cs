@@ -40,7 +40,7 @@ public sealed partial class CCVars
     ///     Whether monstermos tile equalization is enabled.
     /// </summary>
     public static readonly CVarDef<bool> MonstermosEqualization =
-        CVarDef.Create("atmos.monstermos_equalization", true, CVar.SERVERONLY);
+        CVarDef.Create("atmos.monstermos_equalization", false, CVar.SERVERONLY);
 
     /// <summary>
     ///     Whether monstermos explosive depressurization is enabled.
