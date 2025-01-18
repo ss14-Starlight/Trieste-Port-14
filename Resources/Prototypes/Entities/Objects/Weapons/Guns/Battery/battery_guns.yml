@@ -522,7 +522,7 @@
       soundGunshot:
         path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
     - type: Contraband
-    severity: Nanotrasen
+      severity: Nanotrasen
 
 - type: entity
   name: NT-331 energy carbine
