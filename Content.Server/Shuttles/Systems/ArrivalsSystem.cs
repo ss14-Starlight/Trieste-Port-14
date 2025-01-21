@@ -549,6 +549,8 @@ public sealed class ArrivalsSystem : EntitySystem
      {
             return;
      }
+         var template = _random.Pick(_arrivalsBiomeOptions);
+         _biomes.EnsurePlanet(mapUid2, _protoManager.Index(template)); // For landing ships and such.
 
         _mapSystem.InitializeMap(mapId2);
 
