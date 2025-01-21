@@ -525,6 +525,7 @@ public sealed class ArrivalsSystem : EntitySystem
             EnsureComp<ArrivalsSourceComponent>(id);
             EnsureComp<StationJobsComponent>(id);
             EnsureComp<StationSpawningComponent>(id);
+            EnsureComp<StationEventEligibleComponent >(id);
             EnsureComp<PreventPilotComponent>(id);
         }
 
