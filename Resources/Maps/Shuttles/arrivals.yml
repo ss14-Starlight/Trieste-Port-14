@@ -19,8 +19,11 @@ entities:
     - type: MetaData
       name: Diving Bell
     - type: Transform
-      pos: -2.75,2.015625
       parent: invalid
+    - type: DeviceNetwork
+      configurators: []
+      deviceLists: []
+      transmitFrequencyId: ArrivalsShuttleTimer
     - type: DivingBell
     - type: MapGrid
       chunks:
