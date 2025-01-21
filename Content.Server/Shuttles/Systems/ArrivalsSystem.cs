@@ -515,30 +515,30 @@ public sealed class ArrivalsSystem : EntitySystem
     var mapUid = _mapSystem.CreateMap(out var mapId, false);
     _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
-    // Load the map config using the CVars.
     if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
     {
         return;
     }
 
-    // Now, we want to apply the station configuration to each station in the arrivals map.
     foreach (var id in uids)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
         EnsureComp<StationJobsComponent>(id);
         EnsureComp<StationSpawningComponent>(id);
         EnsureComp<StationEventEligibleComponent>(id);
-        EnsureComp<StationDataComponent>(id);
+        // EnsureComp<StationDataComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
 
-        // Assign the station configuration (Sweetwater) from the map's config.
-       // var stationDataComponent = EnsureComp<StationDataComponent>(id);
 
-       // var stationConfig = _cfgManager.GetStationConfig("Sweetwater");
-       // if (stationConfig != null)
-       // {
-       //     stationDataComponent.StationConfig = stationConfig;
-       //}
+        var stationJobsComponent = EnsureComp<StationJobsComponent>(id);
+
+        var stationAiJobProtoId = new ProtoId<JobPrototype>("StationAi"); // Replace with the actual ProtoId for Station AI
+
+        stationJobsComponent.SetupAvailableJobs[stationAiJobProtoId] = new int[] { 1, 1 };
+        stationJobsComponent.JobList[stationAiJobProtoId] = 1; // Only 1 Station AI job available at round start
+
+
+        
     }
 
     // Setup planet arrivals if relevant
