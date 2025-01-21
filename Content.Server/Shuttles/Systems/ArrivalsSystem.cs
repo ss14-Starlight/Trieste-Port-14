@@ -547,6 +547,12 @@ public sealed class ArrivalsSystem : EntitySystem
      {
             return;
      }
+          foreach (var id2 in uids2)
+        {
+            EnsureComp<FTLDestinationComponent>(id2); // Allows ships in orbit to land beside Trieste on the ocean surface. Mainly for caskies.
+            EnsureComp<FTLBeaconComponent>(id2);
+        }
+
          var template = _random.Pick(_arrivalsBiomeOptions);
          _biomes.EnsurePlanet(mapUid2, _protoManager.Index(template)); // For landing ships and such.
 
