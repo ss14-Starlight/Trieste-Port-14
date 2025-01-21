@@ -510,34 +510,35 @@ public sealed class ArrivalsSystem : EntitySystem
         SetupArrivalsStation();
     }
 
-   private void SetupArrivalsStation()
+  private void SetupArrivalsStation()
 {
     var mapUid = _mapSystem.CreateMap(out var mapId, false);
     _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
+    // Load the map config using the CVars.
     if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
     {
         return;
     }
 
+    // Now, we want to apply the station configuration to each station in the arrivals map.
     foreach (var id in uids)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
         EnsureComp<StationJobsComponent>(id);
         EnsureComp<StationSpawningComponent>(id);
-        EnsureComp<StationEventEligibleComponent >(id);
+        EnsureComp<StationEventEligibleComponent>(id);
+        EnsureComp<StationDataComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
 
-        // Access the StationJobsComponent to modify the job list
-        var jobsComponent = EntityManager.GetComponent<StationJobsComponent>(id);
+        // Assign the station configuration (Sweetwater) from the map's config.
+       // var stationDataComponent = EnsureComp<StationDataComponent>(id);
 
-        // Define the StationAi job prototype
-        var stationAiJobProto = _protoManager.Index<JobPrototype>("StationAi");
-
-        jobsComponent.SetupAvailableJobs[stationAiJobProto] = new[] { 1, 1 }; // No limits for both round start and mid-round
-
-        // You can also ensure that this job will appear in the JobList if you need to track how many are left
-        jobsComponent.JobList[stationAiJobProto] = null;
+       // var stationConfig = _cfgManager.GetStationConfig("Sweetwater");
+       // if (stationConfig != null)
+       // {
+       //     stationDataComponent.StationConfig = stationConfig;
+       //}
     }
 
     // Setup planet arrivals if relevant
