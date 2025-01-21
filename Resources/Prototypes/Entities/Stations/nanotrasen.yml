@@ -56,7 +56,6 @@
   - BaseStationRecords
   - BaseStationNanotrasen
   - BaseStationAlertLevels
-  - BaseStationAllEventsEligible
   noSpawn: true
   components:
     - type: Transform
