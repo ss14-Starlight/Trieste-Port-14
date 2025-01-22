@@ -1,7 +1,7 @@
 - type: species
   id: JellidPerson
   name: species-name-jellid
-  roundStart: false # temporary until repaired
+  roundStart: true # temporary until repaired
   prototype: TP14MobJellidPerson
   sprites: MobJellidSprites
   defaultSkinTone: "#b8b8b8"
