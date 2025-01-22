@@ -26,33 +26,33 @@ namespace Content.Server.Jellid.Systems
         }
         private void OnChargeChanged(Entity<JellidComponent> entity, ref ChargeChangedEvent args)
         {
-        
-            AlertCharge = 400f;
-            if (TryComp<BatteryComponent>(entity.Owner, out var battery) &&
-                battery.CurrentCharge <= AlertCharge)
-                {
-                    _alerts.ShowAlert(entity.Owner, battery.NoBatteryAlert);
-                }
-                else
-                {
-                    _alerts.ClearAlert(entity.Owner, battery.NoBatteryAlert);
-                }
-                
-            float DamageCharge = 120f;
-            if (TryComp<BatteryComponent>(entity.Owner, out var battery) &&
-                battery.CurrentCharge < DamageCharge)
+            if (TryComp<BatteryComponent>(entity.Owner, out var battery))
             {
-                if (Charging)
+                AlertCharge = 400f;
+                if (battery.CurrentCharge <= AlertCharge)
                     {
-                    return;
+                        _alerts.ShowAlert(entity.Owner, battery.NoBatteryAlert);
                     }
-                else
+                    else
+                    {
+                        _alerts.ClearAlert(entity.Owner, battery.NoBatteryAlert);
+                    }
+                
+                float DamageCharge = 120f;
+                if (battery.CurrentCharge < DamageCharge)
                 {
-                 var damage = new DamageSpecifier
-                   {
-                  DamageDict = { ["Slash"] = 0.1f }
-                   };
-                _damageable.TryChangeDamage(entity.Owner, damage, origin: entity.Owner);
+                    if (Charging)
+                        {
+                        return;
+                        }
+                    else
+                    {
+                     var damage = new DamageSpecifier
+                       {
+                      DamageDict = { ["Slash"] = 0.1f }
+                       };
+                    _damageable.TryChangeDamage(entity.Owner, damage, origin: entity.Owner);
+                    }
                 }
             }
         }
