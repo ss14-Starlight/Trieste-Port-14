@@ -1,3 +1,5 @@
+// Taken from https://github.com/emberfall-14/emberfall/pull/4/files with permission
+
 using System.Linq;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Components;
