@@ -46,6 +46,13 @@
     fx: EffectRCDDeconstruct2
   - type: Physics
     bodyType: Static
+  - type: InGas
+    gasId: 9
+    damagedByGas: true # Water pressure shatters them
+    gasThreshold: 75
+    damage:
+        types:
+            Blunt: 3
   - type: Fixtures
     fixtures:
       fix1:
