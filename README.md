@@ -1,7 +1,7 @@
 
 ## Trieste Port
 
-Trieste Port is a fork of Space Station 14, taking place on an ocean planet instead of a nanotrasen space station. It shares many similarities with the main servers like Wizden, but focuses more on life aboard a frontier ocean city and less on corporate gain. Enjoy the chaos, exploration and adventure aboard the platform and deep sea below!
+Trieste Port is a fork of Space Station 14, taking place on a ex-nanotrasen oil rig repurposed into a corporate-free safe haven on an outer-rim frontier ocean planet. It focuses on the daily lives of the citizens of Trieste, both above and beneath the waves. Citizens face dangers such as Nanotrasen infiltrators, pirates, horrific deep-sea fauna, and the freezing depths of the sea. Enjoy the chaos and adventure as you carve your story across the rusted hull of the platform.
 
 ## Building
 
