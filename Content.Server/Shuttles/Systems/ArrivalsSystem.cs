@@ -512,34 +512,63 @@ public sealed class ArrivalsSystem : EntitySystem
 
   private void SetupArrivalsStation()
 {
-    var mapUid = _mapSystem.CreateMap(out var mapId, false);
-    _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
+    // Setup for the first map
+    var mapId1 = _mapManager.CreateMap();
+    var mapUid1 = _mapManager.GetMapEntityId(mapId1);
+    _mapManager.AddUninitializedMap(mapId1);
 
-    if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
+    if (!_loader.TryLoad(mapId1, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids1))
     {
         return;
     }
 
-    foreach (var id in uids)
+    foreach (var id in uids1)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
-        EnsureComp<StationEventEligibleComponent>(id);
+        EnsureComp<ProtectedGridComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
     }
 
-    // Setup planet arrivals if relevant
+    // Setup planet arrivals for the first map if relevant
     if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
     {
-        var template = _random.Pick(_arrivalsBiomeOptions);
-        _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
-        var restricted = new RestrictedRangeComponent
+        var template1 = _random.Pick(_arrivalsBiomeOptions);
+        _biomes.EnsurePlanet(mapUid1, _protoManager.Index(template1));
+        var restricted1 = new RestrictedRangeComponent
         {
             Range = 32f
         };
-        AddComp(mapUid, restricted);
+        AddComp(mapUid1, restricted1);
     }
 
-    _mapSystem.InitializeMap(mapId);
+    _mapManager.DoMapInitialize(mapId1);
+
+    // Setup for the ocean surface map
+    var mapId2 = _mapManager.CreateMap();
+    var mapUid2 = _mapManager.GetMapEntityId(mapId2);
+    _mapManager.AddUninitializedMap(mapId2);
+    var restricted2 = new RestrictedRangeComponent // adds The Fog, preventing players from meandering too far across the ocean surface
+        {
+            Range = 120f
+        };
+        AddComp(mapUid2, restricted2);
+
+    if (!_loader.TryLoad(mapId2, _cfgManager.GetCVar(CCVars.Arrivals2Map), out var uids2)) // edit here to change the map, bozo
+    {
+        return;
+    }
+
+    var template2 = _random.Pick(_arrivalsBiomeOptions);
+    _biomes.EnsurePlanet(mapUid2, _protoManager.Index(template2));
+
+    _mapManager.DoMapInitialize(mapId2);
+
+    // Handle roundstart stations for both maps.
+    var query1 = AllEntityQuery<StationArrivalsComponent>();
+    while (query1.MoveNext(out var uid1, out var comp1))
+    {
+        SetupShuttle(uid1, comp1);
+    }
 }
 
     private void SetArrivals(bool obj)
