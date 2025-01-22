@@ -7,6 +7,7 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Damage;
+using Content.Shared.Alert;
 
 namespace Content.Server.Jellid.Systems
 {
@@ -14,6 +15,7 @@ namespace Content.Server.Jellid.Systems
     {
         [Dependency] private readonly BatterySystem _battery = default!;
         [Dependency] private readonly DamageableSystem _damageable = default!;
+        [Dependency] private readonly AlertsSystem _alerts = default!;
 
         public float DrainAmount;
 
@@ -24,6 +26,18 @@ namespace Content.Server.Jellid.Systems
         }
         private void OnChargeChanged(Entity<JellidComponent> entity, ref ChargeChangedEvent args)
         {
+        
+            AlertCharge = 400f;
+            if (TryComp<BatteryComponent>(entity.Owner, out var battery) &&
+                battery.CurrentCharge <= AlertCharge)
+                {
+                    _alerts.ShowAlert(entity.Owner, battery.NoBatteryAlert);
+                }
+                else
+                {
+                    _alerts.ClearAlert(entity.Owner, battery.NoBatteryAlert);
+                }
+                
             float DamageCharge = 120f;
             if (TryComp<BatteryComponent>(entity.Owner, out var battery) &&
                 battery.CurrentCharge < DamageCharge)
@@ -36,7 +50,7 @@ namespace Content.Server.Jellid.Systems
                 {
                  var damage = new DamageSpecifier
                    {
-                  DamageDict = { ["Slash"] = 1.5f }
+                  DamageDict = { ["Slash"] = 0.1f }
                    };
                 _damageable.TryChangeDamage(entity.Owner, damage, origin: entity.Owner);
                 }
