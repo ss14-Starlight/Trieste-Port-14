@@ -50,6 +50,9 @@ entities:
       linearDamping: 0.05
       fixedRotation: False
       bodyType: Dynamic
+    - type: BellPlatform
+    - type: Bell
+      destinations: []
     - type: Fixtures
       fixtures: {}
     - type: Gravity
