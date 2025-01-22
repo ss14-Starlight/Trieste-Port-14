@@ -85,9 +85,7 @@ public sealed class ArrivalsSystem : EntitySystem
 
     private readonly List<ProtoId<BiomeTemplatePrototype>> _arrivalsBiomeOptions = new()
     {
-        "Grasslands",
-        "LowDesert",
-        "Snow",
+        "OceanWorld",
     };
 
     public override void Initialize()
@@ -512,54 +510,40 @@ public sealed class ArrivalsSystem : EntitySystem
         SetupArrivalsStation();
     }
 
-    private void SetupArrivalsStation()
+  private void SetupArrivalsStation()
+{
+    var mapUid = _mapSystem.CreateMap(out var mapId, false);
+    _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
+
+    if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
     {
-        var mapUid = _mapSystem.CreateMap(out var mapId, false);
-        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
-
-        if (!_loader.TryLoad(mapId, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids))
-        {
-            return;
-        }
-
-        foreach (var id in uids)
-        {
-            EnsureComp<ArrivalsSourceComponent>(id);
-            EnsureComp<ProtectedGridComponent>(id);
-            EnsureComp<PreventPilotComponent>(id);
-        }
-
-        // Setup planet arrivals if relevant
-        if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
-        {
-            var template = _random.Pick(_arrivalsBiomeOptions);
-            _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
-            var restricted = new RestrictedRangeComponent
-            {
-                Range = 32f
-            };
-            AddComp(mapUid, restricted);
-        }
-
-        _mapSystem.InitializeMap(mapId);
-
-        var mapUid2 = _mapSystem.CreateMap(out var mapId2, false);
-
-        if (!_loader.TryLoad(mapId2, _cfgManager.GetCVar(CCVars.Arrivals2Map), out var uids2)) // edit here to change the map, bozo
-     {
-            return;
-     }
-
-        _mapSystem.InitializeMap(mapId2);
-
-        // Handle roundstart stations.
-        var query = AllEntityQuery<StationArrivalsComponent>();
-
-        while (query.MoveNext(out var uid, out var comp))
-        {
-            SetupShuttle(uid, comp);
-        }
+        return;
     }
+
+    foreach (var id in uids)
+    {
+        EnsureComp<ArrivalsSourceComponent>(id);
+        //EnsureComp<StationJobsComponent>(id);
+        //EnsureComp<StationSpawningComponent>(id);
+        EnsureComp<StationEventEligibleComponent>(id);
+        // EnsureComp<StationDataComponent>(id);
+        EnsureComp<PreventPilotComponent>(id);
+    }
+
+    // Setup planet arrivals if relevant
+    if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
+    {
+        var template = _random.Pick(_arrivalsBiomeOptions);
+        _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
+        var restricted = new RestrictedRangeComponent
+        {
+            Range = 32f
+        };
+        AddComp(mapUid, restricted);
+    }
+
+    _mapSystem.InitializeMap(mapId);
+}
 
     private void SetArrivals(bool obj)
     {
