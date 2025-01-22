@@ -567,6 +567,11 @@ public sealed partial class JumpToCoreEvent : InstantActionEvent
 
 }
 
+public sealed partial class ChangeLevelEvent : InstantActionEvent
+{
+
+}
+
 [Serializable, NetSerializable]
 public sealed partial class IntellicardDoAfterEvent : SimpleDoAfterEvent;
 
