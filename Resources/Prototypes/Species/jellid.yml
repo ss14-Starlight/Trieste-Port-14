@@ -15,7 +15,7 @@
   id: MobJellidSprites
   sprites:
     Head: MobJellidHead
-    Hair: MobSlimeMarkingFollowSkin
+    Hair: MobJellidMarkingFollowSkin
     Chest: MobJellidTorso
     Eyes: MobJellidEyes
     LArm: MobJellidLArm
@@ -39,8 +39,8 @@
   points:
     Hair:
       points: 1
-      required: false
-      defaultMarkings: [ JellidMantle ]
+      required: true
+      defaultMarkings: [ JellidMantle ] # The mantle is hair, so if they put a helmet on it's hidden.
     Chest:
       points: 1
       required: false
