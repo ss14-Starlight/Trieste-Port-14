@@ -1,4 +1,6 @@
 using Content.Server.Power.EntitySystems;
+﻿using Content.Shared.Alert;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Power.Components
 {
@@ -17,6 +19,9 @@ namespace Content.Server.Power.Components
         /// </summary>
         [DataField]
         public float MaxCharge;
+
+         [DataField]
+         public ProtoId<AlertPrototype> NoBatteryAlert = "BorgBatteryNone";
 
         /// <summary>
         /// Current charge of the battery in joules (ie. watt seconds)
