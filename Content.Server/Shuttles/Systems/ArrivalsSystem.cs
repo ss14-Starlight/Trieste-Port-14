@@ -523,22 +523,11 @@ public sealed class ArrivalsSystem : EntitySystem
     foreach (var id in uids)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
-        EnsureComp<StationJobsComponent>(id);
-        EnsureComp<StationSpawningComponent>(id);
+        //EnsureComp<StationJobsComponent>(id);
+        //EnsureComp<StationSpawningComponent>(id);
         EnsureComp<StationEventEligibleComponent>(id);
         // EnsureComp<StationDataComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
-
-
-        var stationJobsComponent = EnsureComp<StationJobsComponent>(id);
-
-        var stationAiJobProtoId = new ProtoId<JobPrototype>("StationAi"); // Replace with the actual ProtoId for Station AI
-
-        stationJobsComponent.SetupAvailableJobs[stationAiJobProtoId] = new int[] { 1, 1 };
-        stationJobsComponent.JobList[stationAiJobProtoId] = 1; // Only 1 Station AI job available at round start
-
-
-        
     }
 
     // Setup planet arrivals if relevant

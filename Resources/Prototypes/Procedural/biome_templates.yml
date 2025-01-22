@@ -595,11 +595,11 @@
 - type: biomeTemplate
   id: OceanWorld
   layers:
-    - !type: BiomeTileLayer
-      threshold: -1
+    - !type:BiomeTileLayer
+      threshold: -1.0
       tile: FloorGlass
-    - !type: BiomeEntityLayer
-      threshold: -1
+    - !type:BiomeEntityLayer
+      threshold: -1.0
       allowedTiles:
         - FloorGlass
       entities:
