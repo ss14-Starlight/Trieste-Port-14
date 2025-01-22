@@ -31,7 +31,7 @@ Note that some assets are licensed under the non-commercial [CC-BY-NC-SA 3.0](ht
 
 | Fork Name | Fork Repository | Code Used | Licence |
 | ------------- | ------------- | ------- | ------- |
-| Emberfall-14 | https://github.com/emberfall-14/emberfall.git | All folders and files in Content.Server, Content.Shared and Content.Client labeled "Bell" | MPL2 Exhibit B |
+| Emberfall-14 | https://github.com/emberfall-14/emberfall.git | All folders and files in Content.Server, Content.Shared and Content.Client labeled "Bell". Space Elevator code. | MPL2 Exhibit B |
 
 
 ## Contributors
