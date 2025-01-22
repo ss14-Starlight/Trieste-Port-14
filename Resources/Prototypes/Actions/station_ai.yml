@@ -1,8 +1,8 @@
 ﻿# Actions
 - type: entity
   id: ActionJumpToCore
-  name: Jump to core
-  description: Sends your eye back to the core.
+  name: Jump to Sweetwater.
+  description: Sends your eye back to your core in Sweetwater.
   components:
   - type: InstantAction
     priority: -9
@@ -14,7 +14,7 @@
 
 - type: entity
   id: ActionChangeLevel
-  name: jump to Trieste
+  name: Jump to Trieste
   description: Sends your eye to Trieste.
   components:
   - type: InstantAction
