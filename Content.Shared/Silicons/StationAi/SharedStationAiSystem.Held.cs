@@ -6,6 +6,10 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Robust.Shared.GameObjects;
+using Robust.Server.GameObjects;
+using Content.Server.Falling;
+using Content.Shared.Gravity;
 
 namespace Content.Shared.Silicons.StationAi;
 
@@ -27,6 +31,7 @@ public abstract partial class SharedStationAiSystem
         SubscribeLocalEvent<StationAiHeldComponent, InteractionAttemptEvent>(OnHeldInteraction);
         SubscribeLocalEvent<StationAiHeldComponent, AttemptRelayActionComponentChangeEvent>(OnHeldRelay);
         SubscribeLocalEvent<StationAiHeldComponent, JumpToCoreEvent>(OnCoreJump);
+        SubscribeLocalEvent<StationAiHeldComponent, ChangeLevelEvent>(OnLevelChange);
         SubscribeLocalEvent<TryGetIdentityShortInfoEvent>(OnTryGetIdentityShortInfo);
     }
 
@@ -51,6 +56,20 @@ public abstract partial class SharedStationAiSystem
             return;
 
         _xforms.DropNextTo(core.Comp.RemoteEntity.Value, core.Owner) ;
+    }
+
+    private void OnLevelChange(Entity<StationAiHeldComponent> ent, ref ChangeLevelEvent args)
+    {
+        var destination = EntityManager.EntityQuery<TriesteComponent>().FirstOrDefault();
+        if (destination != null)
+            {
+                _xforms.DropNextTo(ent, destination);
+            }
+            else
+            {
+                Log.Error($"No valid Triestes to jump to!");
+                return;
+            }
     }
 
     /// <summary>
