@@ -1,3 +1,5 @@
+// Taken from https://github.com/emberfall-14/emberfall/pull/4/files with permission
+
 using Content.Shared.TP14.Bell.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
