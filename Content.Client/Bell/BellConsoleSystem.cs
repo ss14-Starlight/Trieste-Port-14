@@ -3,4 +3,4 @@ using Content.Shared.TP14.Bell.Systems;
 
 namespace Content.Client.TP14.Bell.Systems;
 
-public sealed class SpaceElevatorConsoleSystem : SharedSpaceElevatorConsoleSystem;
+public sealed class BellConsoleSystem : SharedBellConsoleSystem;
