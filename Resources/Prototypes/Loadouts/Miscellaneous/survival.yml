@@ -26,6 +26,13 @@
     species:
     - Vox
 
+- type: loadoutEffectGroup
+  id: EffectSpeciesJellidPerson
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species:
+    - JellidPerson
+
 # Basic
 - type: loadout
   id: EmergencyOxygen
@@ -171,6 +178,14 @@
   equipment:
     suitstorage: NitrogenTankFilled
 
+- type: loadout
+  id: LoadoutSpeciesJellidWater
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: EffectSpeciesJellidPerson
+  equipment:
+    suitstorage: WaterTankFilled
+
 # Full EVA Tank, Any Species
 - type: loadout
   id: LoadoutSpeciesEVANitrogen
@@ -211,6 +226,8 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesVox
+  - !type:GroupLoadoutEffect
+    proto: EffectSpeciesJellidPerson
 
 - type: startingGear
   id: GearTankHarness
@@ -223,6 +240,8 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesVox
+  - !type:GroupLoadoutEffect
+    proto: EffectSpeciesJellidPerson
   equipment:
     mask: ClothingMaskBreath
 
