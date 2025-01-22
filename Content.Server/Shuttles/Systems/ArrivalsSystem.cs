@@ -523,10 +523,7 @@ public sealed class ArrivalsSystem : EntitySystem
     foreach (var id in uids)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
-        //EnsureComp<StationJobsComponent>(id);
-        //EnsureComp<StationSpawningComponent>(id);
         EnsureComp<StationEventEligibleComponent>(id);
-        // EnsureComp<StationDataComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
     }
 
