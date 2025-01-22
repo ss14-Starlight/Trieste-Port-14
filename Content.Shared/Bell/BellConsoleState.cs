@@ -1,3 +1,5 @@
+// Taken from https://github.com/emberfall-14/emberfall/pull/4/files with permission
+
 using Content.Shared.TP14.Bell.Components;
 using Content.Shared.Shuttles.Systems;
 using Content.Shared.Timing;
