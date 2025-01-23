@@ -40,25 +40,32 @@ namespace Content.Server.Falling
 
         private void OnEntParentChanged(EntityUid owner, FallSystemComponent component, EntParentChangedMessage args) // called when the entity changes parents
         {
-            if (args.OldParent == null || args.Transform.GridUid != null || TerminatingOrDeleted(owner)) // If you came from space or are switching to another valid grid, nothing happens.
+            if (args.OldParent == null || args.Transform.GridUid != null ||
+                TerminatingOrDeleted(
+                    owner)) // If you came from space or are switching to another valid grid, nothing happens.
+            {
                 return;
+            }
 
-            if (HasComp<GhostComponent>(owner));
-            return;
+            if (HasComp<GhostComponent>(owner))
+            {
+                return;
+            }
 
-            if (HasComp<NoFTLComponent>(owner));
-            return;
+            if (HasComp<NoFTLComponent>(owner))
+            {
+                return;
+            }
 
             if (HasComp<TriesteComponent>(args.OldParent))
             {
 
-            // Try to find an object with the FallingDestinationComponent
-            var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
-            if (destination != null)
-            {
-                // Teleport to the first destination's coordinates
-                Transform(owner).Coordinates = Transform(destination.Owner).Coordinates;
-            }
+                var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
+                if (destination != null)
+                {
+                  // Teleport to the first destination's coordinates
+                  Transform(owner).Coordinates = Transform(destination.Owner).Coordinates;
+                }
             else
             {
                 // If there's no destination, something broke
