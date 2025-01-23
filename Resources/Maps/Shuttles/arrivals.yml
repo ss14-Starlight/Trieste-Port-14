@@ -180,19 +180,20 @@ entities:
     - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
-- proto: AirlockExternalGlassShuttleArrivals
-  entities:
-  - uid: 26
-    components:
-    - type: Transform
-      pos: 2.5,-4.5
-      parent: 1
+    - type: LoadedMap
 - proto: AirlockHatch
   entities:
   - uid: 45
     components:
     - type: Transform
       pos: 2.5,-3.5
+      parent: 1
+- proto: AirlockShuttleSyndicate
+  entities:
+  - uid: 26
+    components:
+    - type: Transform
+      pos: 2.5,-4.5
       parent: 1
 - proto: APCBasic
   entities:
