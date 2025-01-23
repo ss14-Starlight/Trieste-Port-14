@@ -122,7 +122,7 @@
     sprite: Structures/Doors/Airlocks/Standard/shuttle_syndicate.rsi
 
 - type: entity
-  parent: AirlockGlassShuttle
+  parent: AirlockShuttle
   id: AirlockExternalGlassBell
   suffix: Diving Bell, Docking
   components:
@@ -130,7 +130,7 @@
     tag: DockBell
   - type: ContainerFill
     containers:
-      board: [ DoorElectronicsExternal ]
+      board: [ DoorElectronics ]
 
 - type: entity
   parent: AirlockExternalGlassBell

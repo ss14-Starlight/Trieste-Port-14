@@ -75,7 +75,7 @@ entities:
     - type: FTLDestination
       whitelist:
         components:
-        - SpaceElevatorPlatform
+        - BellPlatform
     - type: Parallax
       parallax: Sky
     - type: Weather
@@ -2409,7 +2409,7 @@ entities:
     - type: Transform
       pos: -12.5,29.5
       parent: 2
-- proto: AirlockExternalGlassBell
+- proto: AirlockExternalGlassBellFilled
   entities:
   - uid: 1392
     components:
@@ -17417,7 +17417,7 @@ entities:
       pos: 4.5,6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -1340.1936
+      secondsUntilStateChange: -1360.8175
       state: Opening
 - proto: FireAxeCabinetFilled
   entities:

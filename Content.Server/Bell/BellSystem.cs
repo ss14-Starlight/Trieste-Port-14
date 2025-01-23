@@ -25,7 +25,6 @@ public sealed class BellSystem : SharedBellSystem
         SubscribeLocalEvent<BellComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<BellComponent, FTLStartedEvent>(OnFTLStarted);
         SubscribeLocalEvent<BellComponent, FTLCompletedEvent>(OnFTLCompleted);
-
         SubscribeLocalEvent<StationGridAddedEvent>(OnStationGridAdded);
     }
 
@@ -35,6 +34,7 @@ public sealed class BellSystem : SharedBellSystem
         var query = EntityQueryEnumerator<FTLDestinationComponent, MapComponent>();
         while (query.MoveNext(out var mapUid, out var dest, out var map))
         {
+            Log.Info($"Adding map: {mapUid} to destinations");
             if (!dest.Enabled)
                 continue;
 
@@ -43,6 +43,7 @@ public sealed class BellSystem : SharedBellSystem
                 Name = Name(mapUid),
                 Map = map.MapId,
             });
+            Log.Info($"Added map: {mapUid} to destinations");
         }
     }
 
@@ -61,6 +62,7 @@ public sealed class BellSystem : SharedBellSystem
         var uid = args.GridId;
         if (!TryComp<BellComponent>(uid, out var comp))
             return;
+        Log.Info("Adding station to list");
 
         // only add the destination once
         if (comp.Station != null)
@@ -68,6 +70,7 @@ public sealed class BellSystem : SharedBellSystem
 
         if (_station.GetOwningStation(uid) is not { } station || !TryComp<StationDataComponent>(station, out var data))
             return;
+        Log.Info("Still adding station to list");
 
         // add the source station as a destination
         comp.Station = station;
