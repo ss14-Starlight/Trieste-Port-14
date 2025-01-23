@@ -35,7 +35,7 @@ public sealed class BellSystem : SharedBellSystem
         var query = EntityQueryEnumerator<FTLDestinationComponent, MapComponent>();
         while (query.MoveNext(out var mapUid, out var dest, out var map))
         {
-            if (!dest.Enabled || _whitelist.IsWhitelistFailOrNull(dest.Whitelist, ent))
+            if (!dest.Enabled)
                 continue;
 
             ent.Comp.Destinations.Add(new BellDestination
