@@ -66,17 +66,16 @@ entities:
     - type: Transform
     - type: Map
       mapPaused: True
-    - type: FTLDestination
-      whitelist:
-        components:
-        - BellPlatform
-    - type: FTLBeacon
     - type: PhysicsMap
     - type: GridTree
     - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
     - type: LoadedMap
+    - type: FTLDestination
+      whitelist:
+        components:
+        - SpaceElevatorPlatform
     - type: Parallax
       parallax: Sky
     - type: Weather
@@ -101,6 +100,7 @@ entities:
         - 0
         - 0
         - 0
+    - type: BellPlatform
   - uid: 2
     components:
     - type: MetaData
@@ -2225,6 +2225,7 @@ entities:
       inherent: True
       enabled: True
     - type: NavMap
+    - type: BellPlatform
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 1907
@@ -15957,6 +15958,14 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 47.5,11.5
       parent: 2
+- proto: ComputerBell
+  entities:
+  - uid: 4944
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -14.5,0.5
+      parent: 2
 - proto: ComputerBroken
   entities:
   - uid: 4152
@@ -17408,7 +17417,7 @@ entities:
       pos: 4.5,6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -1321.7728
+      secondsUntilStateChange: -1340.1936
       state: Opening
 - proto: FireAxeCabinetFilled
   entities:
