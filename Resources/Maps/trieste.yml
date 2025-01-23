@@ -72,6 +72,10 @@ entities:
     - type: Broadphase
     - type: OccluderTree
     - type: LoadedMap
+    - type: FTLDestination
+      whitelist:
+        components:
+        - BellPlatform
     - type: Parallax
       parallax: Sky
     - type: Weather
@@ -96,6 +100,7 @@ entities:
         - 0
         - 0
         - 0
+    - type: BellPlatform
   - uid: 2
     components:
     - type: MetaData
@@ -2220,6 +2225,7 @@ entities:
       inherent: True
       enabled: True
     - type: NavMap
+    - type: BellPlatform
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 1907
@@ -2403,7 +2409,7 @@ entities:
     - type: Transform
       pos: -12.5,29.5
       parent: 2
-- proto: AirlockExternalGlassShuttleArrivals
+- proto: AirlockExternalGlassBellFilled
   entities:
   - uid: 1392
     components:
@@ -2411,10 +2417,6 @@ entities:
       rot: -1.5707963267948966 rad
       pos: -17.5,1.5
       parent: 2
-    - type: Airlock
-      powered: True
-    - type: DoorBolt
-      powered: True
 - proto: AirlockFreezerLocked
   entities:
   - uid: 1560
@@ -15956,6 +15958,14 @@ entities:
       rot: -1.5707963267948966 rad
       pos: 47.5,11.5
       parent: 2
+- proto: ComputerBell
+  entities:
+  - uid: 4944
+    components:
+    - type: Transform
+      rot: 1.5707963267948966 rad
+      pos: -14.5,0.5
+      parent: 2
 - proto: ComputerBroken
   entities:
   - uid: 4152
@@ -17407,7 +17417,7 @@ entities:
       pos: 4.5,6.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -1220.102
+      secondsUntilStateChange: -1360.8175
       state: Opening
 - proto: FireAxeCabinetFilled
   entities:
@@ -27385,6 +27395,12 @@ entities:
     - type: Transform
       pos: -14.5,-0.5
       parent: 2
+  - uid: 4943
+    components:
+    - type: Transform
+      rot: -1.5707963267948966 rad
+      pos: -17.5,1.5
+      parent: 2
   - uid: 7061
     components:
     - type: Transform
@@ -31578,11 +31594,6 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 19.5,-10.5
-      parent: 2
-  - uid: 8122
-    components:
-    - type: Transform
-      pos: -17.5,1.5
       parent: 2
   - uid: 8123
     components:

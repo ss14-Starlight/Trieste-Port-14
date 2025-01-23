@@ -120,3 +120,26 @@
   components:
   - type: Sprite
     sprite: Structures/Doors/Airlocks/Standard/shuttle_syndicate.rsi
+
+- type: entity
+  parent: AirlockShuttle
+  id: AirlockExternalGlassBell
+  suffix: Diving Bell, Docking
+  components:
+  - type: PriorityDock
+    tag: DockBell
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronics ]
+
+- type: entity
+  parent: AirlockExternalGlassBell
+  id: AirlockExternalGlassBellFilled
+  suffix: Diving Bell, Filled
+  components:
+  - type: GridFill
+    path: /Maps/Shuttles/arrivals.yml
+    addComponents:
+    - type: IFF
+      flags:
+      - HideLabel

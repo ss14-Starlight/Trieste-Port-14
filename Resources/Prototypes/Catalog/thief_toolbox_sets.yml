@@ -87,7 +87,6 @@
     state: icon
   content:
   - EncryptionKeyStationMaster
-  - CyberPen
   - BriefcaseThiefBribingBundleFilled
   - ClothingMaskGasVoiceChameleon
   #- todo Chameleon Stamp
