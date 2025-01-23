@@ -4,7 +4,7 @@ using System.Linq;
 using Content.Server.Shuttles.Events;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Shared.TP14.Bell.Components
+using Content.Shared.TP14.Bell.Components;
 using Content.Shared.TP14.Bell.Systems;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Whitelist;
@@ -38,7 +38,7 @@ public sealed class BellSystem : SharedBellSystem
             if (!dest.Enabled || _whitelist.IsWhitelistFailOrNull(dest.Whitelist, ent))
                 continue;
 
-            ent.Comp.Destinations.Add(new ElevatorDestination
+            ent.Comp.Destinations.Add(new BellDestination
             {
                 Name = Name(mapUid),
                 Map = map.MapId,
@@ -71,7 +71,7 @@ public sealed class BellSystem : SharedBellSystem
 
         // add the source station as a destination
         comp.Station = station;
-        comp.Destinations.Add(new ElevatorDestination
+        comp.Destinations.Add(new BellDestination
         {
             Name = Name(station),
             Map = Transform(data.Grids.First()).MapID,

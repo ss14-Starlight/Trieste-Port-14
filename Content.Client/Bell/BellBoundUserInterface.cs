@@ -1,7 +1,8 @@
 // Taken from https://github.com/emberfall-14/emberfall/pull/4/files with permission
 using Content.Shared.TP14.Bell.Systems;
+using Content.Shared.TP14.Bell;
 
-namespace Content.Client.TP14.Bell.Systems;
+namespace Content.Client.TP14.Bell.UI;
 
 public sealed class BellBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
 {

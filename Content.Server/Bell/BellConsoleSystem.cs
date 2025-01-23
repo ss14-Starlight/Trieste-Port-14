@@ -4,7 +4,7 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Shared.TP14.Bell
+using Content.Shared.TP14.Bell;
 using Content.Shared.TP14.Bell.Components;
 using Content.Shared.TP14.Bell.Systems;
 using Content.Shared.Shuttles.Components;
