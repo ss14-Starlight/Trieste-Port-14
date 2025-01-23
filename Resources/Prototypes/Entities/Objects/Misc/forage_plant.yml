@@ -1,55 +1,53 @@
 - type: entity
-  id: ForagePlant
   parent: BaseStructure
+  id: ForagePlant
   abstract: true
-  suffix: plant
   components:
-    - type: Fixtures
-      fixtures:
-        fix1:
-          hard: false
-    - type: InteractionOutline
-    - type: Damageable
-      damageContainer: Inorganic
-      damageModifierSet: Wood
-    - type: Destructible
-      thresholds:
-        - trigger:
-            !type:DamageTrigger
-            damage: 15
-          behaviors:
-            - !type:DoActsBehavior
-              acts: [ "Destruction" ]
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+  - type: InteractionOutline
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 15
+        behaviors:
+          - !type:DoActsBehavior
+            acts: [ "Destruction" ]
 
 - type: entity
   abstract: true
   parent: ForagePlant
   id: ForagePlantRegrowing
-  suffix: plant
   components:
-    - type: Appearance
-    - type: GenericVisualizer
-      visuals:
-        enum.RegrowVisuals.Regrowing:
-          enum.RegrowVisuals.Layer:
-            True: { state: plant-regrowing }
-            False: { state: plant }
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.RegrowVisuals.Regrowing:
+        enum.RegrowVisuals.Layer:
+          True: { state: plant-regrowing }
+          False: { state: plant }
 
 - type: entity
-  name: serpent's mane
   parent: ForagePlantRegrowing
   id: SerpentsMane
+  name: serpent's mane
   description: This plant tries to ward off potential predators by imitating an animal. The currents will make it's light stem move around, scaring off other creatures and the unexperienced.
   components:
-    - type: Sprite
-      sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
-    - type: Icon
-      sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
-      state: plant
-    - type: Forage
-      regrowTime: 300
-      loot:
-        All: SerpentsManeGather
+  - type: Sprite
+    sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+  - type: Icon
+    sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+    state: plant
+  - type: Forage
+    regrowTime: 300
+    loot:
+      All: SerpentsManeGather
 
 - type: entityLootTable
   id: SerpentsManeGather
@@ -57,9 +55,9 @@
   - id: SerpentsManeBulb
 
 - type: entity
-  name: serpent's mane bulb
   parent: FoodInjectableBase
   id: SerpentsManeBulb
+  name: serpent's mane bulb
   description: Rich in chemicals Serpents Mane is known for. Due to a high risk of overdosing, it is not advised to utilize without refining first.
   components:
   - type: Produce
@@ -88,20 +86,20 @@
           Quantity: 10
 
 - type: entity
-  name: trenchlight weed
   parent: ForagePlantRegrowing
-  id: trenchlightWeed
+  id: TrenchlightWeed
+  name: trenchlight weed
   description: An invasive species, brought to the planet from Limoris-2b by inter-sector cargo ships. It's known for it's moderate healing properties even before proper processing.
   components:
-    - type: Sprite
-      sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
-    - type: Icon
-      sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
-      state: plant
-    - type: Forage
-      regrowTime: 300
-      loot:
-        All: TrenchlightWeed
+  - type: Sprite
+    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+  - type: Icon
+    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    state: plant
+  - type: Forage
+    regrowTime: 300
+    loot:
+      All: TrenchlightWeed
 
 - type: entityLootTable
   id: TrenchlightWeed
@@ -109,9 +107,9 @@
   - id: TrenchlightLeaf
 
 - type: entity
-  name: trenchlight leaf
   parent: FoodInjectableBase
   id: TrenchlightLeaf
+  name: trenchlight leaf
   description: The leaves of Trenchlight weed. It's known as a snack to expedition teams due to it's medicinal properties.
   components:
   - type: Produce
