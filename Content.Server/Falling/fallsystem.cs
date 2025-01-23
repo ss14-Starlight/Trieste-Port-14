@@ -14,6 +14,7 @@ using Robust.Shared.Random;
 using Robust.Shared.GameObjects;
 using Content.Shared.Gravity;
 using Robust.Server.GameObjects;
+using Content.Shared.Shuttles.Components;
 
 namespace Content.Server.Falling
 {
@@ -42,7 +43,10 @@ namespace Content.Server.Falling
             if (args.OldParent == null || args.Transform.GridUid != null || TerminatingOrDeleted(owner)) // If you came from space or are switching to another valid grid, nothing happens.
                 return;
 
-            if (HasComp<GhostComponent>(owner))
+            if (HasComp<GhostComponent>(owner));
+            return;
+
+            if (HasComp<NoFTLComponent>(owner));
             return;
 
             if (HasComp<TriesteComponent>(args.OldParent))
