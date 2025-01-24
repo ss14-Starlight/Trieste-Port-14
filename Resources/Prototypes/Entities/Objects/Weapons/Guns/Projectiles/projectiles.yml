@@ -889,6 +889,15 @@
         - state: xeno_toxic
     - type: Ammo
       muzzleFlash: null
+    - type: SolutionContainerManager
+      solutions:
+        melee:
+          reagents:
+          - ReagentId: NorepinephricAcid
+            Quantity: 5
+    - type: MeleeChemicalInjector
+      solution: melee
+      transferAmount: 5
 
 - type: entity
   id: BulletWaterShot
