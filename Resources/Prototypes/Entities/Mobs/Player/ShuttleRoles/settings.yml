@@ -950,7 +950,7 @@
 - type: entity
   id: ActionThingySpit
   name: "[color=green]Acid Spit[/color]"
-  description: Spit a pellet of burning acid at your enemies!
+  description: Spit a blinding glob of burning acid at your enemies!
   components:
   - type: WorldTargetAction
     event: !type:ActionGunShootEvent
