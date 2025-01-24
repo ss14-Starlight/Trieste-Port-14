@@ -917,9 +917,9 @@
      damage:
        types:
          Heat: 9
-   - type: TransferMindOnGib # upon the body dying, bursts from it's host in an attempt to survive
+   - type: TransferMindOnGib # upon the body dying, it bursts from it's host in an attempt to survive
    - type: Body
-     prototype: AnimalMimic
+     prototype: TheThingy
    - type: Destructible
      thresholds:
      - trigger:
