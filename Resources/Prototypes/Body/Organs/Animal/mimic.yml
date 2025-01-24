@@ -7,6 +7,9 @@
   components:
   - type: Nymph
     entityPrototype: OrganTumorMimic 
+  - type: Tag
+      tags:
+        - MindTransferTarget
 
 - type: entity
   id: OrganTumorMimic
@@ -17,6 +20,9 @@
   - type: IsDeadIC
   - type: Body
     prototype: AnimalMimic
+  - type: Tag
+      tags:
+        - MindTransferTarget
 
 - type: body
   id: AnimalMimic
