@@ -889,6 +889,6 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/Effects/thunk.ogg
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
     soundEmpty:
       path: /Audio/Weapons/Guns/Empty/empty.ogg
