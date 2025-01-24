@@ -880,8 +880,10 @@
     timeToCrank: 10
   - type: Battery
     maxCharge: 300
-    startingCharge: 1200
+    startingCharge: 300
   - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
+  - type: Contraband
+      severity: Major
   - type: Gun
     fireRate: 0.5
     projectileSpeed: 70
