@@ -20,7 +20,7 @@ namespace Content.Server.Weapons.Ranged.Systems;
             SubscribeLocalEvent<HandCrankRechargerComponent, GunCrankAfterEvent>(OnDoAfter);
         }
 
-          private void AddToggleAnalysisVerb(EntityUid uid, HandCrankRechargerComponent component, GetVerbsEvent<ActivationVerb> args)
+          private void AddCrankVerb(EntityUid uid, HandCrankRechargerComponent component, GetVerbsEvent<ActivationVerb> args)
         {
             if (!args.CanAccess || !args.CanInteract)
             return;
@@ -28,8 +28,8 @@ namespace Content.Server.Weapons.Ranged.Systems;
           ActivationVerb verb = new()
           {
               Text = Loc.GetString("toggle-hand-crank-text"),
-              Icon = new SpriteSpecifier.Texture(new ("/Textures/Interface/VerbIcons/light.svg.192dpi.png")),
-              Act = () => StartDoAfter(uid, component)
+              Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/zap.svg.192dpi.png")),
+              Act = () => StartDoAfter(uid, component),
               Priority = -1 // For things like PDA's, Open-UI, etc.
            };
 
@@ -39,20 +39,20 @@ namespace Content.Server.Weapons.Ranged.Systems;
 
            private void StartDoAfter(EntityUid uid, HandCrankRechargerComponent component)
            {
-            _doAfterSystem.TryStartDoAfter((new DoAfterArgs(EntityManager, uid, component.TimeToCrank, new GunCrankAfterEvent()));
+            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.TimeToCrank, new GunCrankAfterEvent()));
            }
 
 
-       private void OnDoAfter(EntityUid uid, HandCrankRechargerComponent gun, DoorPryDoAfterEvent args)
+       private void OnDoAfter(EntityUid uid, HandCrankRechargerComponent gun, GunCrankAfterEvent args)
       {
         if (!TryComp<BatteryComponent>(uid, out var gunBattery))
-            continue;
+            return;
 
         _battery.SetCharge(gunBattery.Owner, gunBattery.CurrentCharge + gun.AmountRecharged, gunBattery);
       }
                                            
     [Serializable, NetSerializable]
-    public sealed partial class GunCrankAfterEvent : SimpleDoAfterEvent;
+    public sealed partial class GunCrankAfterEvent : SimpleDoAfterEvent
     {
     }
 }
