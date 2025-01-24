@@ -9,6 +9,8 @@
     specialDigestible:
       tags:
       - Raw # only can eat raw meats
+  - type: Metabolizer
+    metabolizerTypes: [ Bloodsucker ]
   - type: SolutionContainerManager
     solutions:
       stomach:
