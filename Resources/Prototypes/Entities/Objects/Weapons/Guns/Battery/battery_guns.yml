@@ -873,7 +873,7 @@
   - type: Item
     sprite: Objects/Weapons/Guns/Rifles/foam_rifle_inhand_64x.rsi
   - type: ProjectileBatteryAmmoProvider
-    proto: BulletLaserSpread
+    proto: BulletLaser
     fireCost: 100
   - type: HandCrankRecharger
     amountRecharged: 20
