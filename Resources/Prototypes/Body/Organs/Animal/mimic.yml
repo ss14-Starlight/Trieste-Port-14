@@ -69,10 +69,10 @@
       - right_leg
       - left_leg
       organs:
-        heart: OrganHumanHeart
+        heart: OrganBloodsuckerHeart
         lungs: OrganHumanLungs
         stomach: OrganTumor # The mimic replaces the host's stomach, hence why it needs to feed by absorbing meat or other lifeforms.
-        liver: OrganHumanLiver
+        liver: OrganBloodsuckerLiver
         kidneys: OrganHumanKidneys
     right_arm:
       part: RightArmHuman
