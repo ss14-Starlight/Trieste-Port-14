@@ -867,7 +867,7 @@
   id: TheThingy
   parent: EventHumanoid
   components:
-    - type: SlurredAccent
+    - type: SlurredAccent # It learned english through it's Host's headset, so it makes sense.
     - type: Temperature
       heatDamageThreshold: 320
       coldDamageThreshold: 230
@@ -875,14 +875,14 @@
       specificHeat: 46
       coldDamage:
         types:
-          Cold : -0.05 # heals in the cold, as an ocean creature
+          Cold : -0.05 # Heals in the cold, as an ocean creature
       heatDamage:
          types:
-           Heat : 4 # burns very easily
+           Heat : 4 # Burns very easily
    - type: TemperatureSpeed
      thresholds:
        289: 1.1
-       275: 1.3 # gets faster in the cold (ocean)
+       275: 1.3 # Gets faster in the cold (ocean and on the platform)
        250: 1.5
    - type: GhostRole
      name: ghost-role-information-thethingy-name
@@ -895,15 +895,23 @@
      roleLoadout: [ RoleSurvivalEVA ]
    - type: Devourer
      foodPreference: Humanoid
-     shouldStoreDevoured: false
+     shouldStoreDevoured: true # Their stomach is bluespace IDK, we don't want players getting round removed
      chemical: Ichor
-     healRate: 15.0
+     healRate: 10.0
      whitelist:
        components:
        - MobState
    - type: ActionGun
      action: ActionThingySpit
-     gunProto: ThingyAcidSpit
+     gunProto: ThingyAcidSpit # Blinds targets temporarily. Not enough to permanently blind them unless mixed with something else.
+   - type: Hunger
+     actualDecayRate: 0.5
+     starvingSlowdownModifier: 2 # Getting desperate for prey, over-exerting it's host
+     starvationDamage:
+        types:
+            Slash: 3 # Upon starving, begins panicking and damaging the host
+   - type: Thirst
+     actualDecayRate: 0.5 # Uses the Bloodsucker metabolism, meaning it can only drink blood for thirst quenching.
    - type: ItemCreator
      action: ActionCreateThingySpine
      charge: 100
