@@ -863,7 +863,7 @@
 - type: entity
   name: Old Repeater
   parent: [BaseWeaponBattery, BaseGunWieldable]
-  id: WeaponRifleEnergyRepeater
+  id: TP14WeaponRifleEnergyRepeater
   description: An ancient energy repeater used by the old space cowboys. Severely underpowered by modern standards.
   components:
   - type: Sprite
