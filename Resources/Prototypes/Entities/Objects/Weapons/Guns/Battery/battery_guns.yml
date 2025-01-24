@@ -874,16 +874,16 @@
     sprite: Objects/Weapons/Guns/Rifles/foam_rifle_inhand_64x.rsi
   - type: ProjectileBatteryAmmoProvider
     proto: BulletLaserSpread
-    fireCost: 400
+    fireCost: 100
   - type: HandCrankRecharger
     amountRecharged: 20
     timeToCrank: 10
   - type: Battery
-    maxCharge: 1200
+    maxCharge: 300
     startingCharge: 1200
   - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
   - type: Gun
-    fireRate: 2
+    fireRate: 0.5
     projectileSpeed: 70
     selectedMode: SemiAuto
     availableModes:
