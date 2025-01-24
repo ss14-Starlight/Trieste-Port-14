@@ -864,7 +864,7 @@
   name: Old Repeater
   parent: [BaseWeaponBattery, BaseGunWieldable]
   id: TP14WeaponRifleEnergyRepeater
-  description: An ancient energy repeater used by the old space cowboys. Severely underpowered by modern standards.
+  description: An ancient energy repeater used by the old space cowboys. Severely underpowered by modern standards. Uses a hand crank to recharge its power cell.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Rifles/foam_rifle.rsi
@@ -875,6 +875,9 @@
   - type: ProjectileBatteryAmmoProvider
     proto: BulletLaserSpread
     fireCost: 400
+  - type: HandCrankRecharger
+    amountRecharged: 20
+    timeToCrank: 10
   - type: Battery
     maxCharge: 1200
     startingCharge: 1200
