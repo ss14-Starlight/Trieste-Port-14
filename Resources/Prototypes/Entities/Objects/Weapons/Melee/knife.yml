@@ -310,10 +310,14 @@
   description: A vile spine of bone created by a Thingy. It's extremely sharp, and hollow.
   components:
   - type: MeleeWeapon
-    attackRate: 1.5
+    wideAnimationRotation: -135
     damage:
       types:
-        Slash: 9
+        Piercing: 9
+    angle: 0
+    animation: WeaponArcThrust
+    soundHit:
+      path: /Audio/Weapons/bladeslice.ogg
   - type: Sprite
     sprite: Objects/Weapons/Melee/Thingy.rsi
   - type: SolutionContainerManager
@@ -336,3 +340,4 @@
         Piercing: 9
   - type: ThrowingAngle
     angle: 225
+    angularVelocity: false
