@@ -859,3 +859,38 @@
     autoRechargeRate: 24
     autoRechargePause: true
     autoRechargePauseTime: 30
+
+- type: entity
+  name: Old Repeater
+  parent: [BaseWeaponBattery, BaseGunWieldable]
+  id: TP14WeaponRifleEnergyRepeater
+  description: An ancient energy repeater used by the old space cowboys. Severely underpowered by modern standards. Uses a hand crank to recharge its power cell.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Rifles/foam_rifle.rsi
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Rifles/foam_rifle.rsi
+  - type: Item
+    sprite: Objects/Weapons/Guns/Rifles/foam_rifle_inhand_64x.rsi
+  - type: ProjectileBatteryAmmoProvider
+    proto: BulletLaser
+    fireCost: 100
+  - type: HandCrankRecharger
+    amountRecharged: 20
+    timeToCrank: 10
+  - type: Battery
+    maxCharge: 300
+    startingCharge: 300
+  - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
+  - type: Contraband
+      severity: Major
+  - type: Gun
+    fireRate: 0.5
+    projectileSpeed: 70
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/laser_cannon.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
