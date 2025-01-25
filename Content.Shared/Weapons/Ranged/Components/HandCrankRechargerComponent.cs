@@ -1,15 +1,12 @@
-using System.Numerics;
-using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
-using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
-using Robust.Shared.Map;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
+using Robust.Shared.Serialization;
+using Content.Shared.DoAfter;
+using Robust.Shared.Audio;
 
 namespace Content.Shared.Weapons.Ranged.Components;
 
 [RegisterComponent, NetworkedComponent]
-[Access(typeof(SharedGunSystem))]
 public sealed partial class HandCrankRechargerComponent : Component
 {
 
@@ -19,4 +16,18 @@ public sealed partial class HandCrankRechargerComponent : Component
   [DataField, ViewVariables(VVAccess.ReadWrite)]
   public float TimeToCrank = 20f;
 
+  [DataField, ViewVariables(VVAccess.ReadWrite)]
+  public float TargetCharge = 300f;
+
+  [DataField]
+  public bool Cranking = false;
+
+  [DataField("crankSound")]
+  public SoundSpecifier? CrankSound = new SoundPathSpecifier("/Audio/Weapons/Guns/Cock/shotgun_close.ogg");
+
+}
+
+[Serializable, NetSerializable]
+public sealed partial class GunCrankAfterEvent : SimpleDoAfterEvent
+{
 }
