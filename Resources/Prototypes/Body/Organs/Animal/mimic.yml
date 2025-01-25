@@ -1,6 +1,6 @@
 - type: entity
   id: OrganTumor # Adding this organ to any creature will cause it to spawn a Mimic upon being gibbed
-  parent: OrganAnimalStomach 
+  parent: OrganAnimalStomach
   noSpawn: true
   name: festering tumor
   description: "what- what is this?"
@@ -21,23 +21,23 @@
         - ReagentId: UncookedAnimalProteins
           Quantity: 5
   - type: Nymph
-    entityPrototype: OrganTumorMimic 
+    entityPrototype: OrganTumorMimic
   - type: Tag
-      tags:
-        - MindTransferTarget
+    tags:
+      - MindTransferTarget
 
 - type: entity
   id: OrganTumorMimic
   parent: TP14MobMimic # might just be able to switch the prototype to MobMimic and save some clutter, haven't tested it yet.
   noSpawn: true
-  name: mimic 
+  name: mimic
   components:
   - type: IsDeadIC
   - type: Body
     prototype: AnimalMimic
   - type: Tag
-      tags:
-        - MindTransferTarget
+    tags:
+      - MindTransferTarget
 
 - type: body
   id: AnimalMimic

@@ -329,6 +329,6 @@ ghost-role-information-gingerbread-description = A being of pure holiday spirit.
                                      Spread molassesy goodness and to all good cheer.
 
 ghost-role-information-thethingy-name = The Thingy
-ghost-role-information-thethingy-description = You found this strange puppet long ago, resting limp and lifeless in the seabed. You meandered for years, listening and mimicking the speech of your prey through your costume's headset. 
-                                               Now, you have finally found your new feeding ground. Let the hunt begin. [color=red]Stealthily stalk and hunt citizens for satiation using your uniquely adapted abilities, [bold]without getting caught.[/bold][/color]
+ghost-role-information-thethingy-description = You found this strange puppet long ago, resting limp and lifeless in the seabed. You meandered for years, listening and mimicking the speech of your prey through your costume's headset.
+                                               Now, you have finally found your new feeding ground. Let the hunt begin. Stealthily stalk and hunt citizens for satiation using your uniquely adapted abilities, without getting caught.
 

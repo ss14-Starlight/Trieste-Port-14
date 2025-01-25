@@ -426,7 +426,7 @@
     - type: RandomMetadata
       nameSegments:
       - names_clown
-      
+
 - type: randomHumanoidSettings
   id: VisitorJanitor
   parent: VisitorCivilian
@@ -879,62 +879,65 @@
       heatDamage:
          types:
            Heat : 4 # Burns very easily
-   - type: TemperatureSpeed
-     thresholds:
+    - type: TemperatureSpeed
+      thresholds:
        289: 1.1
        275: 1.3 # Gets faster in the cold (ocean and on the platform)
        250: 1.5
-   - type: GhostRole
-     name: ghost-role-information-thethingy-name
-     description: ghost-role-information-thethingy-description
-     rules: ghost-role-information-antagonist-rules
-     raffle:
+    - type: GhostRole
+      name: ghost-role-information-thethingy-name
+      description: ghost-role-information-thethingy-description
+      rules: ghost-role-information-antagonist-rules
+      raffle:
        settings: default
-   - type: Loadout
-     prototypes: [ CossackGear ]
-     roleLoadout: [ RoleSurvivalEVA ]
-   - type: Devourer
-     foodPreference: Humanoid
-     shouldStoreDevoured: true # Their stomach is bluespace IDK, we don't want players getting round removed
-     chemical: Ichor
-     healRate: 10.0
-     whitelist:
-       components:
-       - MobState
-   - type: ActionGun
-     action: ActionThingySpit
-     gunProto: ThingyAcidSpit # Blinds targets temporarily. Not enough to permanently blind them unless mixed with something else.
-   - type: Hunger
-     actualDecayRate: 0.5
-     starvingSlowdownModifier: 2 # Getting desperate for prey, over-exerting it's host
-     starvationDamage:
+    - type: Loadout
+      prototypes: [ CossackGear ]
+      roleLoadout: [ RoleSurvivalEVA ]
+    - type: Devourer
+      foodPreference: Humanoid
+      shouldStoreDevoured: true # Their stomach is bluespace IDK, we don't want players getting round removed
+      chemical: Ichor
+      healRate: 10.0
+      whitelist:
+        components:
+        - MobState
+    - type: ActionGun
+      action: ActionThingySpit
+      gunProto: ThingyAcidSpit # Blinds targets temporarily. Not enough to permanently blind them unless mixed with something else.
+    - type: Hunger
+      actualDecayRate: 0.5
+      starvingSlowdownModifier: 2 # Getting desperate for prey, over-exerting it's host
+      starvationDamage:
+         types:
+             Slash: 3 # Upon starving, begins panicking and damaging the host
+    - type: Thirst
+      actualDecayRate: 0.5 # Uses the Bloodsucker metabolism, meaning it can only drink blood for thirst quenching.
+    - type: ItemCreator
+      action: ActionCreateThingySpine
+      charge: 100
+      spawnedPrototype: TP14ThingySpine
+      noPowerPopup: thingy-no-power
+    - type: ActionGrant
+      actions:
+      - ActionCreateThingySpine
+    - type: BatterySelfRecharger
+      autoRechargeRate: 0.5
+    - type: Battery
+      startingCharge: 100
+    - type: Flammable
+      damage:
         types:
-            Slash: 3 # Upon starving, begins panicking and damaging the host
-   - type: Thirst
-     actualDecayRate: 0.5 # Uses the Bloodsucker metabolism, meaning it can only drink blood for thirst quenching.
-   - type: ItemCreator
-     action: ActionCreateThingySpine
-     charge: 100
-     spawnedPrototype: TP14ThingySpine
-     noPowerPopup: thingy-no-power
-   - type: BatterySelfRecharger
-     autoRechargeRate: 0.5
-   - type: Battery
-     startingCharge: 100
-   - type: Flammable
-     damage:
-       types:
-         Heat: 9
-   - type: TransferMindOnGib # upon the body dying, it bursts from it's host in an attempt to survive
-   - type: Body
-     prototype: TheThingy
-   - type: Destructible
-     thresholds:
-     - trigger:
-         !type:DamageTrigger
-         damage: 100
-       behaviors:
-       - !type:GibBehavior { }
+          Heat: 9
+    - type: TransferMindOnGib # upon the body dying, it bursts from it's host in an attempt to survive
+    - type: Body
+      prototype: TheThingy
+    - type: Destructible
+      thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 100
+        behaviors:
+        - !type:GibBehavior { }
 
 - type: entity
   categories: [ HideSpawnMenu ]
@@ -950,15 +953,14 @@
     capacity: 1
     count: 1
   - type: Gun
-    soundGunshot:
-      path: /Audio/Weapons/Xeno/alien_spitacid.ogg
+    soundGunshot: /Audio/Weapons/Xeno/alien_spitacid.ogg
     soundEmpty: null
-    projectileSpeed: 5
+    projectileSpeed: 30
 
 - type: entity
   id: ActionThingySpit
   name: "[color=green]Acid Spit[/color]"
-  description: Spit a blinding glob of burning acid at your enemies!
+  description: Spit a glob of burning acid at your enemies!
   components:
   - type: WorldTargetAction
     event: !type:ActionGunShootEvent
