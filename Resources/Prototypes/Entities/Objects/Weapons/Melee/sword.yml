@@ -148,7 +148,7 @@
   name: cutlass
   parent: [ BaseSword, BaseMajorContraband ]
   id: Cutlass
-  description: A wickedly curved blade, often seen in the hands of pirates and raiders.
+  description: A wickedly curved blade, often seen in the hands of pirates. It's widely considered a pirate's most valuable possesion.
   components:
   - type: Tag
     tags:
