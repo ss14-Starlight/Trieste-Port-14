@@ -891,7 +891,7 @@
       raffle:
        settings: default
     - type: Loadout
-      prototypes: [ CossackGear ]
+      prototypes: [ TheThingyStartingGear ]
       roleLoadout: [ RoleSurvivalEVA ]
     - type: Devourer
       foodPreference: Humanoid
@@ -914,7 +914,7 @@
       actualDecayRate: 0.5 # Uses the Bloodsucker metabolism, meaning it can only drink blood for thirst quenching.
     - type: ItemCreator
       action: ActionCreateThingySpine
-      charge: 100
+      charge: 0
       spawnedPrototype: TP14ThingySpine
       noPowerPopup: thingy-no-power
     - type: ActionGrant
@@ -923,7 +923,14 @@
     - type: BatterySelfRecharger
       autoRechargeRate: 0.5
     - type: Battery
-      startingCharge: 100
+      startingCharge: 10000
+    - type: Respirator
+      damage:
+        types:
+          Asphyxiation: 0
+      damageRecovery:
+        types:
+          Asphyxiation: 0
     - type: Flammable
       damage:
         types:
@@ -960,7 +967,7 @@
 - type: entity
   id: ActionThingySpit
   name: "[color=green]Acid Spit[/color]"
-  description: Spit a glob of burning acid at your enemies!
+  description: Spit a blinding glob of burning acid at your prey!
   components:
   - type: WorldTargetAction
     event: !type:ActionGunShootEvent
@@ -979,6 +986,19 @@
     itemIconStyle: NoItem
     priority: -10
     event: !type:CreateItemEvent {}
+
+- type: startingGear
+  id: TheThingyStartingGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
+    head: ClothingHeadHelmetHardsuitSpatio
+    outerClothing: ClothingOuterHardsuitSpatio
+    shoes: ClothingShoesBootsSalvage
+    id: SalvagePDA
+    ears: ClothingHeadsetCargo
+  storage:
+    back:
+    - BoxSurvival
 
 # / END THINGY ACTIONS AND SETTINGS/
 

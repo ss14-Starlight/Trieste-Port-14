@@ -882,7 +882,7 @@
     - type: Projectile
       damage:
         types:
-          Caustic: 3
+          Caustic: 15
     - type: Sprite
       sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
       layers:
@@ -894,17 +894,17 @@
         melee:
           reagents:
           - ReagentId: NorepinephricAcid
-            Quantity: 5
+            Quantity: 20
     - type: MeleeChemicalInjector
       solution: melee
-      transferAmount: 5
+      transferAmount: 20
     - type: InjectableSolution
       solution: melee
     - type: SolutionInjectOnEmbed
-      transferAmount: 5
+      transferAmount: 20
       solution: melee
     - type: SolutionTransfer
-      maxTransferAmount: 5
+      maxTransferAmount: 20
     - type: EmbeddableProjectile
     - type: TimedDespawn
       lifetime: 7
