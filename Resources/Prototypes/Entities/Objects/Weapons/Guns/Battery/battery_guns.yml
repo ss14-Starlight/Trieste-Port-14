@@ -883,12 +883,11 @@
     proto: BulletLaser
     fireCost: 100
   - type: HandCrankRecharger
-    amountRecharged: 10
+    amountRechargedPerCrank: 10
     timeToCrank: 1
   - type: Battery
     maxCharge: 500
     startingCharge: 500
-    targetCharge: 500
   - type: GunRequiresWield #remove when inaccuracy on spreads is fixed
   - type: Contraband
     severity: Major
