@@ -10,6 +10,13 @@ using Robust.Shared.Random;
 
 namespace Content.Server.Weapons.Ranged.Systems;
 
+//Summary
+// This code creates a system that can be put on any object with an internal battery using HandCrankRechargerComponent
+// It lets you crank the crank on the crank to charge the battery with charge.
+// Muy cool.
+// In the station, straight up "crankin' it", and by it? let's jusr say... my rifle.
+//Summary
+
 public partial class HandCrankRechargerSystem : SharedHandCrankRechargerSystem
 {
     [Dependency] private readonly SharedAudioSystem _audio = default!;
@@ -26,16 +33,16 @@ public partial class HandCrankRechargerSystem : SharedHandCrankRechargerSystem
 
     protected override void StartDoAfter(EntityUid uid, EntityUid user, HandCrankRechargerComponent crank)
     {
-        if (!TryComp<BatteryComponent>(uid, out var gunBattery))
+        if (!TryComp<BatteryComponent>(uid, out var gunBattery)) // find the battery
             return;
 
-        if (!ShouldCharge(uid, crank, gunBattery))
+        if (!ShouldCharge(uid, crank, gunBattery)) // Is it full?
         {
             _popup.PopupEntity(Loc.GetString("The crank wont budge!"), user, user);
             return;
         }
 
-        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, crank.TimeToCrank, new GunCrankAfterEvent(), uid, target: uid, used: uid)
+        var doAfterEventArgs = new DoAfterArgs(EntityManager, user, crank.TimeToCrank, new GunCrankAfterEvent(), uid, target: uid, used: uid) // doafter settings
         {
             BreakOnMove = false,
             NeedHand = true,
@@ -46,16 +53,16 @@ public partial class HandCrankRechargerSystem : SharedHandCrankRechargerSystem
 
     private void OnDoAfter(Entity<HandCrankRechargerComponent> ent, ref GunCrankAfterEvent args)
     {
-        if (!TryComp<BatteryComponent>(ent, out var gunBattery))
+        if (!TryComp<BatteryComponent>(ent, out var gunBattery)) // begins cranking it, also get battery again
             return;
 
         if (!ShouldCharge(ent, ent.Comp, gunBattery))
         {
-            _popup.PopupEntity(Loc.GetString("charge-is-full"), args.User, args.User);
+            _popup.PopupEntity(Loc.GetString("charge-is-full"), args.User, args.User); // if full, do nothing
             return;
         }
 
-        _audio.PlayPvs(ent.Comp.CrankSound, ent, AudioHelpers.WithVariation(0.125f, _random).WithVolume(1f));
+        _audio.PlayPvs(ent.Comp.CrankSound, ent, AudioHelpers.WithVariation(0.125f, _random).WithVolume(1f)); // play crank sound
 
         // Set the battery charge to the max of either the battery or the hand crank max.
         var chargeAmount = Math.Clamp(gunBattery.CurrentCharge + ent.Comp.AmountRechargedPerCrank, 0f, GetChargeMax(ent.Comp, gunBattery));
