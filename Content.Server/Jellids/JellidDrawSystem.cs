@@ -28,7 +28,7 @@ namespace Content.Server.Jellid.Systems
         {
             if (TryComp<BatteryComponent>(entity.Owner, out var battery))
             {
-                AlertCharge = 300f;
+                var AlertCharge = 300f;
                 if (battery.CurrentCharge <= AlertCharge)
                     {
                         _alerts.ShowAlert(entity.Owner, battery.NoBatteryAlert);
