@@ -230,6 +230,14 @@
     proto: EffectSpeciesJellidPerson
   equipment:
     outerClothing: ClothingOuterVestTank
+    
+- type: loadout
+  id: LoadoutTankHarnessJellid
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: EffectSpeciesJellidPerson
+  equipment:
+    outerClothing: ClothingOuterVestTank
 
 - type: startingGear
   id: GearTankHarness
@@ -242,6 +250,14 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesVox
+  - !type:GroupLoadoutEffect
+    proto: EffectSpeciesJellidPerson
+  equipment:
+    mask: ClothingMaskBreath
+
+- type: loadout
+  id: LoadoutSpeciesBreathTool
+  effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesJellidPerson
   equipment:
