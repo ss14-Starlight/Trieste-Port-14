@@ -250,13 +250,11 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesVox
-  - !type:GroupLoadoutEffect
-    proto: EffectSpeciesJellidPerson
   equipment:
     mask: ClothingMaskBreath
 
 - type: loadout
-  id: LoadoutSpeciesBreathTool
+  id: LoadoutSpeciesBreathToolJellid
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesJellidPerson
