@@ -304,7 +304,7 @@
   category: Battery
   icons:
   - sprite: /Textures/Interface/Alerts/battery.rsi
-    state: battery-none
+    state: battery1
   name: alerts-no-battery-name
   description: alerts-no-battery-desc
 
@@ -314,8 +314,8 @@
   icons:
   - sprite: /Textures/Interface/Alerts/battery.rsi
     state: battery-none
-  name: alerts-no-battery-name
-  description: alerts-no-battery-desc
+  name: jellid-alerts-no-battery-name
+  description: jellid-alerts-no-battery-desc
 
 - type: alert
   id: Internals
