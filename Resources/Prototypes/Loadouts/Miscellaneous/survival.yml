@@ -228,6 +228,8 @@
     proto: EffectSpeciesVox
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesJellidPerson
+  equipment:
+    outerClothing: ClothingOuterVestTank
 
 - type: startingGear
   id: GearTankHarness
