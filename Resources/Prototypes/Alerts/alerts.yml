@@ -309,6 +309,15 @@
   description: alerts-no-battery-desc
 
 - type: alert
+  id: JellidBatteryNone
+  category: Battery
+  icons:
+  - sprite: /Textures/Interface/Alerts/battery.rsi
+    state: battery-none
+  name: alerts-no-battery-name
+  description: alerts-no-battery-desc
+
+- type: alert
   id: Internals
   category: Internals
   clickEvent: !type:ToggleInternalsAlertEvent
