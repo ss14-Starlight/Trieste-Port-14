@@ -44,7 +44,7 @@ Nolius - Programming, Debugging, General help
 
 Verslebas - Programming, Debugging
 
-Lyroth - Programming
+Lyroth - Programming, General help
 
 Lupino - Debugging, General help
 
