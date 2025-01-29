@@ -11,6 +11,12 @@
     - Reptilian
     - SlimePerson
     - Vox
+    - Jellid
+
+- type: guideEntry
+  id: Jellid
+  name: species-name-jellid
+  text: "/ServerInfo/Guidebook/Mobs/Jellid.xml"
 
 - type: guideEntry
   id: Arachnid

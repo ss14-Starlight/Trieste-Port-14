@@ -15,7 +15,6 @@
   - type: IgnitionSource
     temperature: 700
     ignited: true
-  - type: Firestarter
   - type: AlwaysHot
   - type: TemperatureProtection
     coefficient: 0.6
@@ -76,10 +75,10 @@
   - type: Respirator
     damage:
       types:
-        Slash: 4
+        Slash: 2
     damageRecovery:
       types:
-        Slash: -0.3 # hopefully shouldn't be OP
+        Slash: -0.05 # hopefully shouldn't be OP
     maxSaturation: 15
     gaspEmote: Scream
   - type: Inventory

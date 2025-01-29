@@ -26,6 +26,22 @@
     species:
     - Vox
 
+
+- type: loadoutEffectGroup
+  id: EffectSpeciesMask
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species:
+    - Vox
+    - JellidPerson
+
+- type: loadoutEffectGroup
+  id: WaterBreather
+  effects:
+  - !type:SpeciesLoadoutEffect
+    species:
+    - JellidPerson
+
 # Basic
 - type: loadout
   id: EmergencyOxygen
@@ -35,6 +51,15 @@
   storage:
     back:
     - BoxSurvival
+
+- type: loadout
+  id: EmergencyWater
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  storage:
+    back:
+    - BoxSurvivalNitrogen
 
 - type: loadout
   id: EmergencyNitrogen
@@ -171,6 +196,14 @@
   equipment:
     suitstorage: NitrogenTankFilled
 
+- type: loadout
+  id: LoadoutSpeciesJellidWater
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  equipment:
+    suitstorage: TP14WaterTankFilled
+
 # Full EVA Tank, Any Species
 - type: loadout
   id: LoadoutSpeciesEVANitrogen
@@ -211,9 +244,6 @@
   effects:
   - !type:GroupLoadoutEffect
     proto: EffectSpeciesVox
-
-- type: startingGear
-  id: GearTankHarness
   equipment:
     outerClothing: ClothingOuterVestTank
 
@@ -222,9 +252,17 @@
   id: LoadoutSpeciesBreathTool
   effects:
   - !type:GroupLoadoutEffect
-    proto: EffectSpeciesVox
+    proto: EffectSpeciesMask
   equipment:
-    mask: ClothingMaskBreath
+    mask: ClothingMaskBreathNeck
+
+- type: loadout
+  id: LoadoutSpeciesGasMask
+  effects:
+  - !type:GroupLoadoutEffect
+    proto: WaterBreather
+  equipment:
+    mask: ClothingMaskGas
 
 - type: loadout
   id: LoadoutSpeciesBreathToolMedical

@@ -74,6 +74,7 @@
   - EmergencyNitrogen
   - EmergencyOxygen
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: GroupEVATank
@@ -472,6 +473,7 @@
   - EmergencyNitrogenClown
   - EmergencyOxygenClown
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: MimeHead
@@ -528,6 +530,7 @@
   - EmergencyNitrogenMime
   - EmergencyOxygenMime
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: MusicianJumpsuit
@@ -812,6 +815,7 @@
   - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 # Science
 - type: loadoutGroup
@@ -1093,6 +1097,7 @@
   - EmergencyNitrogenSecurity
   - EmergencyOxygenSecurity
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: SecurityStar
@@ -1282,6 +1287,7 @@
   - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 # Wildcards
 - type: loadoutGroup
@@ -1324,6 +1330,7 @@
   - EmergencyNitrogenSyndicate
   - EmergencyOxygenSyndicate
   - LoadoutSpeciesVoxNitrogen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: GroupSpeciesBreathTool
@@ -1333,6 +1340,15 @@
   hidden: true
   loadouts:
   - LoadoutSpeciesBreathTool
+
+- type: loadoutGroup
+  id: GroupSpeciesGasMask
+  name: loadout-group-breath-tool
+  minLimit: 1
+  maxLimit: 1
+  hidden: true
+  loadouts:
+  - LoadoutSpeciesGasMask
 
 - type: loadoutGroup
   id: GroupSpeciesBreathToolMedical
