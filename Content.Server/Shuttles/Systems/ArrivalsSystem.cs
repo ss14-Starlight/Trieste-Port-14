@@ -567,7 +567,7 @@ public sealed class ArrivalsSystem : EntitySystem
     var query1 = AllEntityQuery<StationArrivalsComponent>();
     while (query1.MoveNext(out var uid1, out var comp1))
     {
-        SetupShuttle(uid1, comp1);
+        //SetupShuttle(uid1, comp1);
     }
 }
 
@@ -582,7 +582,7 @@ public sealed class ArrivalsSystem : EntitySystem
 
             while (query.MoveNext(out var sUid, out var comp))
             {
-                SetupShuttle(sUid, comp);
+                //SetupShuttle(sUid, comp);
             }
         }
         else
@@ -609,7 +609,7 @@ public sealed class ArrivalsSystem : EntitySystem
             return;
 
         // If it's a latespawn station then this will fail but that's okey
-        SetupShuttle(uid, component);
+        //SetupShuttle(uid, component);
     }
 
     private void SetupShuttle(EntityUid uid, StationArrivalsComponent component)

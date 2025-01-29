@@ -882,13 +882,32 @@
     - type: Projectile
       damage:
         types:
-          Caustic: 5
+          Caustic: 15
     - type: Sprite
       sprite: Objects/Weapons/Guns/Projectiles/xeno_toxic.rsi
       layers:
         - state: xeno_toxic
     - type: Ammo
       muzzleFlash: null
+    - type: SolutionContainerManager
+      solutions:
+        melee:
+          reagents:
+          - ReagentId: NorepinephricAcid
+            Quantity: 20
+    - type: MeleeChemicalInjector
+      solution: melee
+      transferAmount: 20
+    - type: InjectableSolution
+      solution: melee
+    - type: SolutionInjectOnEmbed
+      transferAmount: 20
+      solution: melee
+    - type: SolutionTransfer
+      maxTransferAmount: 20
+    - type: EmbeddableProjectile
+    - type: TimedDespawn
+      lifetime: 7
 
 - type: entity
   id: BulletWaterShot

@@ -6,6 +6,10 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
+using Robust.Shared.GameObjects;
+using Content.Shared.Gravity;
+using Robust.Shared.Map;
+using System.Linq;
 
 namespace Content.Shared.Silicons.StationAi;
 
@@ -27,6 +31,7 @@ public abstract partial class SharedStationAiSystem
         SubscribeLocalEvent<StationAiHeldComponent, InteractionAttemptEvent>(OnHeldInteraction);
         SubscribeLocalEvent<StationAiHeldComponent, AttemptRelayActionComponentChangeEvent>(OnHeldRelay);
         SubscribeLocalEvent<StationAiHeldComponent, JumpToCoreEvent>(OnCoreJump);
+        SubscribeLocalEvent<StationAiHeldComponent, ChangeLevelEvent>(OnLevelChange);
         SubscribeLocalEvent<TryGetIdentityShortInfoEvent>(OnTryGetIdentityShortInfo);
     }
 
@@ -51,6 +56,20 @@ public abstract partial class SharedStationAiSystem
             return;
 
         _xforms.DropNextTo(core.Comp.RemoteEntity.Value, core.Owner) ;
+    }
+
+    private void OnLevelChange(Entity<StationAiHeldComponent> ent, ref ChangeLevelEvent args)
+    {
+
+        if (!TryGetCore(ent.Owner, out var core) || core.Comp?.RemoteEntity == null)
+            return;
+
+            var destination = EntityManager.EntityQuery<TriesteComponent>().FirstOrDefault();
+            if (destination != null)
+            {
+                // Teleport to the first destination's coordinates
+                Transform(core.Comp.RemoteEntity.Value).Coordinates = Transform(destination.Owner).Coordinates;
+            }
     }
 
     /// <summary>
@@ -168,7 +187,7 @@ public abstract partial class SharedStationAiSystem
         var verb = new AlternativeVerb
         {
             Text = isOpen ? Loc.GetString("ai-close") : Loc.GetString("ai-open"),
-            Act = () => 
+            Act = () =>
             {
                 // no need to show menu if device is not powered.
                 if (!PowerReceiver.IsPowered(ent.Owner))
