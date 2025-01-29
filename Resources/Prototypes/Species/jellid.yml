@@ -1,13 +1,16 @@
 - type: species
   id: JellidPerson
   name: species-name-jellid
-  roundStart: true # temporary until repaired
+  roundStart: true
   prototype: TP14MobJellidPerson
   sprites: MobJellidSprites
   defaultSkinTone: "#b8b8b8"
   markingLimits: MobJellidMarkingLimits
   dollPrototype: MobJellidPersonDummy
   skinColoration: Hues
+  maleFirstNames: starSystems
+  femaleFirstNames: starSystems
+  lastNames: starSystems
   sexes:
   - Unsexed
 

@@ -21,7 +21,7 @@ namespace Content.Server.Power.Components
         public float MaxCharge;
 
          [DataField]
-         public ProtoId<AlertPrototype> NoBatteryAlert = "BorgBatteryNone";
+         public ProtoId<AlertPrototype> NoBatteryAlert = "JellidBatteryNone";
 
         /// <summary>
         /// Current charge of the battery in joules (ie. watt seconds)

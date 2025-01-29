@@ -28,7 +28,7 @@ namespace Content.Server.Jellid.Systems
         {
             if (TryComp<BatteryComponent>(entity.Owner, out var battery))
             {
-                float AlertCharge = 400f;
+                var AlertCharge = 300f;
                 if (battery.CurrentCharge <= AlertCharge)
                     {
                         _alerts.ShowAlert(entity.Owner, battery.NoBatteryAlert);
@@ -37,8 +37,8 @@ namespace Content.Server.Jellid.Systems
                     {
                         _alerts.ClearAlert(entity.Owner, battery.NoBatteryAlert);
                     }
-
-                float DamageCharge = 120f;
+                
+                float DamageCharge = 20f;
                 if (battery.CurrentCharge < DamageCharge)
                 {
                     if (Charging)
