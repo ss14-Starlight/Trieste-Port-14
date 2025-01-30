@@ -14,6 +14,9 @@
     children:
     - id: KingRatMigration
     - id: SnailMigration
+    - id: DrifterMigration
+    - id: MimicMigration
+    - id: DeathWhaleMigration
 
 # events
 
