@@ -164,6 +164,9 @@
     sprite: Clothing/Mask/neckapparatus.rsi
   - type: Clothing
     sprite: Clothing/Mask/neckapparatus.rsi
+    slots:
+    - MASK
+    - NECK
   - type: BreathMask
 
 - type: entity
