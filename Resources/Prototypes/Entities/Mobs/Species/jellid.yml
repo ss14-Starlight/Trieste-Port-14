@@ -1,6 +1,13 @@
 - type: entity
   name: Urist McJellid
-  parent: BaseMobSpeciesOrganic
+  parent:
+  - MobFlammable
+  - BaseMobSpecies
+  - MobRespirator
+  - MobBloodstream
+  - MobAtmosExposed
+  - MobCombat
+  - MobDamageable
   id: BaseMobJellidPerson
   abstract: true
   components:
@@ -41,6 +48,22 @@
   - type: Vocal
     sounds:
       Unsexed: MaleSlime
+  - type: Temperature
+    heatDamageThreshold: 400
+    coldDamageThreshold: -9999
+    currentTemperature: 310.15
+    specificHeat: 42
+    coldDamage:
+      types:
+        Cold: 0 #per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 1.5 #per second, scales with temperature & other constants
+  - type: TemperatureSpeed
+    thresholds:
+      301: 1
+      295: 1
+      285: 1
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Jellid
