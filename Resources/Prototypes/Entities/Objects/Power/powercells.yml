@@ -47,7 +47,7 @@
   - type: Contraband
     severity: Nanotrasen
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Ammunition/Magazine/MagCell.rsi
+    sprite: Objects/Weapons/Guns/Ammunition/Magazine/Magcell.rsi
     layers:
     - state: icon
   - type: Battery
