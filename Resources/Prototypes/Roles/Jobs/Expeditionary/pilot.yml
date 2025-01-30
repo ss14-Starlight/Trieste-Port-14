@@ -26,3 +26,11 @@
     head: ClothingHeadHatHardhatArmored # protect the pilot
     shoes: ClothingShoesLeather
     back: ClothingBackpackSatchelLeather
+
+- type: roleLoadout
+  id: JobPilot
+  groups:
+  - GroupTankHarness
+  - Survival
+  - GroupSpeciesBreathTool
+
