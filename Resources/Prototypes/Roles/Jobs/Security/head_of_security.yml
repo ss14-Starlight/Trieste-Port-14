@@ -9,7 +9,7 @@
       time: 3600
     - !type:RoleTimeRequirement
       role: JobSecurityOfficer
-      time: 7200
+      time: 10800
     - !type:DepartmentTimeRequirement
       department: Security
       time: 7200
