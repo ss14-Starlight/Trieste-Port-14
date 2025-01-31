@@ -6,10 +6,10 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 1800 # 10 hrs
+      time: 1800 # 30 mins
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 1800 # 10 hours
+      time: 1800 # 30 mins
   weight: 20
   startingGear: HoPGear
   icon: "JobIconHeadOfPersonnel"
