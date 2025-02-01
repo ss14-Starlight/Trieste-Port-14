@@ -25,8 +25,5 @@ public sealed partial class ForageComponent : Component
     public TimeSpan RegrowTime = TimeSpan.FromSeconds(60);
 
     [DataField, ViewVariables(VVAccess.ReadOnly), AutoPausedField]
-    public TimeSpan TimeSinceForage;
-
-    [ViewVariables(VVAccess.ReadOnly)]
-    public bool Regrowing;
+    public TimeSpan LastForagedTime;
 }

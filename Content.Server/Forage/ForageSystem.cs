@@ -1,5 +1,6 @@
 using Content.Server.Destructible;
 using Content.Shared.Forage;
+using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
 using Content.Shared.Tag;
 using Robust.Server.GameObjects;
@@ -16,6 +17,8 @@ public sealed class ForageSystem : EntitySystem
     [Dependency] private readonly TagSystem _tagSystem = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency] private readonly SharedGameTicker _gameTicker = default!;
+
 
     public override void Initialize()
     {
@@ -27,7 +30,8 @@ public sealed class ForageSystem : EntitySystem
 
     private void OnInit(Entity<ForageComponent> ent, ref ComponentInit args)
     {
-        UpdateAppearance(ent);
+        ent.Comp.LastForagedTime = -ent.Comp.RegrowTime;
+        UpdateAppearance(ent, false);
     }
 
     private void OnActivate(Entity<ForageComponent> forageable, ref ActivateInWorldEvent args)
@@ -41,7 +45,7 @@ public sealed class ForageSystem : EntitySystem
 
     private void Forage(Entity<ForageComponent> ent, EntityUid? forager = null)
     {
-        if (ent.Comp.Regrowing)
+        if (IsRegrowing(ent.Comp))
             return;
 
         if (ent.Comp.DestroyOnForage)
@@ -66,8 +70,8 @@ public sealed class ForageSystem : EntitySystem
             Spawn(spawnLoot[0], spawnPos);
         }
 
-        ent.Comp.Regrowing = true;
-        UpdateAppearance(ent);
+        ent.Comp.LastForagedTime = _gameTicker.RoundDuration();
+        UpdateAppearance(ent, true);
     }
 
     public override void Update(float frameTime)
@@ -75,21 +79,22 @@ public sealed class ForageSystem : EntitySystem
         var query = EntityQueryEnumerator<ForageComponent>();
         while (query.MoveNext(out var ent, out var forage))
         {
-            if (!forage.Regrowing)
+            var isRegrowing = IsRegrowing(forage);
+            if (isRegrowing)
                 continue;
 
-            forage.TimeSinceForage += TimeSpan.FromSeconds(frameTime);
-            if (forage.TimeSinceForage < forage.RegrowTime)
-                continue;
-
-            forage.TimeSinceForage = TimeSpan.Zero;
-            forage.Regrowing = false;
-            UpdateAppearance((ent, forage));
+            UpdateAppearance((ent, forage), isRegrowing);
+            // forage.LastForagedTime = _gameTicker.RoundDuration();
         }
     }
 
-    private void UpdateAppearance(Entity<ForageComponent> ent)
+    private void UpdateAppearance(Entity<ForageComponent> ent, bool isRegrowing)
     {
-        _appearance.SetData(ent, RegrowVisuals.Regrowing, ent.Comp.Regrowing);
+        _appearance.SetData(ent, RegrowVisuals.Regrowing, isRegrowing);
+    }
+
+    private bool IsRegrowing(ForageComponent comp)
+    {
+        return _gameTicker.RoundDuration() < comp.LastForagedTime + comp.RegrowTime;
     }
 }
