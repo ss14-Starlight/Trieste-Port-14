@@ -81,11 +81,11 @@ public sealed class ForageSystem : EntitySystem
             if (!forage.Regrowing)
                 continue;
 
-            forage.TimeSinceForage += frameTime;
+            forage.TimeSinceForage += TimeSpan.FromSeconds(frameTime);
             if (forage.TimeSinceForage < forage.RegrowTime)
                 continue;
 
-            forage.TimeSinceForage = 0.0f;
+            forage.TimeSinceForage = TimeSpan.Zero;
             forage.Regrowing = false;
             UpdateAppearance((ent, forage));
         }
