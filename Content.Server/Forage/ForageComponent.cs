@@ -19,7 +19,7 @@ public sealed partial class ForageComponent : Component
     public bool DestroyOnForage;
 
     /// <summary>
-    /// Time in seconds to regrow produce for gather. Only has an effect if <see cref="DestroyOnForage"/> is true.
+    /// Time in seconds to regrow produce for gather. Only has an effect if <see cref="DestroyOnForage"/> is false.
     /// </summary>
     [DataField]
     public TimeSpan RegrowTime = TimeSpan.FromSeconds(60);

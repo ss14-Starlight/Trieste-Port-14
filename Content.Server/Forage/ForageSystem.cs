@@ -84,7 +84,6 @@ public sealed class ForageSystem : EntitySystem
                 continue;
 
             UpdateAppearance((ent, forage), isRegrowing);
-            // forage.LastForagedTime = _gameTicker.RoundDuration();
         }
     }
 
