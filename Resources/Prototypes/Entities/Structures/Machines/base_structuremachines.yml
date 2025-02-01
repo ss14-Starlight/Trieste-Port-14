@@ -70,6 +70,7 @@
     - machine_board
   - type: LightningTarget
     priority: 1
+  - type: FallSystem
 
 - type: entity
   abstract: true

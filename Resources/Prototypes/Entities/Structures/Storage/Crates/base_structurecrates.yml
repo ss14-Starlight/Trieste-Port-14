@@ -93,6 +93,7 @@
     containers:
       - entity_storage
   - type: RequireProjectileTarget
+  - type: FallSystem
 
 - type: entity
   parent: CrateGeneric

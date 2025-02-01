@@ -73,6 +73,7 @@
   loadouts:
   - EmergencyNitrogen
   - EmergencyOxygen
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -83,6 +84,7 @@
   loadouts:
   - LoadoutSpeciesEVANitrogen
   - LoadoutSpeciesEVAOxygen
+  - LoadoutSpeciesJellidWater
 
 - type: loadoutGroup
   id: GroupPocketTankDouble
@@ -91,6 +93,7 @@
   loadouts:
   - LoadoutSpeciesPocketDoubleNitrogen
   - LoadoutSpeciesPocketDoubleOxygen
+  - LoadoutSpeciesJellidWater
 
 # Command
 - type: loadoutGroup
