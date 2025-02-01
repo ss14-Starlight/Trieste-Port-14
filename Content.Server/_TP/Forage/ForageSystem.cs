@@ -7,7 +7,7 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-namespace Content.Server.Forage;
+namespace Content.Server._TP.Forage;
 
 public sealed class ForageSystem : EntitySystem
 {

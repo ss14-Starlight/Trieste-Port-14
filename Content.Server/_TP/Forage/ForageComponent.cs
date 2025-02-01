@@ -1,7 +1,7 @@
 using Content.Shared.EntityList;
 using Robust.Shared.Prototypes;
 
-namespace Content.Server.Forage;
+namespace Content.Server._TP.Forage;
 
 [RegisterComponent, Access(typeof(ForageSystem)), AutoGenerateComponentPause]
 public sealed partial class ForageComponent : Component
