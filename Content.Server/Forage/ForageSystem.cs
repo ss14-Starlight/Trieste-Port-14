@@ -39,23 +39,20 @@ public sealed class ForageSystem : EntitySystem
         args.Handled = true;
     }
 
-    private void Forage(EntityUid uid, EntityUid? forager = null, ForageComponent? component = null)
+    private void Forage(Entity<ForageComponent> ent, EntityUid? forager = null)
     {
-        if (!Resolve(uid, ref component))
+        if (ent.Comp.Regrowing)
             return;
 
-        if (component.Regrowing)
+        if (ent.Comp.DestroyOnForage)
+            _destructible.DestroyEntity(ent);
+
+        if (ent.Comp.Loot == null)
             return;
 
-        if (component.DestroyOnForage)
-            _destructible.DestroyEntity(uid);
+        var pos = _transform.GetMapCoordinates(ent);
 
-        if (component.Loot == null)
-            return;
-
-        var pos = _transform.GetMapCoordinates(uid);
-
-        foreach (var (tag, table) in component.Loot)
+        foreach (var (tag, table) in ent.Comp.Loot)
         {
             if (tag != "All")
             {
@@ -65,12 +62,12 @@ public sealed class ForageSystem : EntitySystem
 
             var getLoot = _proto.Index(table);
             var spawnLoot = getLoot.GetSpawns(_random);
-            var spawnPos = pos.Offset(_random.NextVector2(component.GatherOffset));
+            var spawnPos = pos.Offset(_random.NextVector2(ent.Comp.GatherOffset));
             Spawn(spawnLoot[0], spawnPos);
         }
 
-        component.Regrowing = true;
-        UpdateAppearance((uid, component));
+        ent.Comp.Regrowing = true;
+        UpdateAppearance(ent);
     }
 
     public override void Update(float frameTime)
