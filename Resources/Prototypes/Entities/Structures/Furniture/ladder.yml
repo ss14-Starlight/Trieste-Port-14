@@ -11,6 +11,8 @@
   - type: Sprite
     sprite: Structures/Furniture/ladder.rsi
     state: down
+  - type: Anchorable
+    delay: 99999
 
 - type: entity
   id: TP14LadderUpBase
@@ -18,7 +20,6 @@
   name: Ladder up
   description: WEEEEE.
   components:
-  - type: Anchorable
   - type: Transform
   - type: Climbable
   - type: Clickable
@@ -26,4 +27,6 @@
   - type: Sprite
     sprite: Structures/Furniture/ladder.rsi
     state: up
+  - type: Anchorable
+    delay: 99999
 
