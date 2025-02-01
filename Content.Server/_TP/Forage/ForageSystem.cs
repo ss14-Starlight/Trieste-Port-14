@@ -1,5 +1,5 @@
 using Content.Server.Destructible;
-using Content.Shared.Forage;
+using Content.Shared._TP.Forage;
 using Content.Shared.GameTicking;
 using Content.Shared.Interaction;
 using Content.Shared.Tag;

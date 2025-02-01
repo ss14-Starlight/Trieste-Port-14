@@ -40,9 +40,9 @@
   description: This plant tries to ward off potential predators by imitating an animal. The currents will make it's light stem move around, scaring off other creatures and the unexperienced.
   components:
   - type: Sprite
-    sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+    sprite: _TP/Objects/Flora/Forage/serpents_mane.rsi
   - type: Icon
-    sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+    sprite: _TP/Objects/Flora/Forage/serpents_mane.rsi
     state: plant
   - type: Forage
     regrowTime: 300
@@ -62,7 +62,7 @@
   components:
   - type: Produce
   - type: Sprite
-    sprite: Objects/Decoration/Flora/Forage/serpents_mane.rsi
+    sprite: _TP/Objects/Flora/Forage/serpents_mane.rsi
     state: bulb
     scale: 0.7, 0.7
   - type: FlavorProfile
@@ -92,9 +92,9 @@
   description: An invasive species, brought to the planet from Limoris-2b by inter-sector cargo ships. It's known for it's moderate healing properties even before proper processing.
   components:
   - type: Sprite
-    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    sprite: _TP/Objects/Flora/Forage/trenchlight_weed.rsi
   - type: Icon
-    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    sprite: _TP/Objects/Flora/Forage/trenchlight_weed.rsi
     state: plant
   - type: Forage
     regrowTime: 300
@@ -114,7 +114,7 @@
   components:
   - type: Produce
   - type: Sprite
-    sprite: Objects/Decoration/Flora/Forage/trenchlight_weed.rsi
+    sprite: _TP/Objects/Flora/Forage/trenchlight_weed.rsi
     state: leaf
     scale: 0.7, 0.7
   - type: FlavorProfile
