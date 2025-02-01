@@ -59,7 +59,7 @@
     proto: WaterBreather
   storage:
     back:
-    - BoxSurvivalNitrogen
+    - BoxSurvivalJellid
 
 - type: loadout
   id: EmergencyNitrogen

@@ -15,6 +15,8 @@ using Robust.Shared.GameObjects;
 using Content.Shared.Gravity;
 using Robust.Server.GameObjects;
 using Content.Shared.Shuttles.Components;
+using Content.Shared.Movement.Components;
+using Content.Shared.Revenant.Components;
 
 namespace Content.Server.Falling
 {
@@ -53,6 +55,16 @@ namespace Content.Server.Falling
             }
 
             if (HasComp<NoFTLComponent>(owner))
+            {
+                return;
+            }
+
+            if (HasComp<CanMoveInAirComponent>(owner))
+            {
+                return;
+            }
+
+            if (HasComp<RevenantComponent>(owner))
             {
                 return;
             }

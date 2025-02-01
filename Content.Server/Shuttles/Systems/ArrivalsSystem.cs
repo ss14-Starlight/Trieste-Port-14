@@ -525,7 +525,6 @@ public sealed class ArrivalsSystem : EntitySystem
     foreach (var id in uids1)
     {
         EnsureComp<ArrivalsSourceComponent>(id);
-        EnsureComp<ProtectedGridComponent>(id);
         EnsureComp<PreventPilotComponent>(id);
     }
 
