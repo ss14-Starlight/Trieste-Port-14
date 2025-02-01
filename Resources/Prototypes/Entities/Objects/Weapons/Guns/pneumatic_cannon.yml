@@ -31,12 +31,12 @@
     container: storagebase
   - type: PneumaticCannon
   - type: Storage
-    maxItemSize: Normal
-    grid:
-    - 0,0,1,1
     blacklist:
       tags:
       - Harpoon
+    maxItemSize: Normal
+    grid:
+    - 0,0,1,1
   - type: Appearance
   - type: ItemMapper
     containerWhitelist: [gas_tank]
