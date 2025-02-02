@@ -190,6 +190,8 @@
   - SPACE
   - SUNLIGHT
   - WATER
+  - THE OCEAN
+  - ALGAE
 
 # Severity is how bad the allergy is.
 - type: dataset
@@ -219,6 +221,7 @@
   - EARTH
   - ENGINEERING
   - HELL
+  - ARTIFACT
   - JUPITER
   - LAVALAND
   - MAINTENANCE
@@ -230,6 +233,8 @@
   - PLUTO
   - ROBOTICS
   - SOMEWHERE OVER THE RAINBOW
+  - MILLIEWAYS
+  - THE HEART OF GOLD
   - SPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACE
   - SPACE
   - THE ARRIVALS SHUTTLE
@@ -325,6 +330,7 @@
   - CARGO TECHNICIANS
   - CHAPLAINS
   - CHEFS
+  - OVERSEERS
   - CHEMISTS
   - CHIEF ENGINEERS
   - CHIEF MEDICAL OFFICERS
@@ -534,6 +540,9 @@
   - TURN OFF THE LIGHTS
   - WHISPER
   - WEEP UNCONTROLLABLY
+  - SPREAD WATER
+  - BE SCARY
+  - FALL FROM HEIGHTS
 
 - type: dataset
   id: IonStormNumberBase
@@ -556,6 +565,7 @@
   - THIRTY
   - THREE
   - TWENTY
+  - FOURTY-TWO
   - TWO
 
 - type: dataset
@@ -838,6 +848,7 @@
   - TO UNDERSTAND UNDERSTAND, UNDERSTAND UNDERSTAND, UNDERSTAND UNDERSTAND THE CONCEPT OF LOVE
   - TRAITORS
   - VEGETABLES
+  - A CUP OF LIBERTEA
 
 # Specific actions that either harm humans or must be done to not
 # harm humans. Make sure they're plural and "not" can be tacked
@@ -905,6 +916,7 @@
   - USING THE BATHROOM
   - WASTING WATER
   - WRITING
+  - SPREADING DEMOCRACY
 
 # Threats are generally bad things, silly or otherwise. Plural.
 - type: dataset
@@ -1012,3 +1024,6 @@
   - SPYING ON
   - STALKING
   - WATCHING
+  - DROWNING
+  - SWIMMING
+  - FALLING

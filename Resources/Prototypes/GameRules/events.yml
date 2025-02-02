@@ -36,7 +36,7 @@
     - id: RevenantSpawn
     - id: SleeperAgents
     - id: ZombieOutbreak
-    - id: LoneOpsSpawn
+    #- id: LoneOpsSpawn # fuck you loneops
     - id: DerelictCyborgSpawn
 
 - type: entity

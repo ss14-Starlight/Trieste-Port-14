@@ -1,6 +1,13 @@
 - type: entity
   name: Urist McJellid
-  parent: BaseMobSpeciesOrganic
+  parent:
+  - MobFlammable
+  - BaseMobSpecies
+  - MobRespirator
+  - MobBloodstream
+  - MobAtmosExposed
+  - MobCombat
+  - MobDamageable
   id: BaseMobJellidPerson
   abstract: true
   components:
@@ -15,7 +22,6 @@
   - type: IgnitionSource
     temperature: 700
     ignited: true
-  - type: Firestarter
   - type: AlwaysHot
   - type: TemperatureProtection
     coefficient: 0.6
@@ -42,6 +48,22 @@
   - type: Vocal
     sounds:
       Unsexed: MaleSlime
+  - type: Temperature
+    heatDamageThreshold: 400
+    coldDamageThreshold: -9999
+    currentTemperature: 310.15
+    specificHeat: 42
+    coldDamage:
+      types:
+        Cold: 0 #per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 1.5 #per second, scales with temperature & other constants
+  - type: TemperatureSpeed
+    thresholds:
+      301: 1
+      295: 1
+      285: 1
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Jellid
@@ -76,10 +98,10 @@
   - type: Respirator
     damage:
       types:
-        Slash: 4
+        Slash: 2
     damageRecovery:
       types:
-        Slash: -0.3 # hopefully shouldn't be OP
+        Slash: -0.05 # hopefully shouldn't be OP
     maxSaturation: 15
     gaspEmote: Scream
   - type: Inventory

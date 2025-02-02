@@ -424,7 +424,7 @@ PolaroidImage: TP14MyFriends
 BlackboxRecorder: TP14BlackboxRecorder
 FoodMeatFish: TP14FoodMeatFish
 ClothingOuterSuitCosplay: TP14ClothingOuterSuitCosplay
-CargoTelepad: CargoPalletBuy # Gifts don't work with the Telepad. Migrating until it's fixed.
+CyberPen: null
 
 # 2024-07-7
 SignScience1: SignScience

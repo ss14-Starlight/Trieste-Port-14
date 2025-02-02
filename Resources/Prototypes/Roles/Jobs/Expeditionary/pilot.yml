@@ -3,6 +3,10 @@
   name: job-name-pilot
   description: job-description-pilot
   playTimeTracker: JobBasinTech
+  requirements:
+    - !type:DepartmentTimeRequirement
+     department: Cargo
+     time: 1800 # 1 hr
   icon: "JobIconShaftMiner"
   startingGear: PilotGear
   supervisors: job-supervisors-qm
@@ -26,3 +30,11 @@
     head: ClothingHeadHatHardhatArmored # protect the pilot
     shoes: ClothingShoesLeather
     back: ClothingBackpackSatchelLeather
+
+- type: roleLoadout
+  id: JobPilot
+  groups:
+  - GroupTankHarness
+  - Survival
+  - GroupSpeciesBreathTool
+

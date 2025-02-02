@@ -5,7 +5,7 @@
   description: An electrically charged crystal capable of releasing occasional bursts of localized static which can be used for electricity.
   components:
     - type: Sprite
-      sprite: Objects/piezo.rsi
+      sprite: Objects/Piezo.rsi
       state: icon
     - type: Physics
       bodyType: Static

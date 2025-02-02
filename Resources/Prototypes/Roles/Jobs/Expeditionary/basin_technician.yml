@@ -6,7 +6,7 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Cargo
-      time: 3600 # 1 hr
+      time: 1800 # 1 hr
   icon: "JobIconShaftMiner"
   startingGear: BasinTechGear
   supervisors: job-supervisors-qm
@@ -22,4 +22,4 @@
     id: BasinTechPDA
     ears: ClothingHeadsetCargo
     shoes: ClothingShoesLeather
-    
+

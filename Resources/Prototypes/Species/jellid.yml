@@ -1,13 +1,16 @@
 - type: species
   id: JellidPerson
   name: species-name-jellid
-  roundStart: false # temporary until repaired
+  roundStart: true
   prototype: TP14MobJellidPerson
   sprites: MobJellidSprites
   defaultSkinTone: "#b8b8b8"
   markingLimits: MobJellidMarkingLimits
   dollPrototype: MobJellidPersonDummy
   skinColoration: Hues
+  maleFirstNames: starSystems
+  femaleFirstNames: starSystems
+  lastNames: starSystems
   sexes:
   - Unsexed
 
@@ -15,7 +18,7 @@
   id: MobJellidSprites
   sprites:
     Head: MobJellidHead
-    Hair: MobSlimeMarkingFollowSkin
+    Hair: MobJellidMarkingFollowSkin
     Chest: MobJellidTorso
     Eyes: MobJellidEyes
     LArm: MobJellidLArm
@@ -39,8 +42,8 @@
   points:
     Hair:
       points: 1
-      required: false
-      defaultMarkings: [ JellidMantle ]
+      required: true
+      defaultMarkings: [ JellidMantle ] # The mantle is hair, so if they put a helmet on it's hidden.
     Chest:
       points: 1
       required: false

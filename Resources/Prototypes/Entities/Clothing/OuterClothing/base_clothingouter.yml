@@ -1,6 +1,6 @@
 - type: entity
   abstract: true
-  parent: Clothing
+  parent: [ Clothing, AllowSuitStorageClothingGasTanks ]
   id: ClothingOuterBase
   components:
   - type: Clothing
@@ -8,6 +8,7 @@
     - outerClothing
   - type: Sprite
     state: icon
+
 
 - type: entity
   abstract: true

@@ -2,7 +2,7 @@
   # Jellids
 
   <Box>
-    <GuideEntityEmbed Entity="MobJellid" Caption=""/>
+    <GuideEntityEmbed Entity="TP14MobJellidPerson" Caption=""/>
   </Box>
 
   Jellids are a native species to the planet Trieste resides on. They were built to survive the deep sea and have trouble surviving on dry land.
@@ -13,12 +13,13 @@
   ## Breathing
 
   Jellids need to breathe water to keep their membrane's osmosis stable, or else they bleed their seawater out and rip their membrane.
-
   They are, however, immune to the ocean's extreme cold and pressure, making them adept expeditioneers.
+
+  Trieste has developed tubing that can directly feed seawater into their mantle, allowing unobstructed view.
 
   ## Power
 
-  Jellids do not eat, nor do they drink. Instead, they have large energy stores that directly convert charged electrons into an energy source. 
+  Jellids do not eat, nor do they drink. Instead, they have large energy stores that directly convert charged electrons into an energy source.
   They do this by siphoning the electrons from power containing objects such as: power cells, stun batons or disablers.
   If they run out of energy, they will die rapidly. They have an estimated 15 minutes of energy before this happens.
 

@@ -781,16 +781,6 @@
   - UplinkDeception
 
 - type: listing
-  id: UplinkCyberpen
-  name: uplink-cyberpen-name
-  description: uplink-cyberpen-desc
-  productEntity: CyberPen
-  cost:
-    Telecrystal: 1
-  categories:
-  - UplinkDeception
-
-- type: listing
   id: UplinkDecoyDisk
   name: uplink-decoy-disk-name
   description: uplink-decoy-disk-desc

@@ -121,6 +121,20 @@
 
 - type: entity
   parent: ClothingMaskPullableBase
+  id: ClothingMaskBreathMedicalSecurity
+  name: medical mask
+  description: A close-fitting sterile mask that can be connected to an air supply.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Sprite
+    sprite: Clothing/Mask/medical.rsi
+  - type: Clothing
+    sprite: Clothing/Mask/medical.rsi
+  - type: BreathMask
+
+- type: entity
+  parent: ClothingMaskPullableBase
   id: ClothingMaskBreathMedical
   name: medical mask
   description: A close-fitting sterile mask that can be connected to an air supply.
@@ -139,24 +153,21 @@
     - WhitelistChameleon
 
 - type: entity
-  parent: ClothingMaskBreathMedical
-  id: ClothingMaskBreathMedicalSecurity
-  name: military-style medical mask
-  description: A medical mask with a small layer of protection against damage and viruses, similar to the one used in the medical units of the first corporate war.
+  parent: ClothingMaskBase
+  id: ClothingMaskBreathNeck
+  name: lung-adaption apparatus
+  description: A series of tubes that connects from a tank to the wearer's lungs. Allows more comfortable use. After putting on, of course.
   components:
   - type: Item
     size: Tiny
   - type: Sprite
-    sprite: Clothing/Mask/medicalsecurity.rsi
+    sprite: Clothing/Mask/neckapparatus.rsi
   - type: Clothing
-    sprite: Clothing/Mask/medicalsecurity.rsi
-  - type: Armor
-    modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Heat: 0.95
+    sprite: Clothing/Mask/neckapparatus.rsi
+    slots:
+    - MASK
+    - NECK
+  - type: BreathMask
 
 - type: entity
   parent: ClothingMaskPullableBase
