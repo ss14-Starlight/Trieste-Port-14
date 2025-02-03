@@ -4,6 +4,8 @@
   description: job-description-captain
   playTimeTracker: JobCaptain
   requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 36000 #10 hrs. They're the fucking captain 
     - !type:DepartmentTimeRequirement
       department: Security
       time: 7200 # 2 hour
