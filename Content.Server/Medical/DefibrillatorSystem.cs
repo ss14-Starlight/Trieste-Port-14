@@ -23,6 +23,10 @@ using Content.Shared.Timing;
 using Content.Shared.Toggleable;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
+using Content.Server.Jellid.Systems;
+using Content.Server.Power.Components;
+using Content.Server.Power.EntitySystems;
+using Content.Server.Power.Events;
 
 namespace Content.Server.Medical;
 
@@ -45,6 +49,7 @@ public sealed class DefibrillatorSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
+    [Dependency] private readonly BatterySystem _battery = default!;
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -179,6 +184,14 @@ public sealed class DefibrillatorSystem : EntitySystem
             return;
 
         _audio.PlayPvs(component.ZapSound, uid);
+
+        if (TryComp<BatteryComponent>(target, out var battery))
+        {
+            var batteryAdd = 150f; // If target has a battery (jellid), restores some of their internal energy. This will heal Jellids and prevent instantly dying again.
+            Log.Info("Added charge to jellid.");
+            _battery.SetCharge(target, battery.CurrentCharge + batteryAdd, battery);
+        }
+
         _electrocution.TryDoElectrocution(target, null, component.ZapDamage, component.WritheDuration, true, ignoreInsulation: true);
         if (!TryComp<UseDelayComponent>(uid, out var useDelay))
             return;

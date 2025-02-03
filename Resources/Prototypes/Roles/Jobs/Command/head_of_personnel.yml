@@ -4,18 +4,14 @@
   description: job-description-hop
   playTimeTracker: JobHeadOfPersonnel
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 36000 # 10 hours
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 36000 # 10 hours
+    - !type:OverallPlaytimeRequirement
+      time: 18000 #5 hrs. Platform 2nd in command. Some playtime should be required (also they'll get this for sec anyways)
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 36000 # 10 hrs
+      time: 3600 # 1 hr
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 36000 # 10 hours
+      time: 3600 # 1 hr
   weight: 20
   startingGear: HoPGear
   icon: "JobIconHeadOfPersonnel"
