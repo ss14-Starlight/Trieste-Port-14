@@ -164,8 +164,9 @@
 - type: entity
   id: TP14WaterTankEmergencyFilled
   name: emergency water tank
-  parent: EmergencyFunnyOxygenTank
+  parent: EmergencyOxygenTank
   suffix: Filled
+  description: A tank designed to hold small amounts of water. It won't last long, but it works.
   components:
   - type: GasTank
     outputPressure: 21.3

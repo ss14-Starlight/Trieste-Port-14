@@ -475,6 +475,7 @@
   loadouts:
   - EmergencyNitrogenClown
   - EmergencyOxygenClown
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -532,6 +533,7 @@
   loadouts:
   - EmergencyNitrogenMime
   - EmergencyOxygenMime
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -817,6 +819,7 @@
   loadouts:
   - EmergencyNitrogenExtended
   - EmergencyOxygenExtended
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -1099,6 +1102,7 @@
   loadouts:
   - EmergencyNitrogenSecurity
   - EmergencyOxygenSecurity
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -1289,6 +1293,7 @@
   loadouts:
   - EmergencyNitrogenMedical
   - EmergencyOxygenMedical
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
@@ -1332,6 +1337,7 @@
   loadouts:
   - EmergencyNitrogenSyndicate
   - EmergencyOxygenSyndicate
+  - EmergencyWater
   - LoadoutSpeciesVoxNitrogen
   - LoadoutSpeciesJellidWater
 
