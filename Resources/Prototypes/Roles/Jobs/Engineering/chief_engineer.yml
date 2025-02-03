@@ -6,12 +6,12 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobStationEngineer
-      time: 1800 #1 hrs
+      time: 3600 #1 hrs
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 1800 #1 hr
+      time: 3600 #1 hr
     - !type:OverallPlaytimeRequirement
-      time: 3800 
+      time: 7200 #2 hrs 
   weight: 10
   startingGear: ChiefEngineerGear
   icon: "JobIconChiefEngineer"
