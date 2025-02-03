@@ -11,7 +11,7 @@ public sealed class StorageBoundUserInterface : BoundUserInterface
 
     private readonly StorageSystem _storage;
 
-    [Obsolete] public override bool DeferredClose => false;
+    [Obsolete] public bool DeferredClose => false;
 
     public StorageBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
