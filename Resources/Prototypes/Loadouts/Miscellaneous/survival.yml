@@ -243,7 +243,7 @@
   id: LoadoutTankHarness
   effects:
   - !type:GroupLoadoutEffect
-    proto: EffectSpeciesVox
+    proto: EffectSpeciesMask
   equipment:
     outerClothing: ClothingOuterVestTank
 
