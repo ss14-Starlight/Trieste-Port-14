@@ -6,10 +6,16 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 3600 # 1 hour
+      time: 7200 # 2 hour
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 7200 # 2 hour
+    - !type:DepartmentTimeRequirement
+      department: Engineering
+      time: 7200 # 2 hour
     - !type:DepartmentTimeRequirement
       department: Command
-      time: 3600 # 1 hour
+      time: 7200 # 2 hour
   weight: 20
   startingGear: CaptainGear
   icon: "JobIconCaptain"
