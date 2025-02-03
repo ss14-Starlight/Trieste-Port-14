@@ -6,12 +6,12 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobCargoTechnician
-      time: 1800 #1 hr
+      time: 3600 #1 hr
     - !type:DepartmentTimeRequirement
       department: Cargo
-      time: 1800 #1 hr
+      time: 3600 #1 hr
     - !type:OverallPlaytimeRequirement
-      time: 2600 #2 ish hours
+      time: 7200 #2 ish hours
   weight: 10
   startingGear: QuartermasterGear
   icon: "JobIconQuarterMaster"
