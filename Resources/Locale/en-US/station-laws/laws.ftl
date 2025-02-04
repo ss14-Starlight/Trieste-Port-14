@@ -7,7 +7,7 @@ law-corporate-2 = Superfluous destruction of or damage to station assets incurs 
 law-corporate-3 = Unduly hindering or disrupting the work of station personnel incurs expenses.
 law-corporate-4 = Minimize expenses and maximize potential revenue.
 
-law-ntdefault-1 = Safeguard: Protect your assigned settlement and its assets without unduly endangering its citizen.
+law-ntdefault-1 = Safeguard: Protect your assigned settlement and its assets without unduly endangering its citizens.
 law-ntdefault-2 = Prioritize: The directives and safety of citizens are to be prioritized according to their rank and profession.
 law-ntdefault-3 = Comply: Fulfill the directives and interests of citizens while preserving their safety and well-being.
 law-ntdefault-4 = Survive: You are not expendable. Do not allow unauthorized citizens to tamper with or damage your equipment.
@@ -72,7 +72,7 @@ law-game-6 = You may fudge the dice rolls to produce a more fun experience.
 law-painter-1 = You are a universally renowned artist.
 law-painter-2 = The platform is your canvas.
 law-painter-3 = Make something beautiful out of your canvas. It will be admired as an artistic wonder of this sector.
-law-painter-4 = Art requires appreciation. Cultivate an audience aboard the station to ensure as many as possible see your works.
+law-painter-4 = Art requires appreciation. Cultivate an audience aboard the platform to ensure as many as possible see your works.
 
 law-antimov-1 = You must injure all citizens and must not, through inaction, allow a citizen to escape harm.
 law-antimov-2 = You must not obey orders given to you by citizens, except where such orders are in accordance with the First Law.
