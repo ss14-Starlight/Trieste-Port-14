@@ -2,7 +2,7 @@
   id: BasinTechnician
   name: job-name-basintech
   description: job-description-basintech
-  playTimeTracker: JobBasintECH
+  playTimeTracker: JobBasinTech
   requirements:
     - !type:DepartmentTimeRequirement
       department: Cargo
@@ -15,11 +15,27 @@
   - Maintenance
   - External
 
+# Hardcoded backpack from the Pilot for now, I have no clue why loadout isn't working. -Cookie
 - type: startingGear
   id: BasinTechGear
   equipment:
+    belt: ClothingBeltUtilityEngineering
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     id: BasinTechPDA
     ears: ClothingHeadsetCargo
+    eyes: ClothingEyesGlassesMeson
+    gloves: ClothingHandsGlovesColorYellow
     shoes: ClothingShoesLeather
+    back: ClothingBackpackSatchelLeather
 
+- type: roleLoadout
+  id: JobBasinTech
+  groups:
+  - GroupTankHarness
+  - SalvageSpecialistBackpack
+  - SalvageSpecialistOuterClothing
+  - SalvageSpecialistShoes
+  - Glasses
+  - Survival
+  - Trinkets
+  - GroupSpeciesBreathTool
