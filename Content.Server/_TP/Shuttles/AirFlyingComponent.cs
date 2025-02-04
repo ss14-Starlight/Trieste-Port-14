@@ -8,4 +8,11 @@ public sealed partial class AirFlyingComponent : Component
 {
     [DataField]
     public bool IsFlying;
+
+    [DataField]
+    public bool Enabled;
+
+    [DataField]
+    public bool DockedToFlier;
+    
 }
