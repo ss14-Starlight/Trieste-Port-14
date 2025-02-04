@@ -59,3 +59,11 @@ Legally Aquired Monvi Plushie - Foraging Design
 Puce - Programming
 
 Orks - Debugging, Refactoring
+
+TaoNewt - bugfixing
+
+Moomoobeef - mapping
+
+Ermucat - programming
+
+Slckstr - debugging
