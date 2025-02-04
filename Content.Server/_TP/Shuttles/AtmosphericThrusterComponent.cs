@@ -7,5 +7,5 @@ namespace Content.Server._TP.Shuttles_components;
 public sealed partial class AtmosphericThrusterComponent : Component
 {
     [DataField]
-    public bool enabled = true;
+    public bool Enabled = true;
 }
