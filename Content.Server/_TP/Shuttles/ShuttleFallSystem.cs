@@ -4,12 +4,14 @@ using Robust.Shared.Map;
 using Content.Server._TP.Shuttles_components;
 using Content.Server.Shuttles.Systems;
 using Content.Shared.Shuttles.Systems;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._TP.Shuttles;
 
 public sealed class ShuttleFallSystem : EntitySystem
 {
     [Dependency] private readonly ThrusterSystem _thruster = default!;
+    [Dependency] private readonly IEntityManager _entityManager = default!;
     
     private const float UpdateInterval = 5f; // Interval in seconds
     private float _updateTimer = 0f;
@@ -18,7 +20,7 @@ public sealed class ShuttleFallSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShuttleComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<AtmosphericThrusterComponent, ComponentInit>(OnInit);
     }
 
     public override void Update(float frameTime)
@@ -37,10 +39,7 @@ public sealed class ShuttleFallSystem : EntitySystem
                 var entityUid = entity.Owner;
 
                 // Get the map the shuttle is currently on
-                if (!TryComp<TransformComponent>(entityUid, out var transformComponent))
-                    continue;
-
-                var currentMap = transformComponent.MapUid;
+                var currentMap = Transform(entityUid).MapUid;
 
                 // Ensure that the shuttle is in Trieste airspace
                 if (TryComp<TriesteComponent>(currentMap, out var triesteComponent))
@@ -53,19 +52,49 @@ public sealed class ShuttleFallSystem : EntitySystem
                          if (destination != null)
                         {
                           // Fall the shuttle to the waste zone
-                          Transform(owner).Coordinates = Transform(destination.Owner).Coordinates;
+                          Transform(entityUid).Coordinates = Transform(destination.Owner).Coordinates;
                           _thruster.DisableLinearThrusters(entityUid); // The thrusters are waterlogged! Oh no!          
                         }
                     }
                 }
             }
-        }
+
+            foreach (var thruster in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
+            {
+                 var thrusterID = thruster.Owner;
+
+                 FlightCheck(ThrusterID, thruster);
+            }
+         }
     }
 
 
-    private void OnInit(Entity<ShuttleComponent> ent, ref ComponentInit args)
+    private void OnInit(Entity<AtmosphericThrusterComponent> ent, ref ComponentInit args)
     {
+        var shuttle = Transform(ent).GridUid;
 
+        if (ent.Comp.enabled)
+        {
+            EnsureComp<AirFlyingComponent>(shuttle);
+        }
+        else
+        {
+            _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
+        }
+    }
+
+    private void FlightCheck(EntityUid ThrusterID, AtmosphericThrusterComponent thruster)
+    {
+        var shuttle = Transform(ThrusterID).GridUid;
+
+        if (thruster.enabled)
+        {
+            EnsureComp<AirFlyingComponent>(shuttle);
+        }
+        else
+        {
+            _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
+        }
     }
 
 }
