@@ -21,6 +21,8 @@ public sealed class ShuttleFallSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<AtmosphericThrusterComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<DockEvent>(OnDock);
+        SubscribeLocalEvent<UndockEvent>(OnUndock);
     }
 
     public override void Update(float frameTime)
@@ -105,5 +107,19 @@ public sealed class ShuttleFallSystem : EntitySystem
             _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
         }
     }
+
+     private void OnDock(DockEvent args)
+    {
+        if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
+        { 
+            EnsureComp<AirFlyingComponent>(args.GridBUid);
+        }
+   }
+
+      private void OnUndock(UndockEvent args)
+    {
+        
+    }
+
 
 }
