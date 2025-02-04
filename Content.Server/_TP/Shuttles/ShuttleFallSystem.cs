@@ -8,10 +8,13 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Server._TP.Shuttles;
 
-// Summary //
+// Summary//
 // This system allows shuttles to fly in the atmosphere of Trieste if they have a specific atmospheric thruster.
-// It checks every 5 seconds TODO CONTINUE
-// Summary //
+// It checks every 5 seconds for two things: Shuttles that are flying in the air in Trieste airspace, and the state of the shuttle's thrusters.
+// It uses these to see whether a shuttle will fall into the Waste Zone and have it's engines waterlogged (offline), or allow it to fly in atmosphere.
+// This will allow for things such as a cargo shuttle that navigates from Trieste to some sort of spacial trading station, Caskies invasion crafts, pirate raids, air combat in VTOL fighters, etc.
+// Example: If you shoot off the engines of a VTOL shuttle, or EMP it, it will fall from the sky into the ocean surface.
+// Summary//
 public sealed class ShuttleFallSystem : EntitySystem
 {
     [Dependency] private readonly ThrusterSystem _thruster = default!;
