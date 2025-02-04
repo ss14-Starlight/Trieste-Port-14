@@ -1,6 +1,7 @@
 using Content.Server.Shuttles.Components;
 using Content.Shared.Gravity;
 using Robust.Shared.Map;
+using Content.Server._TP.Shuttles_components;
 
 namespace Content.Server._TP.Shuttles;
 
