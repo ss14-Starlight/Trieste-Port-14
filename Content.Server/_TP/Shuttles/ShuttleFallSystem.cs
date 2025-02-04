@@ -105,6 +105,7 @@ public sealed class ShuttleFallSystem : EntitySystem
         var shuttle = Transform(ent).GridUid;
 
         // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
+        Log.Info("Added AirFlyingComponent");
         EnsureComp<AirFlyingComponent>(shuttle);
 
     }
@@ -117,6 +118,7 @@ public sealed class ShuttleFallSystem : EntitySystem
         // If the thruster is on, yeehaw. The shuttle is flying
         if (thruster.IsOn)
         {
+            Log.Info("Shuttle is flying");
             atmoThruster.Enabled = true;
             atmoThruster.IsFlying = true;
             EnsureComp<AirFlyingComponent>(shuttle);
@@ -124,6 +126,7 @@ public sealed class ShuttleFallSystem : EntitySystem
         else
         {
             // If it's off... Uh-oh. You might be screwed.
+            Log.Info("Shuttle is unable to fly");
             atmoThruster.Enabled = false;
             atmoThruster.IsFlying = false;
             _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
@@ -135,8 +138,9 @@ public sealed class ShuttleFallSystem : EntitySystem
         if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
         { 
             // If the ship you are docking to is flying, allow safe disablement of atmospheric thrusters.
-            if (TryComp<AirFlyingComponent>(args.GridAUid, out var childShip) && dockedShip.IsFlying)
+            if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip) && dockedShip.IsFlying)
             { 
+                Log.Info("Docked to a flying ship");
                 childShip.DockedToFlier = true;
             }
         }
@@ -147,8 +151,9 @@ public sealed class ShuttleFallSystem : EntitySystem
          if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
         { 
             // When you undock from your parent ship, disables the safety net. Make sure atmospheric thrusters are online before undocking.
-            if (TryComp<AirFlyingComponent>(args.GridAUid, out var childShip))
+            if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip))
             { 
+                Log.Info("Undocked from a flying ship");
                 childShip.DockedToFlier = false;
             }
         }
