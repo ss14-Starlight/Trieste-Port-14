@@ -59,11 +59,16 @@ public sealed class ShuttleFallSystem : EntitySystem
                 }
             }
 
-            foreach (var thruster in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
+            foreach (var thruster in EntityManager.EntityQuery<ThrusterComponent>())
             {
+                 // Find thrusters
                  var thrusterID = thruster.Owner;
 
-                 FlightCheck(ThrusterID, thruster);
+                 // Are those thrusters atmospheric?
+                 if (TryComp<AtmosphericThrusterComponent>(currentMap, out var atmoThruster))
+                 {
+                     FlightCheck(ThrusterID, thruster, atmoThruster);
+                 }
             }
          }
     }
@@ -83,16 +88,20 @@ public sealed class ShuttleFallSystem : EntitySystem
         }
     }
 
-    private void FlightCheck(EntityUid ThrusterID, AtmosphericThrusterComponent thruster)
+    private void FlightCheck(EntityUid ThrusterID, ThrusterComponent thruster, AtmosphericThrusterComponent atmoThruster)
     {
         var shuttle = Transform(ThrusterID).GridUid;
 
-        if (thruster.enabled)
+        // If the thruster is on, yeehaw. The shuttle is flying
+        if (thruster.IsOn)
         {
+            atmoThruster.Enabled = true;
             EnsureComp<AirFlyingComponent>(shuttle);
         }
         else
         {
+        // If it's off. Uh-oh.
+            atmoThruster.Enabled = false;
             _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
         }
     }
