@@ -13,8 +13,18 @@ namespace Content.Server._TP.Shuttles;
 // It checks every 5 seconds for two things: Shuttles that are flying in the air in Trieste airspace, and the state of the shuttle's thrusters.
 // It uses these to see whether a shuttle will fall into the Waste Zone and have it's engines waterlogged (offline), or allow it to fly in atmosphere.
 // This will allow for things such as a cargo shuttle that navigates from Trieste to some sort of orbital trading station, Caskies invasion crafts, pirate raids, air combat in VTOL fighters, etc.
-// Example: If you shoot off the engines off a VTOL shuttle, or EMP it, it will fall from the sky into the ocean surface.
+// Example: If you shoot off the engines of a VTOL shuttle or EMP it, it will fall from the sky into the ocean surface.
 // Summary//
+
+
+// TODOS:
+// Make the crew onboard the ship get knocked over when the ship falls.
+// Make it so docking to Trieste prevents falling. 
+// Small explosions across shuttle when it crashes.
+// Make atmospheric thrusters turn off in space.
+// Special sound effect for moving from air to space (muech louder helicoper buzzing)
+// Add docks to Trieste to allow these vessels to properly dock.
+
 public sealed class ShuttleFallSystem : EntitySystem
 {
     [Dependency] private readonly ThrusterSystem _thruster = default!;
