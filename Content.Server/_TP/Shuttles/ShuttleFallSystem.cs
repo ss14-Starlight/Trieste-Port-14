@@ -2,12 +2,15 @@ using Content.Server.Shuttles.Components;
 using Content.Shared.Gravity;
 using Robust.Shared.Map;
 using Content.Server._TP.Shuttles_components;
+using Content.Server.Shuttles.Systems;
+using Content.Shared.Shuttles.Systems;
 
 namespace Content.Server._TP.Shuttles;
 
 public sealed class ShuttleFallSystem : EntitySystem
 {
-
+    [Dependency] private readonly ThrusterSystem _thruster = default!;
+    
     private const float UpdateInterval = 5f; // Interval in seconds
     private float _updateTimer = 0f;
 
@@ -26,7 +29,6 @@ public sealed class ShuttleFallSystem : EntitySystem
 
         if (_updateTimer >= UpdateInterval)
         {
-            // Reset the timer to prevent continual updates.
             _updateTimer = 0f;
 
             foreach (var entity in EntityManager.EntityQuery<ShuttleComponent>())
@@ -43,10 +45,17 @@ public sealed class ShuttleFallSystem : EntitySystem
                 // Ensure that the shuttle is in Trieste airspace
                 if (TryComp<TriesteComponent>(currentMap, out var triesteComponent))
                 {
-                    // Does it have atmospheric thrusters? No? Time to fall!
+                    // Does it have atmospheric thrusters? No? Time to fall! NEAWWWWWWWWW!!!
                     if (!TryComp<AirFlyingComponent>(entityUid, out var flight))
                     {
-                        Log.Info("It be falling because no engines, SHITE!!");
+                         Log.Info("It be falling because no engines, SHITE!!");
+                         var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
+                         if (destination != null)
+                        {
+                          // Fall the shuttle to the waste zone
+                          Transform(owner).Coordinates = Transform(destination.Owner).Coordinates;
+                          _thruster.DisableLinearThrusters(entityUid); // The thrusters are waterlogged! Oh no!          
+                        }
                     }
                 }
             }
