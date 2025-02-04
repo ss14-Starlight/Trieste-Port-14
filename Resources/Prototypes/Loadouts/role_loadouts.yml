@@ -34,7 +34,6 @@
 - type: roleLoadout
   id: JobPassenger
   groups:
-  - GroupTankHarness
   - PassengerJumpsuit
   - CommonBackpack
   - PassengerNeck
@@ -344,6 +343,7 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobWarden
@@ -358,6 +358,7 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobSecurityOfficer
@@ -373,6 +374,7 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobDetective
@@ -387,6 +389,7 @@
   - Trinkets
   - SecurityStar
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobSecurityCadet
@@ -396,6 +399,7 @@
   - SurvivalSecurity
   - Trinkets
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
 
 # Medical
 - type: roleLoadout
@@ -414,6 +418,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobMedicalDoctor
@@ -431,6 +436,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobMedicalIntern
@@ -442,6 +448,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobChemist
@@ -456,6 +463,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
 
 - type: roleLoadout
   id: JobParamedic
@@ -472,6 +480,7 @@
   - SurvivalMedical
   - Trinkets
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
 
 # Wildcards
 - type: roleLoadout
@@ -552,6 +561,7 @@
   groups:
   - SurvivalMedical
   - GroupSpeciesBreathToolMedical
+  - GroupSpeciesBreathTool
   - GroupTankHarness
 
 - type: roleLoadout
@@ -559,6 +569,7 @@
   groups:
   - SurvivalSecurity
   - GroupSpeciesBreathToolSecurity
+  - GroupSpeciesBreathTool
   - GroupTankHarness
 
 - type: roleLoadout
