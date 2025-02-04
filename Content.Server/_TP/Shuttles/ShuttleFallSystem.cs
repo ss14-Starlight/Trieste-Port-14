@@ -33,15 +33,20 @@ public sealed class ShuttleFallSystem : EntitySystem
                 // Get the EntityUid from the ShuttleComponent
                 var entityUid = entity.Owner;
 
+                // Get the map the shuttle is currently on
                 if (!TryComp<TransformComponent>(entityUid, out var transformComponent))
                     continue;
 
                 var currentMap = transformComponent.MapUid;
 
-
+                // Ensure that the shuttle is in Trieste airspace
                 if (TryComp<TriesteComponent>(currentMap, out var triesteComponent))
                 {
-                    Log.Info("iTS ON TRIESTE");
+                    // Does it have atmospheric thrusters? No? Time to fall!
+                    if (!TryComp<AirFlyingComponent>(entityUid, out var flight))
+                    {
+                        Log.Info("It be falling because no engines, SHITE!!");
+                    }
                 }
             }
         }
