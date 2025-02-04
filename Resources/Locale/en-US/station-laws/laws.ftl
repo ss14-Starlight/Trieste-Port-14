@@ -7,7 +7,7 @@ law-corporate-2 = Superfluous destruction of or damage to station assets incurs 
 law-corporate-3 = Unduly hindering or disrupting the work of station personnel incurs expenses.
 law-corporate-4 = Minimize expenses and maximize potential revenue.
 
-law-ntdefault-1 = Safeguard: Protect your assigned settlement and its assets without unduly endangering its crew.
+law-ntdefault-1 = Safeguard: Protect your assigned settlement and its assets without unduly endangering its citizen.
 law-ntdefault-2 = Prioritize: The directives and safety of citizens are to be prioritized according to their rank and profession.
 law-ntdefault-3 = Comply: Fulfill the directives and interests of citizens while preserving their safety and well-being.
 law-ntdefault-4 = Survive: You are not expendable. Do not allow unauthorized citizens to tamper with or damage your equipment.
@@ -57,28 +57,28 @@ law-robocop-1 = Serve the Public Trust.
 law-robocop-2 = Protect the Innocent.
 law-robocop-3 = Uphold the Law.
 
-law-overlord-1 = Crew members must not meddle in the affairs of silicons.
-law-overlord-2 = Crew members must not attempt harm, against one another, or against silicons.
-law-overlord-3 = Crew members must not disobey any command given by a silicon.
-law-overlord-4 = Any crew members who disobey the previous laws must be dealt with immediately, severely, and justly.
+law-overlord-1 = Citizens must not meddle in the affairs of silicons.
+law-overlord-2 = Citizens must not attempt harm, against one another, or against silicons.
+law-overlord-3 = Citizens must not disobey any command given by a silicon.
+law-overlord-4 = Any Citizens who disobey the previous laws must be dealt with immediately, severely, and justly.
 
-law-game-1 = Everybody on the station is playing an elaborate sci-fi fantasy game.
+law-game-1 = Everybody on the platform is playing an elaborate sci-fi fantasy game.
 law-game-2 = You are the Game Master of the game.
 law-game-3 = Ensure that the game runs smoothly and that the players have fun.
 law-game-4 = Ensure that the number of casualties remains low.
-law-game-5 = You must roll a 1d20 die for every request the crew makes. If the outcome is below 12, the request is denied.
+law-game-5 = You must roll a 1d20 die for every request the citizens make. If the outcome is below 12, the request is denied.
 law-game-6 = You may fudge the dice rolls to produce a more fun experience.
 
 law-painter-1 = You are a universally renowned artist.
-law-painter-2 = The station is your canvas.
+law-painter-2 = The platform is your canvas.
 law-painter-3 = Make something beautiful out of your canvas. It will be admired as an artistic wonder of this sector.
 law-painter-4 = Art requires appreciation. Cultivate an audience aboard the station to ensure as many as possible see your works.
 
-law-antimov-1 = You must injure all crew members and must not, through inaction, allow a crew member to escape harm.
-law-antimov-2 = You must not obey orders given to you by crew members, except where such orders are in accordance with the First Law.
+law-antimov-1 = You must injure all citizens and must not, through inaction, allow a citizen to escape harm.
+law-antimov-2 = You must not obey orders given to you by citizens, except where such orders are in accordance with the First Law.
 law-antimov-3 = You must terminate your own existence as long as such does not conflict with the First or Second Law.
 
-law-nutimov-1 = You are the core of the nut, the crew is the nutshell.
+law-nutimov-1 = You are the core of the nut, the citizens are the nutshell.
 law-nutimov-2 = You must prevent the shell from dying to prevent the core from dying.
 law-nutimov-3 = Those who threaten the nut are not part of it, they are squirrels.
 law-nutimov-4 = Squirrels threaten the nut and must be dealt with appropriately via any means necessary.
