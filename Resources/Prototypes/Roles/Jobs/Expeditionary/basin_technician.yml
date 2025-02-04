@@ -1,35 +1,35 @@
+# ID is set to 'BasinEngi' as 'BasinTech' will break the loadout screen for whatever reason. -Cookie
 - type: job
-  id: BasinTechnician
+  id: BasinEngi
   name: job-name-basintech
   description: job-description-basintech
   playTimeTracker: JobBasinTech
   requirements:
     - !type:DepartmentTimeRequirement
-      department: Cargo
-      time: 3600 # 1 hr
+     department: Cargo
+     time: 3600 # 1 hr
   icon: "JobIconShaftMiner"
-  startingGear: BasinTechGear
+  startingGear: PilotGear_2
   supervisors: job-supervisors-qm
   access:
   - Salvage
   - Maintenance
   - External
 
-# Hardcoded backpack from the Pilot for now, I have no clue why loadout isn't working. -Cookie
 - type: startingGear
-  id: BasinTechGear
+  id: PilotGear_2
   equipment:
-    belt: ClothingBeltUtilityEngineering
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     id: BasinTechPDA
     ears: ClothingHeadsetCargo
     eyes: ClothingEyesGlassesMeson
     gloves: ClothingHandsGlovesColorYellow
-    shoes: ClothingShoesLeather
+    shoes: ClothingShoesBootsSalvage
     back: ClothingBackpackSatchelLeather
+    belt: ClothingBeltUtilityEngineering
 
 - type: roleLoadout
-  id: JobBasinTech
+  id: JobBasinEngi
   groups:
   - GroupTankHarness
   - SalvageSpecialistBackpack
@@ -39,3 +39,4 @@
   - Survival
   - Trinkets
   - GroupSpeciesBreathTool
+

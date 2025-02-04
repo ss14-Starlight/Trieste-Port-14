@@ -220,7 +220,6 @@
   - Trinkets
   - GroupSpeciesBreathTool
 
-# Expeditionary
 - type: roleLoadout
   id: JobSalvageSpecialist
   groups:
