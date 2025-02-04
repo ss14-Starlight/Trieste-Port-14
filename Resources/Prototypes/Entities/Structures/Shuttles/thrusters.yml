@@ -239,7 +239,7 @@
   id: AtmosphericThruster
   name: atmospheric thruster
   parent: [ BaseThruster, ConstructibleMachine ]
-  description: A propeller that allows a craft to over in atmospheric conditions. Essential for in-atmosphere flight.
+  description: A propeller that allows a craft to hover in atmospheric conditions. Essential for in-atmosphere flight.
   components:
   - type: Machine
     board: ThrusterMachineCircuitboard # Change this later to use it's own board
