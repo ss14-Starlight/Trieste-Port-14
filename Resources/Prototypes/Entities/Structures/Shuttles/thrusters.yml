@@ -245,15 +245,15 @@
     board: ThrusterMachineCircuitboard # Change this later to use it's own board
   - type: AtmosphericThruster
   - type: AmbientSound
-      enabled: false
-      range: 4
-      volume: -4
-      sound:
-        path: /Audio/Effects/shuttle_thruster.ogg # Changet this to a really loud helicopter
+    enabled: false
+    range: 4
+    volume: -4
+    sound:
+       path: /Audio/Effects/shuttle_thruster.ogg # Changet this to a really loud helicopter
   - type: Thruster
-      damage:
-        types:
-          Slash: 40
+    damage:
+      types:
+        Slash: 40
   - type: Destructible
     thresholds:
     - trigger:

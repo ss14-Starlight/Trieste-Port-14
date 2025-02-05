@@ -5,6 +5,10 @@ using Content.Server._TP.Shuttles_components;
 using Content.Server.Shuttles.Systems;
 using Content.Shared.Shuttles.Systems;
 using Robust.Shared.Prototypes;
+using Content.Server.Shuttles.Events;
+using Content.Server.Falling;
+using System.Linq;
+using Content.Server.Station.Components;
 
 namespace Content.Server._TP.Shuttles;
 
@@ -19,7 +23,7 @@ namespace Content.Server._TP.Shuttles;
 
 // TODOS:
 // Make the crew onboard the ship get knocked over when the ship falls.
-// Make it so docking to Trieste prevents falling. 
+// Make it so docking to Trieste prevents falling.
 // Small explosions across shuttle when it crashes.
 // Make atmospheric thrusters turn off in space.
 // Special sound effect for moving from air to space (muech louder helicoper buzzing)
@@ -29,7 +33,7 @@ public sealed class ShuttleFallSystem : EntitySystem
 {
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
-    
+
     private const float UpdateInterval = 5f; // Interval in seconds
     private float _updateTimer = 0f;
 
@@ -54,14 +58,15 @@ public sealed class ShuttleFallSystem : EntitySystem
 
             foreach (var entity in EntityManager.EntityQuery<ShuttleComponent>())
             {
+                Log.Info("Running check");
                 // Get the EntityUid from the ShuttleComponent
                 var entityUid = entity.Owner;
 
                 // Make sure that the target isn't a station (we don't want Trieste falling into the ocean... yet)
-                if (TryComp<BecomesStationComponent>(entityUid, out var station))
+                if (TryComp<TriesteComponent>(entityUid, out var station))
                  {
                      // IT'S A STATION, ABORT ABORT ABORT
-                     return;
+                     continue;
                  }
 
                 // Get the map the shuttle is currently on
@@ -70,24 +75,22 @@ public sealed class ShuttleFallSystem : EntitySystem
                 // Ensure that the shuttle is in Trieste airspace
                 if (TryComp<TriesteComponent>(currentMap, out var triesteComponent))
                 {
-                    // Does it have atmospheric thrusters on? No? Time to fall! NEAWWWWWWWWW!!!
-                    if (TryComp<AirFlyingComponent>(entityUid, out var flight))
+                    if (TryComp<AirFlyingComponent>(entity.Owner, out var flight))
                     {
+                        Log.Info("Has flying component");
                         // Make sure the ship is actively flying, and is not docked to another flying vessel
                         if (!flight.IsFlying && !flight.DockedToFlier)
                         {
-                        
+
                          // Find where the shuttle will be falling to
                          Log.Info("It be falling, SHITE!!");
                          var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
-                         if (destination != null)
-                        {
-                          // Fall the shuttle to the waste zone
-                          Transform(entityUid).Coordinates = Transform(destination.Owner).Coordinates;
-                          
-                          // The thrusters are waterlogged! Oh no! Guess you better go to Trieste for help...
-                          _thruster.DisableLinearThrusters(entityUid);          
-                        }
+                             if (destination != null)
+                         {
+                              // Fall the shuttle to the waste zone
+                              Transform(entityUid).Coordinates = Transform(destination.Owner).Coordinates;
+
+                         }
                         }
                     }
                 }
@@ -99,12 +102,12 @@ public sealed class ShuttleFallSystem : EntitySystem
                  // Find the thruster's UID for FlightChecks
                  var thrusterID = atmoThruster.Owner;
 
+                 var currentMap = Transform(thrusterID).MapUid;
+
                  // Get the main thruster component and move to flight checks.
-                 if (TryComp<ThrusterComponent>(currentMap, out var thruster))
-                 {
+
                      // Perform flight checks
-                     FlightCheck(ThrusterID, thruster, atmoThruster);
-                 }
+                     FlightCheck(thrusterID, atmoThruster);
             }
          }
     }
@@ -114,42 +117,48 @@ public sealed class ShuttleFallSystem : EntitySystem
     {
         var shuttle = Transform(ent).GridUid;
 
-        // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
-        Log.Info("Added AirFlyingComponent");
-        EnsureComp<AirFlyingComponent>(shuttle);
-
-    }
-
-    private void FlightCheck(EntityUid ThrusterID, ThrusterComponent thruster, AtmosphericThrusterComponent atmoThruster)
-    {
-        // Get the parent shuttle
-        var shuttle = Transform(ThrusterID).GridUid;
-
-        // If the thruster is on, yeehaw. The shuttle is flying
-        if (thruster.IsOn)
+        if (shuttle.HasValue)
         {
-            Log.Info("Shuttle is flying");
-            atmoThruster.Enabled = true;
-            atmoThruster.IsFlying = true;
-            EnsureComp<AirFlyingComponent>(shuttle);
+            // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
+            Log.Info("Added AirFlyingComponent");
+            EnsureComp<AirFlyingComponent>(shuttle.Value);
         }
         else
         {
-            // If it's off... Uh-oh. You might be screwed.
-            Log.Info("Shuttle is unable to fly");
-            atmoThruster.Enabled = false;
-            atmoThruster.IsFlying = false;
-            _entityManager.RemoveComponent<AirFlyingComponent>(shuttle);
+            return;
+        }
+
+    }
+
+    private void FlightCheck(EntityUid thrusterID, AtmosphericThrusterComponent atmoThruster)
+    {
+        // Get the parent shuttle
+        var shuttle = Transform(thrusterID).GridUid;
+
+        if (TryComp<ThrusterComponent>(thrusterID, out var thruster))
+        {
+            // If the thruster is on, yeehaw. The shuttle is flying
+            if (thruster.IsOn) // Make sure to link Thrustercomponent to AtmosphericThrusterComponent's state to let the ship know if it's flying or not.
+            {
+                Log.Info("Shuttle is flying");
+                atmoThruster.Enabled = true;
+            }
+            else
+            {
+                // If it's off... Uh-oh. You might be screwed.
+                Log.Info("Shuttle is unable to fly");
+                atmoThruster.Enabled = false;
+            }
         }
     }
 
      private void OnDock(DockEvent args)
     {
         if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
-        { 
+        {
             // If the ship you are docking to is flying, allow safe disablement of atmospheric thrusters.
             if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip) && dockedShip.IsFlying)
-            { 
+            {
                 Log.Info("Docked to a flying ship");
                 childShip.DockedToFlier = true;
             }
@@ -159,15 +168,15 @@ public sealed class ShuttleFallSystem : EntitySystem
       private void OnUndock(UndockEvent args)
     {
          if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
-        { 
+        {
             // When you undock from your parent ship, disables the safety net. Make sure atmospheric thrusters are online before undocking.
             if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip))
-            { 
+            {
                 Log.Info("Undocked from a flying ship");
                 childShip.DockedToFlier = false;
             }
         }
-        
+
     }
 
 
