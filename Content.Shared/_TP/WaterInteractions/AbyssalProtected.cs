@@ -5,7 +5,7 @@ namespace Content.Shared.Overlays;
 // Summary//
 
 [RegisterComponent]
-public sealed partial class AbyssalSuit : Component
+public sealed partial class AbyssalProtected : Component
 {
 
 }
