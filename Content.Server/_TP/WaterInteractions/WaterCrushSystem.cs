@@ -8,8 +8,9 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using JetBrains.Annotations;
 using Content.Shared.TP.Abyss.Components;
+using Content.Server.Atmos.EntitySystems;
 
-namespace Content.Server.Atmos.EntitySystems;
+namespace Content.Server.TP.Abyss.Systems
 
 /// <summary>
 /// Water heavy. Lots of water hurt. Too much water makes person look like one of those hydraulic press videos on instagram.
