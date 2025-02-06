@@ -5,7 +5,7 @@ namespace Content.Shared.TP.Abyss.Components
 // Summary//
 
 [RegisterComponent]
-public sealed partial class AbyssalProtected : Component
+public sealed partial class AbyssalProtectedComponent : Component
 {
 
 }
