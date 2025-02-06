@@ -1059,4 +1059,4 @@
     sprintModifier: 0.4
   - type: HeldSpeedModifier
   - type: ToggleableClothing
-    clothingPrototype: ClothingHeadHelmetCBURN
+    clothingPrototype: ClothingHeadHelmetAbyssal
