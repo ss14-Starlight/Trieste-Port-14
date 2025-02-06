@@ -7,6 +7,7 @@ using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using JetBrains.Annotations;
+using Content.Shared.TP.Abyss.Components;
 
 namespace Content.Server.Atmos.EntitySystems;
 
@@ -40,6 +41,11 @@ public sealed class WaterCrushSystem : EntitySystem
             continue;
         }
 
+       if (TryComp<AbyssalProtectedComponent>(uid))
+       {
+          continue;
+       }
+        
         if (inGas.InWater && inGas.CrushDepth <= inGas.WaterAmount)
         {
           Log.Info("{uid} is below crush depth. They would die here");
