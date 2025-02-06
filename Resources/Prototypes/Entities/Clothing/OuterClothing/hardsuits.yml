@@ -1034,6 +1034,8 @@
     sprite: Clothing/OuterClothing/Hardsuits/cburn.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Hardsuits/cburn.rsi
+    equipDelay: 20
+    unequipDelay: 20
   - type: AbyssalSuit
   - type: PressureProtection
     highPressureMultiplier: 0.001
