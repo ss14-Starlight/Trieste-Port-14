@@ -53,6 +53,8 @@ public sealed class InGasSystem : EntitySystem
                 throw new Exception("Missing gasId and/or gasThreshold in InGas call");
             }
 
+            inGas.WaterAmount = mixture.GetMoles((int)gasId); // Gets the amount of water around you
+
             return (mixture != null && mixture.GetMoles((int)gasId) >= gasThreshold);
         }
 
