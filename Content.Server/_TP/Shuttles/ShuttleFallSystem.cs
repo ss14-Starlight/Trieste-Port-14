@@ -36,8 +36,12 @@ public sealed class ShuttleFallSystem : EntitySystem
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
 
+    // Timer for fall updates
     private const float UpdateInterval = 5f;
+
+    //Timer for flight checks (thrusters and active flight)
     private const float CheckInterval = 3f; // Interval in seconds
+    
     private float _updateTimer = 0f;
     private float _checkTimer = 0f;
 
@@ -61,6 +65,7 @@ public sealed class ShuttleFallSystem : EntitySystem
         {
             _updateTimer = 0f;
 
+            // Get all shuttles
             foreach (var entity in EntityManager.EntityQuery<ShuttleComponent>())
             {
                 // Get the EntityUid from the ShuttleComponent
@@ -112,9 +117,8 @@ public sealed class ShuttleFallSystem : EntitySystem
                  // Find the thruster's UID for FlightChecks
                  var thrusterID = atmoThruster.Owner;
 
+                // Get this for... some reason? Why am I getting this again?
                  var currentMap = Transform(thrusterID).MapUid;
-
-                 // Get the main thruster component and move to flight checks.
 
                      // Perform flight checks to change thruster states
                      FlightCheck(thrusterID, atmoThruster);
@@ -128,8 +132,12 @@ public sealed class ShuttleFallSystem : EntitySystem
 
     private void OnInit(Entity<AtmosphericThrusterComponent> ent, ref ComponentInit args)
     {
+
+        // Get the shuttle the engine has spawned on
         var shuttle = Transform(ent).GridUid;
 
+
+        // If the shuttle exists, slap the flight-capable component on (save ship mappers some brain-ouches)
         if (shuttle.HasValue)
         {
             // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
@@ -138,6 +146,7 @@ public sealed class ShuttleFallSystem : EntitySystem
         }
         else
         {
+            // If it's floating in space, somethings wrong because it should be falling but whatever
             return;
         }
 
@@ -148,6 +157,8 @@ public sealed class ShuttleFallSystem : EntitySystem
         // Get the parent shuttle
         var shuttle = Transform(thrusterID).GridUid;
 
+
+        // If that shuttle somehow doesn't have the component, cry.
         if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
         {
             return;
@@ -175,33 +186,38 @@ public sealed class ShuttleFallSystem : EntitySystem
         // Get the parent shuttle
         var shuttle = Transform(thrusterID).GridUid;
 
-        // If it somehow doesn't have the component, break.
+        // If it somehow doesn't have the component, return.
         if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
         {
             Log.Error("Parent shuttle does not have AirFlyingComponent.");
-            return;
+            return; // FROM WHENCE YOU CAME
         }
 
         // Temporarily set IsFlying to false
         flyingComp.IsFlying = false;
 
-        // Check every atmospheric thruster to see if it is enabled.
+        // Check every atmospheric thruster to see if it is enabled. Is it a bit intensive? Yes. Do I know how to code it better? Haha, absolutely not!!
         foreach (var engine in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
             {
                 // If this engine does not belong to the shuttle we are processing, skip it.
                 if (Transform(engine.Owner).GridUid != shuttle)
                 {
+                    // Wrong shuttle, try again.
                     continue;
                 }
 
                 // If at least one thruster is working on the shuttle, cut the loop short and set it as flying.
                 if (engine.Enabled)
                 {
+
+                    // Neawwww, you're flying!! I beliiieve i can flyyyy...
                     flyingComp.IsFlying = true;
-                    break;
+                    
+                    break; // <---- I could really use one of these
                 }
 
                 // If there are no thrusters that are enabled on the shuttle, IsFlying stays off, in which it will fall.
+                // Also maybe intensive but, again, i'm awful at coding.
             }
     }
 
