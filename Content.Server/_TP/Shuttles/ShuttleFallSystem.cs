@@ -33,6 +33,7 @@ public sealed class ShuttleFallSystem : EntitySystem
 {
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly ShuttleSystem _shuttle = default!;
 
     private const float UpdateInterval = 5f; // Interval in seconds
     private float _updateTimer = 0f;
@@ -88,8 +89,10 @@ public sealed class ShuttleFallSystem : EntitySystem
                              if (destination != null)
                          {
                               // Fall the shuttle to the waste zone
-                              Transform(entityUid).Coordinates = Transform(destination.Owner).Coordinates;
-
+                              var targetAngle = 5f; // Set up the FTL params
+                              var startFall = 0f;
+                              var endFall = 0f;
+                              _shuttle.FTLToCoordinates(entity.Owner, entity, Transform(destination.Owner).Coordinates, targetAngle, startFall, endFall); // Insta-FTL the shuttle to the waste zone
                          }
                         }
                     }
