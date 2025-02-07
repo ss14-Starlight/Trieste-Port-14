@@ -10,7 +10,7 @@ using JetBrains.Annotations;
 using Content.Shared.TP.Abyss.Components;
 using Content.Server.Atmos.EntitySystems;
 
-namespace Content.Server.TP.Abyss.Systems
+namespace Content.Server.TP.Abyss.Systems;
 
 /// <summary>
 /// Water heavy. Lots of water hurt. Too much water makes person look like one of those hydraulic press videos on instagram.
@@ -37,16 +37,9 @@ public sealed class WaterCrushSystem : EntitySystem
     var enumerator = EntityQueryEnumerator<InGasComponent, DamageableComponent>();
     while (enumerator.MoveNext(out var uid, out var inGas, out var damageable))
     {
-        if (!inGas.DamagedByGas)
-        {
+        if (!TryComp<AbyssalProtectedComponent>(uid, out var abyssalProtected))
             continue;
-        }
 
-       if (TryComp<AbyssalProtectedComponent>(uid))
-       {
-          continue;
-       }
-        
         if (inGas.InWater && inGas.CrushDepth <= inGas.WaterAmount)
         {
           Log.Info("{uid} is below crush depth. They would die here");

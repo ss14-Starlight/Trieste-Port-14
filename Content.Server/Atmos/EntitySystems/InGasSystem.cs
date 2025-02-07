@@ -41,25 +41,33 @@ public sealed class InGasSystem : EntitySystem
         return (mixture != null && mixture.GetMoles(inGas.GasId) >= inGas.GasThreshold);
     }
 
-     public bool InWater(EntityUid uid, int? gasId = 9, float? gasThreshold = 60)
+     public bool InWater(EntityUid uid, int? gasId = 9)
     {
         var mixture = _atmo.GetContainingMixture(uid);
         var inGas = EntityManager.GetComponent<InGasComponent>(uid);
-        //Use provided data if no component present
-        if (inGas == null)
+
+        if (mixture == null)
         {
-            if (gasId == null || gasThreshold == null)
-            {
-                throw new Exception("Missing gasId and/or gasThreshold in InGas call");
-            }
-
-            inGas.WaterAmount = mixture.GetMoles((int)gasId); // Gets the amount of water around you
-
-            return (mixture != null && mixture.GetMoles((int)gasId) >= gasThreshold);
+            Log.Info("false 1");
+            return false;
         }
 
-        //If we are not in the gas return false, else true
-        return (mixture != null && mixture.GetMoles(inGas.GasId) >= inGas.GasThreshold);
+        if (!gasId.HasValue)
+        {
+            Log.Info("false 2");
+            return false;
+        }
+
+        if (mixture.GetMoles(Gas.Water) > 0f)
+        {
+            Log.Info("Is in water! true!");
+            inGas.WaterAmount = mixture.GetMoles(Gas.Water); // Gets the amount of water around you
+            return true;
+        }
+
+        Log.Info("false 4");
+        inGas.WaterAmount = mixture.GetMoles(Gas.Water);
+        return false;
     }
 
    public override void Update(float frameTime)
@@ -81,18 +89,7 @@ public sealed class InGasSystem : EntitySystem
 
         // Check if the entity is in water
         bool currentlyInWater = InWater(uid);
-
-            // Update the water state in the component
-
-            // Raise the event depending on whether it's entering or exiting water
-            if (currentlyInWater)
-            {
-                RaiseLocalEvent(new InWaterEvent(uid));
-            }
-            else
-            {
-                RaiseLocalEvent(new OutOfWaterEvent(uid));
-            }
+        inGas.InWater = currentlyInWater;
 
         if (!currentlyInWater)
         {

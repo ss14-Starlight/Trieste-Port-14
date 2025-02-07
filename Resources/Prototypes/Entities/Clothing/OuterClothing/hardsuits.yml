@@ -1036,10 +1036,10 @@
     sprite: Clothing/OuterClothing/Hardsuits/cburn.rsi
     equipDelay: 20
     unequipDelay: 20
-  - type: AbyssalSuit
   - type: PressureProtection
     highPressureMultiplier: 0.001
     lowPressureMultiplier: 1000
+  - type: AbyssalSuit
   - type: TemperatureProtection
     heatingCoefficient: 0.001
     coolingCoefficient: 0.001
@@ -1051,10 +1051,10 @@
         Blunt: 0.5
         Slash: 0.6
         Piercing: 0.6
-        Heat: 0.1
+        Heat: 0.4
         Cold: 0.1
         Shock: 0.3
-        Radiation: 0.1
+        Radiation: 0.2
         Caustic: 0.4
   - type: ClothingSpeedModifier
     walkModifier: 0.5

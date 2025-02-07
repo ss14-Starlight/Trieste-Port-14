@@ -195,7 +195,9 @@
     gasId: 9 # short-circuits in water
     damagedByGas: false
     gasThreshold: 9999
-    # crushDepth: 200
+    damage:
+      types:
+        Shock: 5
   - type: Vocal
     sounds:
       Male: MaleHuman

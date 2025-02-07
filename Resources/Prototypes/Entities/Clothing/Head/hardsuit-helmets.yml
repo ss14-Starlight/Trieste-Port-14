@@ -771,6 +771,7 @@
       visible: false
       shader: unshaded
       map: [ "light" ]
+  - type: AbyssalSuit
   - type: Clothing
     clothingVisuals:
       head:
