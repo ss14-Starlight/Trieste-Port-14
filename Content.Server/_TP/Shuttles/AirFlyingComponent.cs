@@ -7,12 +7,9 @@ namespace Content.Server._TP.Shuttles_components;
 public sealed partial class AirFlyingComponent : Component
 {
     [DataField]
-    public bool IsFlying;
+    public bool IsFlying; // Is the shuttle flying?
 
     [DataField]
-    public bool Enabled;
-
-    [DataField]
-    public bool DockedToFlier;
+    public bool DockedToFlier; // Is it docked to another Flyer?
     
 }
