@@ -48,25 +48,21 @@ public sealed class InGasSystem : EntitySystem
 
         if (mixture == null)
         {
-            Log.Info("false 1");
             return false;
         }
 
         if (!gasId.HasValue)
         {
-            Log.Info("false 2");
             return false;
         }
 
-        if (mixture.GetMoles(Gas.Water) > 0f)
+        if (mixture.GetMoles(Gas.Water) > 2f)
         {
-            Log.Info("Is in water! true!");
             inGas.WaterAmount = mixture.GetMoles(Gas.Water); // Gets the amount of water around you
             return true;
         }
 
-        Log.Info("false 4");
-        inGas.WaterAmount = mixture.GetMoles(Gas.Water);
+        inGas.WaterAmount = 0f;
         return false;
     }
 
@@ -82,14 +78,16 @@ public sealed class InGasSystem : EntitySystem
     var enumerator = EntityQueryEnumerator<InGasComponent, DamageableComponent>();
     while (enumerator.MoveNext(out var uid, out var inGas, out var damageable))
     {
+
+        bool currentlyInWater = InWater(uid);
+        inGas.InWater = currentlyInWater;
+
         if (!inGas.DamagedByGas)
         {
             continue;
         }
 
         // Check if the entity is in water
-        bool currentlyInWater = InWater(uid);
-        inGas.InWater = currentlyInWater;
 
         if (!currentlyInWater)
         {

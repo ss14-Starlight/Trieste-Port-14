@@ -140,13 +140,11 @@ public sealed class ShuttleFallSystem : EntitySystem
             // If the thruster is on, yeehaw. The shuttle is flying
             if (thruster.IsOn) // Make sure to link Thrustercomponent to AtmosphericThrusterComponent's state to let the ship know if it's flying or not.
             {
-                Log.Info("Shuttle is flying");
                 atmoThruster.Enabled = true;
             }
             else
             {
                 // If it's off... Uh-oh. You might be screwed.
-                Log.Info("Shuttle is unable to fly");
                 atmoThruster.Enabled = false;
             }
         }

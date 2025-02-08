@@ -1,49 +1,53 @@
-﻿using Content.Server.Administration.Logs;
-using Content.Server.Atmos.Components;
-using Content.Shared.Alert;
-using Content.Shared.Atmos;
+﻿using Content.Server.Atmos.Components;
 using Content.Shared.Damage;
-using Content.Shared.Database;
-using Content.Shared.FixedPoint;
-using Content.Shared.Interaction;
-using JetBrains.Annotations;
 using Content.Shared.TP.Abyss.Components;
-using Content.Server.Atmos.EntitySystems;
 
 namespace Content.Server.TP.Abyss.Systems;
 
 /// <summary>
 /// Water heavy. Lots of water hurt. Too much water makes person look like one of those hydraulic press videos on instagram.
+/// In real terms, this system measures the "depth" of objects, and relates it to their designated crush depths.
+/// If you are deeper than your crush depth and don't have an abyssal hardsuit on. Ruh roh.
 /// </summary>
 public sealed class WaterCrushSystem : EntitySystem
 {
     private const float UpdateTimer = 1f;
     private float _timer = 0f;
-    [Dependency] private readonly AtmosphereSystem _atmo = default!;
-    [Dependency] private readonly AlertsSystem _alerts = default!;
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IAdminLogManager _adminLog = default!;
 
+    [Dependency] private readonly DamageableSystem _damageable = default!;
 
  public override void Update(float frameTime)
 {
     _timer += frameTime;
 
-    if (_timer < UpdateTimer)
-        return;
-
-    _timer -= UpdateTimer;
-
-    var enumerator = EntityQueryEnumerator<InGasComponent, DamageableComponent>();
-    while (enumerator.MoveNext(out var uid, out var inGas, out var damageable))
+    if (_timer >= UpdateTimer)
     {
-        if (!TryComp<AbyssalProtectedComponent>(uid, out var abyssalProtected))
-            continue;
-
-        if (inGas.InWater && inGas.CrushDepth <= inGas.WaterAmount)
+        // Check all objects affected by water
+        foreach (var inGas in EntityManager.EntityQuery<InGasComponent>())
         {
-          Log.Info("{uid} is below crush depth. They would die here");
+            var uid = inGas.Owner;
+
+
+            // Ignore those wearing abyssal hardsuits
+            if (TryComp<AbyssalProtectedComponent>(uid, out var abyssalProtected))
+            {
+                continue;
+            }
+
+            if (inGas.InWater)
+            {
+                if (inGas.CrushDepth < inGas.WaterAmount)
+                {
+                    // DIE.
+                    var damage = new DamageSpecifier
+                    {
+                        DamageDict = { ["Blunt"] = 35f }
+                    };
+                    _damageable.TryChangeDamage(uid, damage, origin: uid);
+                }
+            }
         }
+        _timer = 0f;
     }
 }
 }

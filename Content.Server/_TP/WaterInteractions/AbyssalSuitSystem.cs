@@ -28,11 +28,13 @@ namespace Content.Server.TP.Abyss.Systems
 
     private void OnEquipped(Entity<AbyssalSuitComponent> ent, ref GotEquippedEvent args)
     {
+        // On equip, protect the user from abyssal pressures.
         EnsureComp<AbyssalProtectedComponent>(args.Equipee);
     }
 
     private void OnUnequipped(Entity<AbyssalSuitComponent> ent, ref GotUnequippedEvent args)
     {
+        // On unequip, make the user able to be crushed.
         _entityManager.RemoveComponent<AbyssalProtectedComponent>(args.Equipee);
     }
 }
