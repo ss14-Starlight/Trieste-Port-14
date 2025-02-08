@@ -161,7 +161,7 @@
   suffix: Trench bell, Filled
   components:
   - type: GridFill
-    path: /Maps/Shuttles/arrivals.yml
+    path: /Maps/Shuttles/trenchBell.yml
     addComponents:
     - type: IFF
       flags:

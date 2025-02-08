@@ -1031,9 +1031,9 @@
   description: A integrated hardframe pressure suit that mechanically advances the user to protect them from lethal depths. Extremely difficult to operate.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Hardsuits/cburn.rsi
+    sprite: Clothing/OuterClothing/Hardsuits/abyssal.rsi
   - type: Clothing
-    sprite: Clothing/OuterClothing/Hardsuits/cburn.rsi
+    sprite: Clothing/OuterClothing/Hardsuits/abyssal.rsi
     equipDelay: 20
     unequipDelay: 20
   - type: PressureProtection
