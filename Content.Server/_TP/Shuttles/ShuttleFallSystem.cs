@@ -9,6 +9,9 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Falling;
 using System.Linq;
 using Content.Server.Station.Components;
+using Robust.Server.GameObjects;
+using Robust.Shared.Random;
+
 
 namespace Content.Server._TP.Shuttles;
 
@@ -35,13 +38,16 @@ public sealed class ShuttleFallSystem : EntitySystem
     [Dependency] private readonly ThrusterSystem _thruster = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly ShuttleSystem _shuttle = default!;
+    [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly MapSystem _mapSystem = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
 
     // Timer for fall updates
-    private const float UpdateInterval = 5f;
+    private const float UpdateInterval = 6f; // This should help maybe with uhh, making sure it doesnt fall immediately.
 
     //Timer for flight checks (thrusters and active flight)
-    private const float CheckInterval = 3f; // Interval in seconds
-    
+    private const float CheckInterval = 2f; // Interval in seconds
+
     private float _updateTimer = 0f;
     private float _checkTimer = 0f;
 
@@ -73,10 +79,11 @@ public sealed class ShuttleFallSystem : EntitySystem
 
                 // Make sure that the target isn't a station (we don't want Trieste falling into the ocean... yet)
                 if (TryComp<TriesteComponent>(entityUid, out var station))
-                 {
-                     // IT'S A STATION, ABORT ABORT ABORT
-                     continue;
-                 }
+                {
+                    // IT'S A STATION, ABORT ABORT ABORT
+                    continue;
+                }
+
 
                 // Get the map the shuttle is currently on
                 var currentMap = Transform(entityUid).MapUid;
@@ -86,118 +93,135 @@ public sealed class ShuttleFallSystem : EntitySystem
                 {
                     if (TryComp<AirFlyingComponent>(entity.Owner, out var flight))
                     {
+                        if (flight.FirstTimeLoad)
+                        {
+                            flight.FirstTimeLoad = false; // thats all i had to do LOL i dont need to remove the component
+                            return;
+                        }
+
                         Log.Info("Has flying component");
                         // Make sure the ship is actively flying, and is not docked to another flying vessel
                         if (!flight.IsFlying && !flight.DockedToFlier)
                         {
 
-                         // Find where the shuttle will be falling to
-                         Log.Info("It be falling, SHITE!!");
-                         var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
-                             if (destination != null)
-                         {
-                              // Fall the shuttle to the waste zone
-                              var targetAngle = 5f; // Set up the FTL params
-                              var startFall = 0f;
-                              var endFall = 0f;
-                              // Insta-FTL the shuttle to the waste zone
-                              _shuttle.FTLToCoordinates(entity.Owner, entity, Transform(destination.Owner).Coordinates, targetAngle, startFall, endFall); 
-                         }
+                            // Find where the shuttle will be falling to
+                            Log.Info("It be falling, SHITE!!");
+                            var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
+                            if (destination != null)
+                            {
+                                var targetMap = Transform(destination.Owner).MapID;
+                                var coords = Transform(destination.Owner).Coordinates;
+                                var mapCoordinates = _transform.ToMapCoordinates(coords);
+                                var mapUid = _mapSystem.GetMap(targetMap);
+
+                                var offsetx = _random.NextFloat(0.0f, 40.0f);
+                                var offsety = _random.NextFloat(0.0f, 40.0f);
+                                var newcoordx = offsetx;
+                                var newcoordy = offsety;
+
+
+                                _transform.SetCoordinates(entityUid,
+                                    Transform(entityUid),
+                                    new EntityCoordinates(mapUid, newcoordx, newcoordy));
+                            }
                         }
                     }
                 }
             }
         }
-            if (_updateTimer >= CheckInterval)
+
+        if (_updateTimer >= CheckInterval)
         {
 
             // Get each atmospheric thruster on the map for flight checks
             foreach (var atmoThruster in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
             {
-                 // Find the thruster's UID for FlightChecks
-                 var thrusterID = atmoThruster.Owner;
+                // Find the thruster's UID for FlightChecks
+                var thrusterID = atmoThruster.Owner;
 
                 // Get this for... some reason? Why am I getting this again?
-                 var currentMap = Transform(thrusterID).MapUid;
+                var currentMap = Transform(thrusterID).MapUid;
 
-                     // Perform flight checks to change thruster states
-                     FlightCheck(thrusterID, atmoThruster);
+                // Perform flight checks to change thruster states
+                FlightCheck(thrusterID, atmoThruster);
 
-                     // Use the now-changed thruster states to see if a ship is flying.
-                     FlyCheck(thrusterID, atmoThruster);
+                // Use the now-changed thruster states to see if a ship is flying.
+                FlyCheck(thrusterID, atmoThruster);
             }
+
             _checkTimer = 0f;
+        }
     }
 
 
     private void OnInit(Entity<AtmosphericThrusterComponent> ent, ref ComponentInit args)
-    {
-
-        // Get the shuttle the engine has spawned on
-        var shuttle = Transform(ent).GridUid;
-
-
-        // If the shuttle exists, slap the flight-capable component on (save ship mappers some brain-ouches)
-        if (shuttle.HasValue)
         {
-            // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
-            Log.Info("Added AirFlyingComponent");
-            EnsureComp<AirFlyingComponent>(shuttle.Value);
-        }
-        else
-        {
-            // If it's floating in space, somethings wrong because it should be falling but whatever
-            return;
-        }
 
-    }
-
-    private void FlightCheck(EntityUid thrusterID, AtmosphericThrusterComponent atmoThruster)
-    {
-        // Get the parent shuttle
-        var shuttle = Transform(thrusterID).GridUid;
+            // Get the shuttle the engine has spawned on
+            var shuttle = Transform(ent).GridUid;
 
 
-        // If that shuttle somehow doesn't have the component, cry.
-        if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
-        {
-            return;
-        }
-
-        if (TryComp<ThrusterComponent>(thrusterID, out var thruster))
-        {
-            // If the thruster is on, yeehaw. The shuttle is flying
-            if (thruster.IsOn)
+            // If the shuttle exists, slap the flight-capable component on (save ship mappers some brain-ouches)
+            if (shuttle.HasValue)
             {
-                Log.Info("Shuttle is flying");
-                atmoThruster.Enabled = true;
+                // Adds the AirFlyingComponent to shuttles with atmospheric thrusters, marking them at in-atmosphere vessels.
+                Log.Info("Added AirFlyingComponent");
+                EnsureComp<AirFlyingComponent>(shuttle.Value);
             }
             else
             {
-                // If it's off... Uh-oh. You might be screwed.
-                Log.Info("Shuttle is unable to fly");
-                atmoThruster.Enabled = false;
+                // If it's floating in space, something is wrong because it should be falling but whatever
+                return;
+            }
+
+        }
+
+        private void FlightCheck(EntityUid thrusterID, AtmosphericThrusterComponent atmoThruster)
+        {
+            // Get the parent shuttle
+            var shuttle = Transform(thrusterID).GridUid;
+
+
+            // If that shuttle somehow doesn't have the component, cry.
+            if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
+            {
+                return;
+            }
+
+            if (TryComp<ThrusterComponent>(thrusterID, out var thruster))
+            {
+                // If the thruster is on, yeehaw. The shuttle is flying
+                if (thruster.IsOn)
+                {
+                    Log.Info("Shuttle is flying");
+                    atmoThruster.Enabled = true;
+                }
+                else
+                {
+                    // If it's off... Uh-oh. You might be screwed.
+                    Log.Info("Shuttle is unable to fly");
+                    atmoThruster.Enabled = false;
+                }
             }
         }
-    }
 
-     private void FlyCheck(EntityUid thrusterID, AtmosphericThrusterComponent atmoThruster)
-    {
-        // Get the parent shuttle
-        var shuttle = Transform(thrusterID).GridUid;
-
-        // If it somehow doesn't have the component, return.
-        if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
+        private void FlyCheck(EntityUid thrusterID, AtmosphericThrusterComponent atmoThruster)
         {
-            Log.Error("Parent shuttle does not have AirFlyingComponent.");
-            return; // FROM WHENCE YOU CAME
-        }
+            // Get the parent shuttle
+            var shuttle = Transform(thrusterID).GridUid;
 
-        // Temporarily set IsFlying to false
-        flyingComp.IsFlying = false;
+            // If it somehow doesn't have the component, return.
+            if (!TryComp<AirFlyingComponent>(shuttle, out var flyingComp))
+            {
+                Log.Error("Parent shuttle does not have AirFlyingComponent.");
+                return; // FROM WHENCE YOU CAME
+            }
 
-        // Check every atmospheric thruster to see if it is enabled. Is it a bit intensive? Yes. Do I know how to code it better? Haha, absolutely not!!
-        foreach (var engine in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
+            // Temporarily set IsFlying to false
+            flyingComp.IsFlying = false;
+
+            // Check every atmospheric thruster to see if it is enabled. Is it a bit intensive? Yes. Do I know how to code it better? Haha, absolutely not!!
+            foreach (var engine in EntityManager.EntityQuery<AtmosphericThrusterComponent>())
             {
                 // If this engine does not belong to the shuttle we are processing, skip it.
                 if (Transform(engine.Owner).GridUid != shuttle)
@@ -212,42 +236,56 @@ public sealed class ShuttleFallSystem : EntitySystem
 
                     // Neawwww, you're flying!! I beliiieve i can flyyyy...
                     flyingComp.IsFlying = true;
-                    
+
                     break; // <---- I could really use one of these
+
+
+
+                    // so here's an example of a break being used
+                    // So, pretty much, this loop checks all atmospheric thrusters on a shuttle
+                    // all it needs to do is find AT LEAST one, the others don't matter
+                    // so i end the loop early if it finds one
+                    // So, theres 2 kinds of equal signs
+                    // = and ==
+                    // yeah sorta except other way
+                    // = sets something to the thing
+                    // == compares them
+                    // and != is NOT EQUAL
+                    // lessons with Cheese ^^^
                 }
 
                 // If there are no thrusters that are enabled on the shuttle, IsFlying stays off, in which it will fall.
                 // Also maybe intensive but, again, i'm awful at coding.
             }
-    }
-
-
-     private void OnDock(DockEvent args)
-    {
-        if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
-        {
-            // If the ship you are docking to is flying, allow safe disablement of atmospheric thrusters.
-            if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip) && dockedShip.IsFlying)
-            {
-                Log.Info("Docked to a flying ship");
-                childShip.DockedToFlier = true;
-            }
         }
-   }
 
-      private void OnUndock(UndockEvent args)
-    {
-         if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
+
+        private void OnDock(DockEvent args)
         {
-            // When you undock from your parent ship, disables the safety net. Make sure atmospheric thrusters are online before undocking.
-            if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip))
+            if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
             {
-                Log.Info("Undocked from a flying ship");
-                childShip.DockedToFlier = false;
+                // If the ship you are docking to is flying, allow safe disablement of atmospheric thrusters.
+                if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip) && dockedShip.IsFlying)
+                {
+                    Log.Info("Docked to a flying ship");
+                    childShip.DockedToFlier = true;
+                }
             }
         }
 
+        private void OnUndock(UndockEvent args)
+        {
+            if (TryComp<AirFlyingComponent>(args.GridAUid, out var dockedShip))
+            {
+                // When you undock from your parent ship, disables the safety net. Make sure atmospheric thrusters are online before undocking.
+                if (TryComp<AirFlyingComponent>(args.GridBUid, out var childShip))
+                {
+                    Log.Info("Undocked from a flying ship");
+                    childShip.DockedToFlier = false;
+                }
+            }
+
+        }
+
+
     }
-
-
-}
