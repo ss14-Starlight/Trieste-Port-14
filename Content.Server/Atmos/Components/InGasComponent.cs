@@ -37,7 +37,7 @@ public sealed partial class InGasComponent : Component
     ///     The crush depth (water) the user can be in. (how much water they can handle before catastrophic death)
     /// </summary>
     [DataField("crushDepth"), ViewVariables(VVAccess.ReadWrite)]
-    public float CrushDepth = 1000f;
+    public float CrushDepth = 1000;
 
     /// <summary>
     ///   Whether the entity is damaged by water.
