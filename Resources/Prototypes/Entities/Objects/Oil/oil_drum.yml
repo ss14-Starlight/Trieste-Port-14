@@ -1,0 +1,19 @@
+- type: entity
+  name: oil drum
+  parent: BaseItem
+  description: Used to store liquid gold
+  id: BaseOilDrum
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/bikehorn.rsi
+    state: icon
+  - type: SolutionContainerManager
+    solutions:
+      beaker:
+        maxVol: 1000
+  - type: ExaminableSolution
+    solution: beaker
+  - type: SolutionItemStatus
+    solution: beaker
+  - type: Item
+    size: Ginormous
