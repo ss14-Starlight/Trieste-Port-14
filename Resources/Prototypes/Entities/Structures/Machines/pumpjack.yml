@@ -7,8 +7,8 @@
     mode: SnapgridCenter
   components:
     - type: Sprite
-      sprite: Structures/Power/Generation/ame.rsi
-      state: control
+      sprite: Structures/Machines/pumpjack.rsi
+      state: pumpjack
     - type: Physics
     - type: Anchorable
     - type: Pullable

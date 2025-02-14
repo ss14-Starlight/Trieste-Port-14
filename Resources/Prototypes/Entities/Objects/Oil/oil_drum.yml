@@ -5,10 +5,10 @@
   id: BaseOilDrum
   components:
   - type: Sprite
-    sprite: Structures/Storage/Canister.rsi
+    sprite: Structures/Storage/Drums.rsi
     noRot: true
     layers:
-      - state: yellow
+      - state: crude
   - type: SolutionContainerManager
     solutions:
       tank:
