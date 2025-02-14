@@ -5,8 +5,10 @@
   id: BaseOilDrum
   components:
   - type: Sprite
-    sprite: Objects/Fun/bikehorn.rsi
-    state: icon
+    sprite: Structures/Storage/Canister.rsi
+    noRot: true
+    layers:
+      - state: yellow
   - type: SolutionContainerManager
     solutions:
       beaker:
@@ -17,3 +19,12 @@
     solution: beaker
   - type: Item
     size: Ginormous
+  - type: RefillableSolution
+    solution: beaker
+  - type: DrainableSolution
+    solution: beaker
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: FitsInPumpjack
+
+      

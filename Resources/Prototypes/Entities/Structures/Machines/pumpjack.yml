@@ -1,0 +1,25 @@
+- type: entity
+  id: Pumpjack
+  parent: BaseMachinePowered
+  name: Pumpjack
+  description: A machine used to liberate oil from deep underground
+  placement:
+    mode: SnapgridCenter
+  components:
+    - type: Sprite
+      sprite: Structures/Power/Generation/ame.rsi
+      state: control
+    - type: Physics
+    - type: Anchorable
+    - type: Pullable
+    - type: ContainerContainer
+      containers:
+        drumSlot: !type:ContainerSlot
+    - type: ItemSlots
+      slots:
+        drumSlot:
+          whitelist:
+            components:
+            - FitsInPumpjack
+    - type: Appearance
+
