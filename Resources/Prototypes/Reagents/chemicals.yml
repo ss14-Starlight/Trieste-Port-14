@@ -186,3 +186,24 @@
         key: Adrenaline
         component: IgnoreSlowOnDamage
         time: 120
+
+- type: reagent
+  id: CrudeOil
+  name: reagent-name-crude-oil
+  group: Biological
+  desc: reagent-desc-crude-oil
+  physicalDesc: reagent-physical-desc-sticky
+  color: "#1a1a1a"
+  flavor: bitter
+  slippery: true
+  boilingPoint: 600
+  meltingPoint: 100
+  pricePerUnit: 15
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 3
+            Cellular: 1
