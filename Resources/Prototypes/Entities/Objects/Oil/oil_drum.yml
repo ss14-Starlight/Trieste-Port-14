@@ -11,18 +11,18 @@
       - state: yellow
   - type: SolutionContainerManager
     solutions:
-      beaker:
+      tank:
         maxVol: 1000
   - type: ExaminableSolution
-    solution: beaker
+    solution: tank
   - type: SolutionItemStatus
-    solution: beaker
+    solution: tank
   - type: Item
     size: Ginormous
   - type: RefillableSolution
-    solution: beaker
+    solution: tank
   - type: DrainableSolution
-    solution: beaker
+    solution: tank
   - type: SolutionTransfer
     canChangeTransferAmount: true
   - type: FitsInPumpjack
