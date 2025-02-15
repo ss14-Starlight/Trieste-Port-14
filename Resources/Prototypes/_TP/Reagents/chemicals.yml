@@ -9,7 +9,7 @@
   slippery: true
   boilingPoint: 600
   meltingPoint: 100
-  pricePerUnit: 15
+  pricePerUnit: 3
   metabolisms:
     Poison:
       effects:
