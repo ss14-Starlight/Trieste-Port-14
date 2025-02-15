@@ -7,11 +7,21 @@
     mode: SnapgridCenter
   components:
     - type: Sprite
-      sprite: Structures/Machines/pumpjack.rsi
+      sprite: _TP/Structures/Machines/pumpjack.rsi
       state: pumpjack
-    - type: Physics
     - type: Anchorable
     - type: Pullable
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-1.3,-1.3,1.3,1.3"
+          density: 50
+          mask:
+          - LargeMobMask
+          layer:
+          - WallLayer
     #- type: ContainerContainer
     #  containers:
     #    drumSlot: !type:ContainerSlot

@@ -7,10 +7,8 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Robust.Shared.Timing;
 using Content.Shared.FixedPoint;
-using Content.Shared.Chemistry;
-using Content.Server.Chemistry.Components;
 
-namespace Content.Server.Oil;
+namespace Content.Server._TP.Oil;
 public sealed class OilProductionSystem : EntitySystem
 {
     //Somehow have to make this shit produce oil

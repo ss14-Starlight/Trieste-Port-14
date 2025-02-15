@@ -5,7 +5,7 @@
   id: BaseOilDrum
   components:
   - type: Sprite
-    sprite: Structures/Storage/Drums.rsi
+    sprite: _TP/Structures/Storage/Drums.rsi
     noRot: true
     layers:
       - state: crude
