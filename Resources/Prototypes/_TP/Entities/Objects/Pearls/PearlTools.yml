@@ -1,0 +1,18 @@
+﻿- type: entity
+  parent: BaseItem
+  id: TP14PearlScanner
+  name: pearl scanner
+  description: A scanner capable to analyzing and outputting the information inside a pearl. It can also write data onto them.
+  components:
+    - type: Sprite
+      sprite: Objects/Specific/Planktonics.rsi
+      state: icon
+    - type: Item
+      sprite: Objects/Specific/Planktonics.rsi
+    - type: PearlScanner
+    - type: UseDelay
+      delay: 5
+    - type: Tag
+      tags:
+      - Write
+      - PearlEditor
