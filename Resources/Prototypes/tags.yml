@@ -1000,6 +1000,9 @@
   id: PlasmaGlassShard
 
 - type: Tag
+  id: PearlScanner
+
+- type: Tag
   id: Plastic
 
 - type: Tag
