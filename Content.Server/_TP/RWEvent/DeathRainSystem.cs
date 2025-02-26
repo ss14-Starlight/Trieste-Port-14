@@ -49,7 +49,7 @@ public sealed class DeathRainSystem : EntitySystem
           foreach (var rumbler in EntityManager.EntityQuery<RainCrushableComponent>())
             {
                 var rumble = rumbler.Owner;
-                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * GravityKick;
+                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 0.5f;
                 _sharedCameraRecoil.KickCamera(rumble, kick);
             }    
         }
