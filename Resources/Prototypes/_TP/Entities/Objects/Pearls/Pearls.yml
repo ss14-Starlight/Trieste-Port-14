@@ -1,0 +1,29 @@
+- type: entity
+  name: pearl
+  parent: Paper
+  id: TP14PearlDebug
+  suffix: DEBUG
+  description: 'A plain white pearl, devoid of any etchings or imperfections.'
+  components:
+  - type: Pearl
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#Ffffff"
+  - type: Item
+    size: Tiny
+
+- type: entity
+  name: pearl
+  parent: Paper
+  id: TP14PearlDebug2
+  suffix: COLOR DEBUG
+  description: 'A plain purple pearl, devoid of any etchings or imperfections.'
+  components:
+  - type: Pearl
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#800080"
+  - type: Item
+    size: Tiny
