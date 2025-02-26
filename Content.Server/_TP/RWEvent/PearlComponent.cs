@@ -12,4 +12,7 @@ public sealed partial class PearlComponent : Component
 {
     [DataField("pearlMessage")]
     private string PearlMessage = "pearl-message-BASE";
+
+    [DataField("content"), AutoNetworkedField]
+    public string Content { get; set; } = "";
 }
