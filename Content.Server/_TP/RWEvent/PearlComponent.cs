@@ -11,5 +11,5 @@ using Robust.Shared.Prototypes;
 public sealed partial class PearlComponent : Component
 {
     [DataField("pearlMessage")]
-    private string PearlMessage = "Unknown";
+    private string PearlMessage = "pearl-message-BASE";
 }
