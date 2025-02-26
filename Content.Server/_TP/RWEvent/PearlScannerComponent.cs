@@ -1,4 +1,5 @@
-﻿namespace Content.Server.Plankton;
+﻿namespace Content.Server.TP.Event.Components;
+
 using Content.Server.Xenoarchaeology.XenoArtifacts;
 using Content.Shared.Construction.Prototypes;
 using Robust.Shared.Audio;
