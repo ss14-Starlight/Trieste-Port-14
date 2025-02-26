@@ -26,4 +26,17 @@
   placement:
     mode: SnapgridCenter
 
+- type: entity
+  name: ShelterMarker
+  id: TP14MarkerShelter
+  parent: MarkerBase
+  suffix: The Rain protection
+  components:
+  - type: Sprite
+    sprite: Markers/inside.rsi
+    state: default
+  - type: BlockWeather
+  placement:
+    mode: SnapgridCenter
+
 
