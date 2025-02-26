@@ -24,4 +24,4 @@
     state: icon
     color: "#800080"
   - type: Pearl
-    pearlMessage: This is a pearl. There are many like it, but this one is yours. It's also purple, that's pretty cool.
+    pearlMessage: "This is a pearl. There are many like it, but this one is yours. It's also purple, that's pretty cool."
