@@ -62,6 +62,13 @@ public sealed class DeathRainSystem : EntitySystem
             foreach (var entity in EntityManager.EntityQuery<RainCrushableComponent>())
             {
                 var entityUid = entity.Owner;
+
+                if (TryComp<RainImmuneComponent>(entityUid, out var immune))
+                {
+                    // This creature is innately immune to rain. Spared.
+                     continue;
+                }
+                     
                 var shelters = GetEntityQuery<RainShelterComponent>();
                 foreach (var shelter in _lookup.GetEntitiesInRange(entityUid, 0.5f, LookupFlags.StaticSundries ))
                 {
