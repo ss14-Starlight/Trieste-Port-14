@@ -58,21 +58,23 @@ public sealed class DeathRainSystem : EntitySystem
         {
             _updateTimer = 0f;
 
-            // in shelter?
+            // In shelter?
             foreach (var entity in EntityManager.EntityQuery<RainCrushableComponent>())
             {
+                var entityUid = entity.Owner;
                 var shelters = GetEntityQuery<RainShelterComponent>();
-                foreach (var shelter in _lookup.GetEntitiesInRange(uid, 0.5f, LookupFlags.StaticSundries ))
+                foreach (var shelter in _lookup.GetEntitiesInRange(entityUid, 0.5f, LookupFlags.StaticSundries ))
                 {
                      if (shelters.HasComponent(shelter))
                      {
+                         // Congrats!! You're in a shelter. You're spared.
                          continue;
                      }
                 }
-                // not in shelter. Bye bye.
+                
+                // Not in shelter. Bye bye. Say hi to the void for me.
                 
                 // _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("meltdown-alert-warning"), component.title, announcementSound: component.MeltdownSound, colorOverride: component.Color);
-                var entityUid = entity.Owner;
                 QueueDel(entityUid);
                 }
             }
