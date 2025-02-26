@@ -15,6 +15,7 @@ using Content.Server.Chat.Systems;
 using Content.Shared.Camera;
 using System.Numerics;
 using Robust.Shared.Player;
+using Content.Shared.Weather;
 
 
 namespace Content.Server._TP.Weather;
@@ -57,12 +58,23 @@ public sealed class DeathRainSystem : EntitySystem
         {
             _updateTimer = 0f;
 
-            // kill
+            // in shelter?
             foreach (var entity in EntityManager.EntityQuery<RainCrushableComponent>())
             {
+                var shelters = GetEntityQuery<RainShelterComponent>();
+                foreach (var shelter in _lookup.GetEntitiesInRange(uid, 0.5f, LookupFlags.StaticSundries ))
+                {
+                     if (shelters.HasComponent(shelter))
+                     {
+                         continue;
+                     }
+                }
+                // not in shelter. Bye bye.
+                
                 // _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("meltdown-alert-warning"), component.title, announcementSound: component.MeltdownSound, colorOverride: component.Color);
                 var entityUid = entity.Owner;
                 QueueDel(entityUid);
+                }
             }
           }
       }
