@@ -9,6 +9,7 @@ using Content.Shared.Tag;
 using Robust.Shared.Player;
 using Robust.Shared.Audio.Systems;
 using static Content.Shared.Paper.PaperComponent;
+using Content.Server.TP.Event.Components;
 
 namespace Content.Shared.Paper;
 
@@ -61,8 +62,12 @@ public sealed class PaperSystem : EntitySystem
     }
 
     private void BeforeUIOpen(Entity<PaperComponent> entity, ref BeforeActivatableUIOpenEvent args)
-    {
+    {   
         entity.Comp.Mode = PaperAction.Read;
+        if (TryComp<PearlComponent>(entity) && entity.Comp.Mode == PaperAction.Read)
+            {
+                return;
+            }
         UpdateUserInterface(entity);
     }
 
@@ -70,6 +75,9 @@ public sealed class PaperSystem : EntitySystem
     {
         if (!args.IsInDetailsRange)
             return;
+
+         if (TryComp<PearlComponent>(entity)
+             return;
 
         using (args.PushGroup(nameof(PaperComponent)))
         {
@@ -101,7 +109,14 @@ public sealed class PaperSystem : EntitySystem
     {
         // only allow editing if there are no stamps or when using a cyberpen
         var editable = entity.Comp.StampedBy.Count == 0 || _tagSystem.HasTag(args.Used, "WriteIgnoreStamps");
-        if (_tagSystem.HasTag(args.Used, "Write"))
+
+         if (TryComp<PearlComponent>(entity, out var pearl))
+            {
+                var pearlState = true;
+                editable = _tagSystem.HasTag(args.Used, "PearlEditor");
+            }
+            
+        if (_tagSystem.HasTag(args.Used, "Write") || pearlState)
         {
             if (editable)
             {
@@ -187,6 +202,11 @@ public sealed class PaperSystem : EntitySystem
     /// </summary>
     public bool TryStamp(Entity<PaperComponent> entity, StampDisplayInfo stampInfo, string spriteStampState)
     {
+        if (TryComp<PearlComponent>(entity, out var pearl))
+        {
+            return false;
+        }
+        
         if (!entity.Comp.StampedBy.Contains(stampInfo))
         {
             entity.Comp.StampedBy.Add(stampInfo);
@@ -204,9 +224,19 @@ public sealed class PaperSystem : EntitySystem
 
     public void SetContent(Entity<PaperComponent> entity, string content)
     {
-        entity.Comp.Content = content;
-        Dirty(entity);
-        UpdateUserInterface(entity);
+        if (TryComp<PearlComponent>(entity, out var pearl))
+            {
+                pearl.PearlMessage  = content;
+                Dirty(entity);
+                UpdateUserInterface(entity);
+            }
+        else
+        {
+            
+            entity.Comp.Content = content;
+            Dirty(entity);
+            UpdateUserInterface(entity);
+        }
 
         if (!TryComp<AppearanceComponent>(entity, out var appearance))
             return;
