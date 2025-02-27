@@ -34,21 +34,6 @@
 - type: entity
   name: pearl
   parent: TP14BasePearl
-  id: TP14PearlDebug
-  suffix: COLOR DEBUG
-  description: 'A plain purple pearl, devoid of any etchings or imperfections.'
-  components:
-  - type: Sprite
-    sprite: _TP/Objects/Pearl.rsi
-    state: icon
-    color: "#800080"
-  - type: Pearl
-    pearlMessage: "This is a pearl. There are many like it, but this one is yours. It's also purple, that's pretty cool."
-  - type: Paper
-
-- type: entity
-  name: pearl
-  parent: TP14BasePearl
   id: TP14PearlShark
   description: 'A plain purple pearl, devoid of any etchings or imperfections.'
   components:
