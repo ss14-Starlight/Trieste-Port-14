@@ -249,7 +249,7 @@
     range: 7
     volume: -4
     sound:
-       path: /Audio/Effects/atmospheric_thruster.ogg # Changet this to a really loud helicopter
+       path: /Audio/Effects/atmospheric_thruster.ogg
   - type: Thruster
     damage:
       types:
