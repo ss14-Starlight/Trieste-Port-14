@@ -14,7 +14,7 @@
     size: Tiny
   - type: Paper
     sound: /Audio/Machines/scan_finish.ogg
-    contentSize: 9999999 # Pearls can store much more data than paper
+    contentSize: 99999999 # Pearls can store much more data than paper
   - type: ActivatableUI
     key: enum.PaperUiKey.Key
     requiresComplex: false
