@@ -25,9 +25,11 @@ public sealed class DeathRainSystem : EntitySystem
 
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
 
-    private const float UpdateInterval = 30f;
-    private const float RumbleInterval = 15;
+    private const float UpdateInterval = 20f;
+    private const float RumbleInterval = 10;
 
     private float _updateTimer = 0f;
 
@@ -41,7 +43,7 @@ public sealed class DeathRainSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        _updateTimer += frameTime;
+        //_updateTimer += frameTime;
 
         if (_updateTimer >= RumbleInterval)
         {
@@ -49,11 +51,11 @@ public sealed class DeathRainSystem : EntitySystem
           foreach (var rumbler in EntityManager.EntityQuery<RainCrushableComponent>())
             {
                 var rumble = rumbler.Owner;
-                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 0.5f;
+                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 4f;
                 _sharedCameraRecoil.KickCamera(rumble, kick);
-            }    
+            }
         }
-        
+
         if (_updateTimer >= UpdateInterval)
         {
             _updateTimer = 0f;
@@ -68,23 +70,23 @@ public sealed class DeathRainSystem : EntitySystem
                     // This creature is innately immune to rain. Spared.
                      continue;
                 }
-                     
+
                 var shelters = GetEntityQuery<RainShelterComponent>();
-                foreach (var shelter in _lookup.GetEntitiesInRange(entityUid, 0.5f, LookupFlags.StaticSundries ))
+                foreach (var shelter in _lookup.GetEntitiesInRange(entityUid, 1f))
                 {
+                     Log.Info("Found shelter");
                      if (shelters.HasComponent(shelter))
                      {
-                         // Congrats!! You're in a shelter. You're spared.
-                         continue;
+                         Log.Info("Inside shelter");
+                         return;
                      }
                 }
-                
+
                 // Not in shelter. Bye bye. Say hi to the void for me.
-                
+
                 // _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("meltdown-alert-warning"), component.title, announcementSound: component.MeltdownSound, colorOverride: component.Color);
                 QueueDel(entityUid);
                 }
             }
           }
       }
-  }

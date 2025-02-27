@@ -8,8 +8,8 @@ using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Robust.Shared.Player;
 using Robust.Shared.Audio.Systems;
+using Content.Server._TP;
 using static Content.Shared.Paper.PaperComponent;
-using Content.Server.TP.Event.Components;
 
 namespace Content.Shared.Paper;
 
@@ -62,12 +62,13 @@ public sealed class PaperSystem : EntitySystem
     }
 
     private void BeforeUIOpen(Entity<PaperComponent> entity, ref BeforeActivatableUIOpenEvent args)
-    {   
+    {
+        var entityUid = entity.Owner;
         entity.Comp.Mode = PaperAction.Read;
-        if (TryComp<PearlComponent>(entity) && entity.Comp.Mode == PaperAction.Read)
-            {
-                return;
-            }
+       // if (TryComp<PearlComponent>(entityUid, out var pearl))
+          //  {
+          //      return;
+           // }
         UpdateUserInterface(entity);
     }
 
@@ -76,7 +77,7 @@ public sealed class PaperSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-         if (TryComp<PearlComponent>(entity)
+         if (TryComp<PearlComponent>(entity, out var pearl))
              return;
 
         using (args.PushGroup(nameof(PaperComponent)))
@@ -110,13 +111,12 @@ public sealed class PaperSystem : EntitySystem
         // only allow editing if there are no stamps or when using a cyberpen
         var editable = entity.Comp.StampedBy.Count == 0 || _tagSystem.HasTag(args.Used, "WriteIgnoreStamps");
 
-         if (TryComp<PearlComponent>(entity, out var pearl))
-            {
-                var pearlState = true;
-                editable = _tagSystem.HasTag(args.Used, "PearlEditor");
-            }
-            
-        if (_tagSystem.HasTag(args.Used, "Write") || pearlState)
+        if (TryComp<PearlComponent>(entity, out var pearlchanges))
+        {
+            editable = (_tagSystem.HasTag(args.Used, "PearlEditor"));
+        }
+
+        if (_tagSystem.HasTag(args.Used, "Write") || (TryComp<PearlComponent>(entity, out var pearl)))
         {
             if (editable)
             {
@@ -206,7 +206,7 @@ public sealed class PaperSystem : EntitySystem
         {
             return false;
         }
-        
+
         if (!entity.Comp.StampedBy.Contains(stampInfo))
         {
             entity.Comp.StampedBy.Add(stampInfo);
@@ -232,7 +232,7 @@ public sealed class PaperSystem : EntitySystem
             }
         else
         {
-            
+
             entity.Comp.Content = content;
             Dirty(entity);
             UpdateUserInterface(entity);

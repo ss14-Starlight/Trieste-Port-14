@@ -37,7 +37,10 @@
     state: default
   - type: RainShelter
   - type: BlockWeather
-  placement:
+    placement:
     mode: SnapgridCenter
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
 
 

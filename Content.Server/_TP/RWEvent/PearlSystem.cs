@@ -15,7 +15,8 @@ using Content.Shared.Examine;
 using Content.Shared.Plankton;
 using System.Linq;
 using Content.Shared.Paper;
-using Content.Server.TP.Event.Components
+using Content.Server._TP;
+using Content.Server.TP.Event.Components;
 
 namespace Content.Server.TP.Event.Systems;
 
@@ -42,7 +43,7 @@ public sealed class PearlScannerSystem : EntitySystem
     if (!TryComp<PearlComponent>(target, out var pearl))
         return;
 
-    CreatePopup(uid, target, plankton, component); // Now passing a non-null EntityUid
+    CreatePopup(uid, target, pearl, component); // Now passing a non-null EntityUid
 
     args.Handled = true;
 }
@@ -81,8 +82,7 @@ public sealed class PearlScannerSystem : EntitySystem
         _metaSystem.SetEntityName(report, Loc.GetString("pearl-analysis-report-title", ("id", $"Pearl Analysis Report")));
         _audioSystem.PlayPvs(scanner.PrintSound, uid);
 
-        _paper.SetContent(report, message);
+        if (TryComp<PaperComponent>(report, out var paperComp))
+            _paper.SetContent((report, paperComp), message);
         }
     }
-
-}

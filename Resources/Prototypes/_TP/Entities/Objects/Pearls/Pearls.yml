@@ -1,6 +1,6 @@
 - type: entity
   name: pearl
-  parent: Paper
+  parent: BaseItem
   id: TP14BasePearl
   description: 'A plain white pearl, devoid of any etchings or imperfections.'
   components:
@@ -11,6 +11,15 @@
     color: "#Ffffff"
   - type: Item
     size: Tiny
+  - type: Paper
+    sound: /Audio/Machines/scan_finish.ogg
+  - type: ActivatableUI
+    key: enum.PaperUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.PaperUiKey.Key:
+        type: PaperBoundUserInterface
 
 - type: entity
   name: pearl
@@ -25,3 +34,19 @@
     color: "#800080"
   - type: Pearl
     pearlMessage: "This is a pearl. There are many like it, but this one is yours. It's also purple, that's pretty cool."
+  - type: Paper
+
+- type: entity
+  name: pearl
+  parent: TP14BasePearl
+  id: TP14PearlShark
+  description: 'A plain purple pearl, devoid of any etchings or imperfections.'
+  components:
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#800080"
+  - type: Pearl
+    pearlMessage: "The shark has the silly.
+                   The shork does the silly.
+                   The shonk is the silly."

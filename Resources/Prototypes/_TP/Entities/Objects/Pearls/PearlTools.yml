@@ -2,7 +2,7 @@
   parent: BaseItem
   id: TP14PearlScanner
   name: pearl scanner
-  description: A scanner capable to analyzing and outputting the information inside a pearl. It can also write data onto them.
+  description: A scanner capable to analyzing and outputting the information inside a pearl.
   components:
     - type: Sprite
       sprite: Objects/Specific/Planktonics.rsi
@@ -12,6 +12,17 @@
     - type: PearlScanner
     - type: UseDelay
       delay: 5
-    - type: Tag
-      tags:
-      - PearlEditor
+
+- type: entity
+  parent: BaseItem
+  id: TP14PearlInscriber
+  name: pearl inscriber
+  description: A machine capable to inputting information into a pearl.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Mining/mineral_scanner.rsi
+    layers:
+    - state: icon
+  - type: Tag
+    tags:
+    - PearlEditor
