@@ -276,7 +276,7 @@ namespace Content.Client.Paper.UI
              ? _paperVisualsComponent.BlankText ?? Loc.GetString("visuals.BlankText")
              : Loc.GetString("visuals.BlankText"), 
              null, 
-             DefaultTextColor
+             visuals.FontAccentColor
              );
 
             WrittenTextLabel.Visible = !isEditing && state.Text.Length > 0;
