@@ -11,6 +11,9 @@ public sealed partial class PaperVisualsComponent : Component
     [DataField("backgroundImagePath")]
     public string? BackgroundImagePath;
 
+    [DataField("blankText")]
+    public string? BlankText = "paper-ui-blank-page-message";
+
     /// <summary>
     ///     An optional patch to configure tiling stretching of the background. Used to set
     ///     the PatchMargin in a <code>StyleBoxTexture</code>
