@@ -64,11 +64,8 @@ public sealed class PaperSystem : EntitySystem
     private void BeforeUIOpen(Entity<PaperComponent> entity, ref BeforeActivatableUIOpenEvent args)
     {
         var entityUid = entity.Owner;
+        // This is used each time the UI is opened, so find a way to make sure it's only being opened if being read by a pearl reader.
         entity.Comp.Mode = PaperAction.Read;
-       // if (TryComp<PearlComponent>(entityUid, out var pearl))
-          //  {
-          //      return;
-           // }
         UpdateUserInterface(entity);
     }
 
@@ -114,6 +111,12 @@ public sealed class PaperSystem : EntitySystem
         if (TryComp<PearlComponent>(entity, out var pearlchanges))
         {
             editable = (_tagSystem.HasTag(args.Used, "PearlEditor"));
+            var reader = (_tagSystem.HasTag(args.Used, "PearlReader"));
+            if (reader)
+            {
+                 entity.Comp.Mode = PaperAction.Read;
+                 UpdateUserInterface(entity);
+            }
         }
 
         if (_tagSystem.HasTag(args.Used, "Write") || (TryComp<PearlComponent>(entity, out var pearl)))
@@ -227,6 +230,7 @@ public sealed class PaperSystem : EntitySystem
         if (TryComp<PearlComponent>(entity, out var pearl))
             {
                 pearl.PearlMessage  = content;
+                entity.Comp.Content = content;
                 Dirty(entity);
                 UpdateUserInterface(entity);
             }
