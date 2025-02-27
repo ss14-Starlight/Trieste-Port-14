@@ -17,6 +17,29 @@
     Steel: 15
 
 - type: latheRecipe
+  id: PlainPearl
+  result: TP14BasePearl
+  completetime: 5
+  materials:
+    Steel: 150
+    Glass: 50
+
+- type: latheRecipe
+  id: PearlScanner
+  result: TP14PearlScanner
+  completetime: 4
+  materials:
+    Steel: 400
+    Glass: 50
+
+- type: latheRecipe
+  id: PearlWriter
+  result: TP14PearlInscriber
+  completetime: 4
+  materials:
+    Steel: 500
+
+- type: latheRecipe
   abstract: true
   id: BaseFauxTileRecipe
   completetime: 1
