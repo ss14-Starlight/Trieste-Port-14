@@ -20,6 +20,12 @@
     interfaces:
       enum.PaperUiKey.Key:
         type: PaperBoundUserInterface
+  - type: PaperVisuals
+    headerImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
+    backgroundImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
+    backgroundModulate: "#e6e6fa"
+    backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
+    contentMargin: 32.0, 16.0, 32.0, 0.0
 
 - type: entity
   name: pearl
