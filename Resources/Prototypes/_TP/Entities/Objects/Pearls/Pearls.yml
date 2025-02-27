@@ -5,6 +5,7 @@
   description: 'A plain white pearl, devoid of any etchings or imperfections.'
   components:
   - type: Pearl
+    pearlMessage: "This pearl is completely blank."
   - type: Sprite
     sprite: _TP/Objects/Pearl.rsi
     state: icon
@@ -59,3 +60,49 @@
     pearlMessage: "The shark has the silly.
                    The shork does the silly.
                    The shonk is the silly."
+
+
+- type: entity
+  name: pearl
+  parent: TP14BasePearl
+  id: TP14PearlResearcher
+  description: 'A plain red pearl, devoid of any etchings or imperfections.'
+  components:
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#E3242B"
+  - type: Pearl
+    pearlMessage: "RESEARCH LOG: SWEETWATER INSTALLATION ---- TRENCH RESEARCH.
+
+                  Date: 27th February, 2025  
+                  Location: Trieste Trench  
+                  Lead Researcher: Dr. A. Forsythe
+
+                  Summary:
+
+                  - Depth: 12,460 meters, pressure 1,245 bars, temp 3°C.  
+                  - Visibility: Near total darkness with bioluminescent organisms.
+
+                  Anomalies:  
+                  - Magnetic fluctuations detected, linked to unknown geological activity.  
+                  - Elevated radiation levels, origin unclear.  
+                  - Unique fauna showing signs of non-Euclidean evolution.  
+
+                  Geological Activity:  
+                  - Subtle tectonic shifts and active thermal vents releasing sulfur and methane.
+
+                  Research Methods:  
+                  - Core samples show unusual minerals.  
+                  - Biological samples collected, revealing new species with complex adaptations.  
+                  - Soundwave mapping reveals large, hollow chambers in the trench.
+
+                  Conclusions:  
+                  - Trench exhibits complex, interconnected anomalies.  
+                  - Further study needed on magnetic, radiation, and biological phenomena.
+
+                  Next Steps:  
+                  - Deploy enhanced submersibles for deeper analysis.  
+                  - Review historical deep-sea data for similar occurrences.
+
+                  End of Log."
