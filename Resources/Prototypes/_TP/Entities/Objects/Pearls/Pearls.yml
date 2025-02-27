@@ -13,6 +13,7 @@
     size: Tiny
   - type: Paper
     sound: /Audio/Machines/scan_finish.ogg
+    contentSize: 9999999 # Pearls can store much more data than paper
   - type: ActivatableUI
     key: enum.PaperUiKey.Key
     requiresComplex: false
@@ -23,9 +24,11 @@
   - type: PaperVisuals
     headerImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
     backgroundImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
-    backgroundModulate: "#e6e6fa"
+    backgroundModulate: "#3a434a"
     backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
     contentMargin: 32.0, 16.0, 32.0, 0.0
+    blankText: pearl-ui-blank-page-message
+    fontAccentColor: "#03A062"
 
 - type: entity
   name: pearl
