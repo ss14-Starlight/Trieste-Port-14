@@ -9,7 +9,7 @@
       state: icon
     - type: Item
       sprite: Objects/Specific/Planktonics.rsi
-   # - type: PearlScanner
+    - type: PearlScanner
     - type: UseDelay
       delay: 5
     - type: Tag
