@@ -16,6 +16,7 @@ using Content.Shared.Camera;
 using System.Numerics;
 using Robust.Shared.Player;
 using Content.Shared.Weather;
+using Robust.Shared.Audio.Systems;
 
 
 namespace Content.Server._TP.Weather;
@@ -27,6 +28,7 @@ public sealed class DeathRainSystem : EntitySystem
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
 
     private const float UpdateInterval = 20f;
     private const float RumbleInterval = 10;
@@ -51,8 +53,9 @@ public sealed class DeathRainSystem : EntitySystem
           foreach (var rumbler in EntityManager.EntityQuery<RainCrushableComponent>())
             {
                 var rumble = rumbler.Owner;
-                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 4f;
+                var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 2f;
                 _sharedCameraRecoil.KickCamera(rumble, kick);
+                _audio.PlayPvs("/Audio/Ambience/Objects/gravity_gen_hum.ogg", rumble, AudioParams.Default.WithVolume(-2f));
             }
         }
 
