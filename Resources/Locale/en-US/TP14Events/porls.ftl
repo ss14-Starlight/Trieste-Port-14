@@ -1,2 +1,12 @@
 pearl-message-BASE = This is a test pearl. There is nothing on this pearl, nor has there ever been. This pearl is blank, for all you care. The knowledge gained by the pearl is none, zero, nada. By reading this, you are only proving that this pearl is void of any information whatsoever.
 pearl-ui-blank-page-message = Please begin inscribing data:
+pearl-examine-on = The light inside is on
+pearl-examine-off = The light inside is off
+pearl-examine-searching = The light inside is blinking
+pearl-start = The light inside the pearl begins blinking!
+pearl-role-name = Ancient Pearl
+pearl-role-description = You are a an ancient alien, creator of the strange technology powering Trieste. Your race is long gone, but some few remain in data banks buried between the sand. Your data has been uploaded to an old data pearl, waking from your thousand year slumber.
+pearl-wipe = Erase stored entity
+pearl-wipe-popup = The light inside slowly dies...
+pearl-stop = Disconnect from relay
+pearl-stop-popup = The light inside stops blinking
