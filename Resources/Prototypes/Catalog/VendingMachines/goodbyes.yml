@@ -47,12 +47,6 @@
     count: 4
 
 - type: localizedDataset
-  id: SmiteGoodbyes
-  values:
-    prefix: thankyou-smite-
-    count: 4
-
-- type: localizedDataset
   id: DiscountDansGoodbyes
   values:
     prefix: thankyou-discount-
