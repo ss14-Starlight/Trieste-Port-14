@@ -1024,6 +1024,9 @@
   id: PearlScanner
 
 - type: Tag
+  id: PearlReader
+
+- type: Tag
   id: PearlEditor
 
 - type: Tag

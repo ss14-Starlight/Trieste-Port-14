@@ -1,0 +1,32 @@
+uniform sampler2D SCREEN_TEXTURE;
+uniform highp float TIME;
+uniform highp float RAIN_INTENSITY;
+uniform highp float BLUR_MAX;
+uniform highp float RAIN_SPEED;
+uniform highp vec2 SCREEN_PIXEL_SIZE;
+
+highp vec3 verticalBlur(highp vec2 uv, highp float blurStrength) {
+    highp vec3 col = texture(SCREEN_TEXTURE, uv).xyz * (1.0 - blurStrength);
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.2;
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, -SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.2;
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, 2.0 * SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.15;
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, 2.0 * -SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.15;
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, 3.0 * SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.1;
+    col += texture(SCREEN_TEXTURE, uv + vec2(0.0, 3.0 * -SCREEN_PIXEL_SIZE.y)).xyz * blurStrength * 0.1;
+    return col;
+}
+
+highp float rainEffect(highp vec2 uv) {
+    highp float rain = sin(uv.y * 10.0 + TIME * RAIN_SPEED);
+    return smoothstep(0.3, 0.5, rain);
+}
+
+void fragment() {
+    highp vec2 uv = FRAGCOORD.xy / iResolution.xy;
+    highp float rainBlurStrength = RAIN_INTENSITY * BLUR_MAX;
+    highp vec3 blurredColor = verticalBlur(uv, rainBlurStrength);
+    highp float rain = rainEffect(uv);
+    blurredColor *= (1.0 - rain);
+    highp vec4 finalColor = vec4(blurredColor, 1.0);
+    COLOR = finalColor;
+}

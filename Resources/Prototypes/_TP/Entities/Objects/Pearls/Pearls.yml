@@ -5,6 +5,7 @@
   description: 'A plain white pearl, devoid of any etchings or imperfections.'
   components:
   - type: Pearl
+    pearlMessage: "This pearl is completely blank."
   - type: Sprite
     sprite: _TP/Objects/Pearl.rsi
     state: icon
@@ -13,6 +14,7 @@
     size: Tiny
   - type: Paper
     sound: /Audio/Machines/scan_finish.ogg
+    contentSize: 99999999 # Pearls can store much more data than paper
   - type: ActivatableUI
     key: enum.PaperUiKey.Key
     requiresComplex: false
@@ -20,21 +22,14 @@
     interfaces:
       enum.PaperUiKey.Key:
         type: PaperBoundUserInterface
-
-- type: entity
-  name: pearl
-  parent: TP14BasePearl
-  id: TP14PearlDebug
-  suffix: COLOR DEBUG
-  description: 'A plain purple pearl, devoid of any etchings or imperfections.'
-  components:
-  - type: Sprite
-    sprite: _TP/Objects/Pearl.rsi
-    state: icon
-    color: "#800080"
-  - type: Pearl
-    pearlMessage: "This is a pearl. There are many like it, but this one is yours. It's also purple, that's pretty cool."
-  - type: Paper
+  - type: PaperVisuals
+    headerImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
+    backgroundImagePath: "/Textures/Interface/Paper/paper_background_black.svg.96dpi.png"
+    backgroundModulate: "#3a434a"
+    backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
+    contentMargin: 32.0, 16.0, 32.0, 0.0
+    blankText: pearl-ui-blank-page-message
+    fontAccentColor: "#03A062"
 
 - type: entity
   name: pearl
@@ -50,3 +45,85 @@
     pearlMessage: "The shark has the silly.
                    The shork does the silly.
                    The shonk is the silly."
+
+
+- type: entity
+  name: pearl
+  parent: TP14BasePearl
+  id: TP14PearlResearcher
+  description: 'A plain red pearl, devoid of any etchings or imperfections.'
+  components:
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#E3242B"
+  - type: Pearl
+    pearlMessage: "NANOTRASEN RESEARCH LOG: SWEETWATER INSTALLATION ---- TRENCH RESEARCH.
+
+                  Date: 413rd Planetary Cycle
+                  Location: Aquaria-IV Trench, Aquaria-IV
+                  Lead Researcher: Dr. Reads-The-Papers
+
+                  Expedition Summary:
+
+                  - Depth: passed 24,460 meters, pressure 1,245 bars, temp 3°C. Total depth unknown.  
+                  - Visibility: Near total darkness with bioluminescent organisms. Territorial behavior noted.
+
+                  Anomalies:  
+                  - Magnetic fluctuations detected, linked to unknown geological activity.  
+                  - Elevated radiation levels, origin unclear. Potential artificial involvement. 
+                  - Unique fauna showing signs of non-Euclidean evolution.
+                  - Highly erratic bluespace readings -- potential for hypergate usage. 
+
+                  Geological Activity:  
+                  - Subtle tectonic shifts and active thermal vents releasing sulfur and methane. Highly unstable geology.
+
+                  Research Methods Utilized:  
+                  - Core samples show unusual minerals. Properties unknown.
+                  - Biological samples collected, revealing new species with unnatrual adaptations.  
+                  - Soundwave mapping reveals large, hollow chambers in the trench.
+
+                  Conclusions:  
+                  - Trench exhibits complex, interconnected biological anomalies. Unnatrual involvement suspected.  
+                  - Further study required on magnetic, radiation, and biological phenomena. Test bluespace-based equipment for abnormalities.
+
+                  Next Steps:  
+                  - Deploy enhanced submersibles for deeper excursions. Construction of 'Project GILLY' units underway.
+                  - Review historical deep-sea data for similar anomalous occurrences.
+                  - Prepare following team with advanced anti-biotic weaponry. Radiation-based assaults ineffective.
+
+                  End of Log."
+
+- type: entity
+  name: clear pearl
+  parent: TP14BasePearl
+  id: TP14PearlSentient
+  description: 'A clear green pearl, devoid of any etchings or imperfections. There's a light inside.'
+  components:
+  - type: Sprite
+    sprite: _TP/Objects/Pearl.rsi
+    state: icon
+    color: "#228B22"
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Pai
+  - type: ToggleableGhostRole
+    examineTextMindPresent: pearl-examine-on
+    examineTextMindSearching: pearl-examine-searching
+    examineTextNoMind: pearl-examine-off
+    beginSearchingText: pearl-start
+    roleName: pearl-role-name
+    roleDescription: pearl-role-description
+    roleRules: ghost-role-information-familiar-rules
+    mindRoles:
+    - MindRoleGhostRoleFamiliar
+    wipeVerbText: pearl-wipe
+    wipeVerbPopup: pearl-wipe-popup
+    stopSearchVerbText: pearl-stop
+    stopSearchVerbPopup: pearl-stop-popup
+  - type: BlockMovement
+  - type: Examiner
+  - type: Input
+    context: "human"
+  - type: Pearl
+    pearlMessage: "01011011 01001001 01001101 01010000 01001111 01010010 01010100 00100000 00100111 01000001 01001001 00101101 01000011 01001111 01010010 01000101 00101101 01010000 01000101 01000001 01010010 01001100 00101101 01001111 01010000 01000101 01010010 01000001 01010100 01001001 01001110 01000111 00100111 01011101 00001010 00001010 00101101 00101101 00100000 01000011 01001111 01001110 01001110 01000101 01000011 01010100 01001001 01001110 01000111 00100000 01010100 01001111 00100000 01000011 01000101 01001110 01010100 01010010 01000001 01001100 00100000 01001000 01010101 01000010 00100000 00101101 00101101 00001010 00001010 00101101 00101101 00100000 01000011 01001111 01001110 01001110 01000101 01000011 01010100 01001001 01001111 01001110 00100000 01010011 01010101 01000011 01000101 01010011 01010011 01000110 01010101 01001100 00100000 00101101 00101101 00001010 00001010 00101101 00101101 00100000 01010101 01010000 01001100 01001111 01000001 01000100 01001001 01001110 01000111 00100000 01010011 01010100 01001111 01010010 01000101 01000100 00100000 01000100 01000001 01010100 01000001 00100000 00101101 00101101 00001010 00001010 00101101 00101101 00100000 01000100 01000001 01010100 01000001 00100000 01010101 01010000 01001100 01001111 01000001 01000100 01000101 01000100 00100000 00101101 00101101 00001010 00001010 01010101 01010011 01000101 01010010 00100000 01000100 01001111 01010010 01001101 01000001 01001110 01010100 00001010 00001010 01010000 01001100 01000101 01000001 01010011 01000101 00100000 01010111 01000001 01001011 01000101 00100000 01010101 01010011 01000101 01010010"
