@@ -15,6 +15,11 @@
   path: "/Textures/Shaders/gradient_circle_mask.swsl"
 
 - type: shader
+  id: Rain
+  kind: source
+  path: "/Textures/Shaders/rain.swsl"
+
+- type: shader
   id: WorldGradientCircle
   kind: source
   path: "/Textures/Shaders/world_gradient_circle.swsl"
