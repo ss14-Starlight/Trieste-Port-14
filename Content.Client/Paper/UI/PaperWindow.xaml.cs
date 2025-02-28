@@ -69,6 +69,9 @@ namespace Content.Client.Paper.UI
             IoCManager.InjectDependencies(this);
             RobustXamlLoader.Load(this);
 
+            // We can't configure the RichTextLabel contents from xaml, so do it here:
+            BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, DefaultTextColor);
+
             // Hook up the close button:
             CloseButton.OnPressed += _ => Close();
 
@@ -109,8 +112,6 @@ namespace Content.Client.Paper.UI
             // Randomize the placement of any stamps based on the entity UID
             // so that there's some variety in different papers.
             StampDisplay.PlacementSeed = (int)entity;
-
-            BlankPaperIndicator.SetMessage(Loc.GetString("visuals.BlankText"), null, DefaultTextColor);
 
             // Initialize the background:
             PaperBackground.ModulateSelfOverride = visuals.BackgroundModulate;

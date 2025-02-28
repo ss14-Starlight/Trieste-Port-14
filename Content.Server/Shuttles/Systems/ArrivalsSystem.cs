@@ -30,13 +30,11 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
-using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Shuttles.Systems;
@@ -50,13 +48,14 @@ public sealed class ArrivalsSystem : EntitySystem
     [Dependency] private readonly IConsoleHost _console = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
-    [Dependency] private readonly MapLoaderSystem _loader = default!;
+
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly BiomeSystem _biomes = default!;
     [Dependency] private readonly GameTicker _ticker = default!;
+    [Dependency] private readonly MapLoaderSystem _loader = default!;
     [Dependency] private readonly MetaDataSystem _metaData = default!;
     [Dependency] private readonly DeviceNetworkSystem _deviceNetworkSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
@@ -514,12 +513,20 @@ public sealed class ArrivalsSystem : EntitySystem
   private void SetupArrivalsStation()
 {
     // Setup for the first map
-    _mapSystem.CreateMap(out var mapId1, runMapInit: false);
-    var mapUid1 = _mapSystem.GetMap(mapId1);
-    var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
+    var mapId1 = _mapManager.CreateMap();
+    var mapUid1 = _mapManager.GetMapEntityId(mapId1);
+    _mapManager.AddUninitializedMap(mapId1);
 
-    if (!_loader.TryLoadGrid(mapId1, path, out var grid))
+    if (!_loader.TryLoad(mapId1, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids1))
+    {
         return;
+    }
+
+    foreach (var id in uids1)
+    {
+        EnsureComp<ArrivalsSourceComponent>(id);
+        EnsureComp<PreventPilotComponent>(id);
+    }
 
     // Setup planet arrivals for the first map if relevant
     if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
@@ -536,12 +543,14 @@ public sealed class ArrivalsSystem : EntitySystem
     _mapManager.DoMapInitialize(mapId1);
 
     // Setup for the ocean surface map
-    _mapSystem.CreateMap(out var mapId2, runMapInit: false);
-    var mapUid2 = _mapSystem.GetMap(mapId2);
-    var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
+    var mapId2 = _mapManager.CreateMap();
+    var mapUid2 = _mapManager.GetMapEntityId(mapId2);
+    _mapManager.AddUninitializedMap(mapId2);
 
-    if (!_loader.TryLoadGrid(mapId2, path2, out var grid2))
+    if (!_loader.TryLoad(mapId2, _cfgManager.GetCVar(CCVars.Arrivals2Map), out var uids2)) // edit here to change the map, bozo
+    {
         return;
+    }
 
     _mapManager.DoMapInitialize(mapId2);
 }
@@ -594,6 +603,18 @@ public sealed class ArrivalsSystem : EntitySystem
 
         // Spawn arrivals on a dummy map then dock it to the source.
         var dummpMapEntity = _mapSystem.CreateMap(out var dummyMapId);
+
+        if (TryGetArrivals(out var arrivals) &&
+            _loader.TryLoad(dummyMapId, component.ShuttlePath.ToString(), out var shuttleUids))
+        {
+            component.Shuttle = shuttleUids[0];
+            var shuttleComp = Comp<ShuttleComponent>(component.Shuttle);
+            var arrivalsComp = EnsureComp<ArrivalsShuttleComponent>(component.Shuttle);
+            arrivalsComp.Station = uid;
+            EnsureComp<ProtectedGridComponent>(uid);
+            _shuttles.FTLToDock(component.Shuttle, shuttleComp, arrivals, hyperspaceTime: RoundStartFTLDuration);
+            arrivalsComp.NextTransfer = _timing.CurTime + TimeSpan.FromSeconds(_cfgManager.GetCVar(CCVars.ArrivalsCooldown));
+        }
 
         // Don't start the arrivals shuttle immediately docked so power has a time to stabilise?
         var timer = AddComp<TimedDespawnComponent>(dummpMapEntity);

@@ -2,7 +2,6 @@
 
 ui-options-title = Game Options
 ui-options-tab-accessibility = Accessibility
-ui-options-tab-admin = Admin
 ui-options-tab-graphics = Graphics
 ui-options-tab-controls = Controls
 ui-options-tab-audio = Audio
@@ -38,7 +37,6 @@ ui-options-lobby-music = Lobby & Round-end Music
 ui-options-restart-sounds = Round Restart Sounds
 ui-options-event-music = Event Music
 ui-options-admin-sounds = Play Admin Sounds
-ui-options-bwoink-sound = Play AHelp Notification Sound
 ui-options-volume-label = Volume
 
 ## Graphics menu
@@ -282,12 +280,5 @@ cmd-options-help = Usage: options [tab]
 ui-options-enable-color-name = Add colors to character names
 ui-options-colorblind-friendly = Colorblind friendly mode
 ui-options-reduced-motion = Reduce motion of visual effects
-ui-options-screen-shake-intensity = Screen shake intensity
 ui-options-chat-window-opacity = Chat window opacity
-ui-options-speech-bubble-text-opacity = Speech bubble text opacity
-ui-options-speech-bubble-speaker-opacity = Speech bubble speaker opacity
-ui-options-speech-bubble-background-opacity = Speech bubble background opacity
-
-## Admin menu
-
-ui-options-enable-classic-overlay = Revert antag overlay to classic mode
+ui-options-screen-shake-intensity = Screen shake intensity
