@@ -60,9 +60,13 @@ Puce - Programming
 
 Orks - Debugging, Refactoring
 
-TaoNewt - Bugfixing
+TaoNewt - Bugfixing, Spriting
 
 Moomoobeef - Mapping
+
+Lev-Tobecontinued - Spriting
+
+T4D2 - Programming, Spriting
 
 Ermucat - Programming
 

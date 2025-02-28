@@ -8,6 +8,7 @@ using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Robust.Shared.Player;
 using Robust.Shared.Audio.Systems;
+using Content.Server._TP;
 using static Content.Shared.Paper.PaperComponent;
 
 namespace Content.Shared.Paper;
@@ -62,7 +63,14 @@ public sealed class PaperSystem : EntitySystem
 
     private void BeforeUIOpen(Entity<PaperComponent> entity, ref BeforeActivatableUIOpenEvent args)
     {
+        var entityUid = entity.Owner;
+
+        // This is used each time the UI is opened, so find a way to make sure it's only being opened if being read by a pearl reader.
         entity.Comp.Mode = PaperAction.Read;
+        if (TryComp<PearlComponent>(entity, out var pearl))
+        {
+            return;
+        }
         UpdateUserInterface(entity);
     }
 
@@ -70,6 +78,9 @@ public sealed class PaperSystem : EntitySystem
     {
         if (!args.IsInDetailsRange)
             return;
+
+         if (TryComp<PearlComponent>(entity, out var pearl))
+             return;
 
         using (args.PushGroup(nameof(PaperComponent)))
         {
@@ -101,7 +112,19 @@ public sealed class PaperSystem : EntitySystem
     {
         // only allow editing if there are no stamps or when using a cyberpen
         var editable = entity.Comp.StampedBy.Count == 0 || _tagSystem.HasTag(args.Used, "WriteIgnoreStamps");
-        if (_tagSystem.HasTag(args.Used, "Write"))
+
+        if (TryComp<PearlComponent>(entity, out var pearlchanges))
+        {
+            editable = (_tagSystem.HasTag(args.Used, "PearlEditor"));
+            var reader = (_tagSystem.HasTag(args.Used, "PearlReader"));
+            if (reader)
+            {
+                 entity.Comp.Mode = PaperAction.Read;
+                 UpdateUserInterface(entity);
+            }
+        }
+
+        if (_tagSystem.HasTag(args.Used, "Write") || (TryComp<PearlComponent>(entity, out var pearl)))
         {
             if (editable)
             {
@@ -113,6 +136,21 @@ public sealed class PaperSystem : EntitySystem
                     args.Handled = true;
                     return;
                 }
+
+                var ev = new PaperWriteAttemptEvent(entity.Owner);
+                RaiseLocalEvent(args.User, ref ev);
+                if (ev.Cancelled)
+                {
+                    if (ev.FailReason is not null)
+                    {
+                        var fileWriteMessage = Loc.GetString(ev.FailReason);
+                        _popupSystem.PopupClient(fileWriteMessage, entity.Owner, args.User);
+                    }
+
+                    args.Handled = true;
+                    return;
+                }
+
                 var writeEvent = new PaperWriteEvent(entity, args.User);
                 RaiseLocalEvent(args.Used, ref writeEvent);
 
@@ -156,6 +194,11 @@ public sealed class PaperSystem : EntitySystem
 
     private void OnInputTextMessage(Entity<PaperComponent> entity, ref PaperInputTextMessage args)
     {
+        var ev = new PaperWriteAttemptEvent(entity.Owner);
+        RaiseLocalEvent(args.Actor, ref ev);
+        if (ev.Cancelled)
+            return;
+
         if (args.Text.Length <= entity.Comp.ContentSize)
         {
             SetContent(entity, args.Text);
@@ -187,6 +230,11 @@ public sealed class PaperSystem : EntitySystem
     /// </summary>
     public bool TryStamp(Entity<PaperComponent> entity, StampDisplayInfo stampInfo, string spriteStampState)
     {
+        if (TryComp<PearlComponent>(entity, out var pearl))
+        {
+            return false;
+        }
+
         if (!entity.Comp.StampedBy.Contains(stampInfo))
         {
             entity.Comp.StampedBy.Add(stampInfo);
@@ -204,9 +252,19 @@ public sealed class PaperSystem : EntitySystem
 
     public void SetContent(Entity<PaperComponent> entity, string content)
     {
-        entity.Comp.Content = content;
-        Dirty(entity);
-        UpdateUserInterface(entity);
+        if (TryComp<PearlComponent>(entity, out var pearl))
+            {
+                pearl.PearlMessage  = content;
+                Dirty(entity);
+                UpdateUserInterface(entity);
+            }
+        else
+        {
+
+            entity.Comp.Content = content;
+            Dirty(entity);
+            UpdateUserInterface(entity);
+        }
 
         if (!TryComp<AppearanceComponent>(entity, out var appearance))
             return;
@@ -229,3 +287,10 @@ public sealed class PaperSystem : EntitySystem
 /// </summary>
 [ByRefEvent]
 public record struct PaperWriteEvent(EntityUid User, EntityUid Paper);
+
+/// <summary>
+/// Cancellable event for attempting to write on a piece of paper.
+/// </summary>
+/// <param name="paper">The paper that the writing will take place on.</param>
+[ByRefEvent]
+public record struct PaperWriteAttemptEvent(EntityUid Paper, string? FailReason = null, bool Cancelled = false);

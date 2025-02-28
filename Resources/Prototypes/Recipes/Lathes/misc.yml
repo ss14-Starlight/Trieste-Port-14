@@ -17,6 +17,29 @@
     Steel: 15
 
 - type: latheRecipe
+  id: PlainPearl
+  result: TP14BasePearl
+  completetime: 5
+  materials:
+    Steel: 150
+    Glass: 50
+
+- type: latheRecipe
+  id: PearlScanner
+  result: TP14PearlScanner
+  completetime: 4
+  materials:
+    Steel: 400
+    Glass: 50
+
+- type: latheRecipe
+  id: PearlWriter
+  result: TP14PearlInscriber
+  completetime: 4
+  materials:
+    Steel: 500
+
+- type: latheRecipe
   abstract: true
   id: BaseFauxTileRecipe
   completetime: 1
@@ -127,6 +150,20 @@
     Steel: 300
 
 - type: latheRecipe
+  id: DoubleEmergencyOxygenTank
+  result: DoubleEmergencyOxygenTank
+  completetime: 4
+  materials:
+    Steel: 250
+
+- type: latheRecipe
+  id: DoubleEmergencyNitrogenTank
+  result: DoubleEmergencyNitrogenTank
+  completetime: 4
+  materials:
+    Steel: 250
+
+- type: latheRecipe
   id: ClothingShoesBootsMagSci
   result: ClothingShoesBootsMagSci
   completetime: 10
@@ -182,6 +219,11 @@
   parent: BaseFauxTileRecipe
   id: FauxTileAstroSnow
   result: FloorTileItemAstroSnow
+
+- type: latheRecipe
+  parent: BaseFauxTileRecipe
+  id: FauxTileAstroAsteroidSand
+  result: FloorTileItemAstroAsteroidSand
 
 - type: latheRecipe
   id: FloorGreenCircuit
