@@ -2,7 +2,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
-using Content.Shared.Lathe.Prototypes;
 using Content.Shared.Localizations;
 using Content.Shared.Materials;
 using Content.Shared.Research.Prototypes;
@@ -19,7 +18,6 @@ public abstract class SharedLatheSystem : EntitySystem
 {
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedMaterialStorageSystem _materialStorage = default!;
-    [Dependency] private readonly EmagSystem _emag = default!;
 
     public readonly Dictionary<string, List<LatheRecipePrototype>> InverseRecipes = new();
 
@@ -32,18 +30,6 @@ public abstract class SharedLatheSystem : EntitySystem
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
 
         BuildInverseRecipeDictionary();
-    }
-
-    /// <summary>
-    /// Add every recipe in the list of recipe packs to a single hashset.
-    /// </summary>
-    public void AddRecipesFromPacks(HashSet<ProtoId<LatheRecipePrototype>> recipes, IEnumerable<ProtoId<LatheRecipePackPrototype>> packs)
-    {
-        foreach (var id in packs)
-        {
-            var pack = _proto.Index(id);
-            recipes.UnionWith(pack.Recipes);
-        }
     }
 
     private void OnExamined(Entity<LatheComponent> ent, ref ExaminedEvent args)
@@ -80,12 +66,6 @@ public abstract class SharedLatheSystem : EntitySystem
 
     private void OnEmagged(EntityUid uid, EmagLatheRecipesComponent component, ref GotEmaggedEvent args)
     {
-        if (!_emag.CompareFlag(args.Type, EmagType.Interaction))
-            return;
-
-        if (_emag.CheckFlag(uid, EmagType.Interaction))
-            return;
-
         args.Handled = true;
     }
 

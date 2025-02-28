@@ -351,7 +351,6 @@
     pack: MedibotAds
   - type: Inventory
     templateId: medibot
-  - type: DoAfter
 
 - type: entity
   parent:
