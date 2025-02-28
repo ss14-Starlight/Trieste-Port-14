@@ -31,7 +31,7 @@ private StaticViewerOverlay _staticViewerOverlay = null!;
 
     public override void Initialize()
     {
-        _staticViewerShader = _prototypeManager.Index<ShaderPrototype>("Grainy").Instance();
+        _staticViewerShader = _prototypeManager.Index<ShaderPrototype>("Rain").Instance();
 
         _staticViewerOverlay = new StaticViewerOverlay(_staticViewerShader, _entityManager, _player);
 
