@@ -55,7 +55,7 @@ public sealed class DeathRainSystem : EntitySystem
                 var rumble = rumbler.Owner;
                 var kick = new Vector2(_random.NextFloat(), _random.NextFloat()) * 2f;
                 _sharedCameraRecoil.KickCamera(rumble, kick);
-                _audio.PlayPvs("/Audio/Ambience/Objects/gravity_gen_hum.ogg", rumble, AudioParams.Default.WithVolume(-2f));
+                _audio.PlayPvs("/Audio/Ambience/Objects/gravity_gen_hum.ogg", rumble);
             }
         }
 

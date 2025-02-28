@@ -271,14 +271,6 @@ namespace Content.Client.Paper.UI
             }
             WrittenTextLabel.SetMessage(msg, _allowedTags, DefaultTextColor);
 
-             BlankPaperIndicator.SetMessage(
-             string.IsNullOrEmpty(state.Text)
-             ? _paperVisualsComponent.BlankText ?? Loc.GetString("visuals.BlankText")
-             : Loc.GetString("visuals.BlankText"), 
-             null, 
-             visuals.FontAccentColor
-             );
-
             WrittenTextLabel.Visible = !isEditing && state.Text.Length > 0;
             BlankPaperIndicator.Visible = !isEditing && state.Text.Length == 0;
 
