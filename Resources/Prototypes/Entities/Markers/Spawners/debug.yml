@@ -22,6 +22,7 @@
   - type: Sprite
     sprite: Markers/inside.rsi
     state: default
+  - type: Roof
   - type: BlockWeather
   placement:
     mode: SnapgridCenter
