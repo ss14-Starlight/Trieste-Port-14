@@ -1,36 +1,5 @@
 # When adding new food also add to random spawner located in Resources\Prototypes\Entities\Markers\Spawners\Random\Food_Drinks\food_meal.yml
 
-#- type: entity #keeping this here for reference
-#  name: stew
-#  parent: FoodBowlBase
-#  id: FoodSoupStew
-#  description: A nice and warm stew. Healthy and strong.
-#  components:
-#  - type: FlavorProfile
-#    flavors:
-#      - meaty
-#      - tomato
-#      - carrot
-#  - type: Sprite
-#    layers:
-#    - state: bowl
-#    - state: stew
-#  - type: SolutionContainerManager
-#    solutions:
-#      food:
-#        maxVol: 25
-#        reagents:
-#          - ReagentId: Nutriment
-#            Quantity: 15
-#          - ReagentId: Protein
-#            Quantity: 5
-#          - ReagentId: Vitamin
-#            Quantity: 2
-#  - type: Tag
-#    tags:
-#    - Meat
-#    - Fruit
-#    - Soup
 - type: entity
   parent: FoodBowlBase
   id: FoodBurritoBowl
