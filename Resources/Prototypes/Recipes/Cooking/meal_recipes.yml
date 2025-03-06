@@ -816,9 +816,9 @@
     FoodPotato: 1
 
 - type: microwaveMealRecipe
-  id: RecipeBurritoBowl
+  id: TP14RecipeBurritoBowl
   name: burrito bowl recipe
-  result: FoodBurritoBowl
+  result: TP14FoodBurritoBowl
   time: 30
   reagents:
     Water: 10

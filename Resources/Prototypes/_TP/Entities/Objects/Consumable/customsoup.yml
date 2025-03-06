@@ -2,7 +2,7 @@
 
 - type: entity
   parent: FoodBowlBase
-  id: FoodBurritoBowl
+  id: TP14FoodBurritoBowl
   name: Burrito Bowl
   description: A delicious burrito bowl, fresh from a spaceotle sponsored-chef! #pretty sure chipotle is copyrighted, say hello to spaceotle
   components:
