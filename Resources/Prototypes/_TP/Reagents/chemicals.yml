@@ -158,6 +158,10 @@
         damage:
           types:
             Blunt: 2000
+      - !type:ExplosionReactionEffect
+        explosionType: Default 
+        intensityPerUnit: 150
+        intensitySlope: 3
 
 - type: reagent
   id: DesoxyephedrinePlus

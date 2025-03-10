@@ -93,6 +93,24 @@
     JuiceThatMakesYouExplode: 1
 
 - type: reaction
+  id: ExoticLaserWeapon
+  reactants:
+    ExoticOil:
+      amount: 1
+    Iron:
+      amount: 20
+    Plasma:
+      amount: 20
+    Radium:
+      amount: 20
+    Fresium:
+      amount: 20
+  effects:
+    - !type:CreateEntityReactionEffect
+      entity: WeaponAdvancedLaser
+
+
+- type: reaction
   id: PetroleumWeldingFuel
   minTemp: 300
   reactants:
