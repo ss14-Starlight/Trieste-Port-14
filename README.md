@@ -71,3 +71,5 @@ Slckstr - Bugfixing
 FatherCheese - Programming
 
 Powsu - Programming, Spriting
+
+Lev - Spriting 
