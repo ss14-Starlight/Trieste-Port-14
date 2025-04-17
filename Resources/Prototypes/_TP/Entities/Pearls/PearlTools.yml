@@ -2,7 +2,7 @@
   parent: BaseItem
   id: TP14PearlScanner
   name: pearl reader
-  description: A device capable to acessing and outputting the information inside a pearl.
+  description: A device capable to acessing and outputting the information inside a data pearl.
   components:
     - type: Sprite
       sprite: Objects/Specific/Planktonics.rsi
@@ -20,7 +20,7 @@
   parent: BaseItem
   id: TP14PearlInscriber
   name: pearl inscriber
-  description: A machine capable to inputting information into a pearl.
+  description: A machine capable to inputting information into a data pearl.
   components:
   - type: Sprite
     sprite: Objects/Specific/Mining/mineral_scanner.rsi
