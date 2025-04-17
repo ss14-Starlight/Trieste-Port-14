@@ -35,7 +35,7 @@
   name: pearl
   parent: TP14BasePearl
   id: TP14PearlShark
-  description: 'A plain purple pearl, devoid of any etchings or imperfections.'
+  description: 'A plain purple data pearl, devoid of any etchings or imperfections.'
   components:
   - type: Sprite
     sprite: _TP/Objects/Pearl.rsi
