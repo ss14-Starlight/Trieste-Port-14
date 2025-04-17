@@ -32,6 +32,7 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -517,7 +518,7 @@ public sealed class ArrivalsSystem : EntitySystem
     _mapSystem.CreateMap(out var mapId, runMapInit: false);
     var mapUid = _mapSystem.GetMap(mapId);
 
-    if (!_loader.TryLoadGrid(mapId, path, out var grid))
+    if (!_loader.TryLoadMap(path, out var map, out var grid))
         return;
 
     _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
@@ -534,20 +535,21 @@ public sealed class ArrivalsSystem : EntitySystem
         AddComp(mapUid, restricted);
     }
 
-    _mapSystem.InitializeMap(mapId);
+    _mapSystem.InitializeMap((Entity<MapComponent?>) map!, true);
 
     // Setup for the ocean surface map
 
     var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
-    _mapSystem.CreateMap(out var mapId2, runMapInit: false);
     var mapUid2 = _mapSystem.GetMap(mapId);
 
-    if (!_loader.TryLoadGrid(mapId2, path2, out var grid2))
+    if (!_loader.TryLoadMap(path2, out var map2, out var grid2))
         return;
+
+    var loadmap2 = map2;
 
     _metaData.SetEntityName(mapUid2, Loc.GetString("map-name-terminal"));
 
-    _mapSystem.InitializeMap(mapId2);
+    _mapSystem.InitializeMap((Entity<MapComponent?>) map2!, true);
 
 }
 
