@@ -31,6 +31,7 @@ using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -512,13 +513,12 @@ public sealed class ArrivalsSystem : EntitySystem
 
   private void SetupArrivalsStation()
 {
-    // Setup for the first map
-    var mapId1 = _mapManager.CreateMap();
-    var mapUid1 = _mapManager.GetMapEntityId(mapId1);
-    _mapManager.AddUninitializedMap(mapId1);
+    var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
+    _mapSystem.CreateMap(out var mapId, runMapInit: false);
+    var mapUid = _mapSystem.GetMap(mapId);
 
-    if (!_loader.TryLoad(mapId1, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids1))
-    {
+    if (!_loader.TryLoadMap(path, out var map, out var grid))
+
         return;
     }
 
@@ -528,31 +528,37 @@ public sealed class ArrivalsSystem : EntitySystem
         EnsureComp<PreventPilotComponent>(id);
     }
 
-    // Setup planet arrivals for the first map if relevant
+    _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
+
+    // Setup planet arrivals if relevant
     if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
     {
-        var template1 = _random.Pick(_arrivalsBiomeOptions);
-        _biomes.EnsurePlanet(mapUid1, _protoManager.Index(template1));
-        var restricted1 = new RestrictedRangeComponent
+        var template = _random.Pick(_arrivalsBiomeOptions);
+        _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
+        var restricted = new RestrictedRangeComponent
         {
             Range = 32f
         };
-        AddComp(mapUid1, restricted1);
+        AddComp(mapUid, restricted);
     }
 
-    _mapManager.DoMapInitialize(mapId1);
+    _mapSystem.InitializeMap((Entity<MapComponent?>) map!, true);
 
     // Setup for the ocean surface map
-    var mapId2 = _mapManager.CreateMap();
-    var mapUid2 = _mapManager.GetMapEntityId(mapId2);
-    _mapManager.AddUninitializedMap(mapId2);
 
-    if (!_loader.TryLoad(mapId2, _cfgManager.GetCVar(CCVars.Arrivals2Map), out var uids2)) // edit here to change the map, bozo
-    {
+    var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
+    var mapUid2 = _mapSystem.GetMap(mapId);
+
+    if (!_loader.TryLoadMap(path2, out var map2, out var grid2))
         return;
     }
 
-    _mapManager.DoMapInitialize(mapId2);
+    var loadmap2 = map2;
+
+    _metaData.SetEntityName(mapUid2, Loc.GetString("map-name-terminal"));
+
+    _mapSystem.InitializeMap((Entity<MapComponent?>) map2!, true);
+
 }
 
     private void SetArrivals(bool obj)
