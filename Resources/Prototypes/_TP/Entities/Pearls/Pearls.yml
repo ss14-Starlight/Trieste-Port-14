@@ -2,7 +2,7 @@
   name: pearl
   parent: BaseItem
   id: TP14BasePearl
-  description: 'A plain white pearl, devoid of any etchings or imperfections.'
+  description: 'A plain white data pearl, devoid of any etchings or imperfections.'
   components:
   - type: Pearl
     pearlMessage: "This pearl is completely blank."
