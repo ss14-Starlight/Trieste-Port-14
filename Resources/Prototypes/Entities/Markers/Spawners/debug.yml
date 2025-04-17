@@ -22,26 +22,8 @@
   - type: Sprite
     sprite: Markers/inside.rsi
     state: default
-  - type: Roof
   - type: BlockWeather
   placement:
     mode: SnapgridCenter
-
-- type: entity
-  name: ShelterMarker
-  id: TP14MarkerShelter
-  parent: MarkerBase
-  suffix: The Rain protection
-  components:
-  - type: Sprite
-    sprite: Markers/inside.rsi
-    state: default
-  - type: RainShelter
-  - type: BlockWeather
-    placement:
-    mode: SnapgridCenter
-  - type: Physics
-    bodyType: Dynamic
-    fixedRotation: false
 
 

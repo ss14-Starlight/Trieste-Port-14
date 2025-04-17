@@ -133,6 +133,8 @@
     children:
     - id: StrangePill
       prob: 0.20
+    - id: TP14FoodJonkpocketBanana #TP
+      prob: 0.1
     # Tools
     - !type:NestedSelector
       tableId: MaintToolsTable
@@ -158,9 +160,6 @@
     - !type:NestedSelector
       tableId: SyndieMaintLoot
       prob: 0.05
-    # Recursive
-    - id: ClosetMaintenanceFilledRandom
-      prob: 0.01
 
 - type: entity
   id: ClosetMaintenanceFilledRandom
