@@ -7,6 +7,7 @@
   - Survival
   - Antagonists
   - Glossary
+  - Lore
 
 - type: guideEntry
   id: Glossary
@@ -17,3 +18,8 @@
   id: Survival
   name: guide-entry-survival
   text: "/ServerInfo/Guidebook/Survival.xml"
+
+- type: guideEntry
+  id: Lore
+  name: guide-entry-lore
+  text: "/ServerInfo/Guidebook/Lore.xml"
