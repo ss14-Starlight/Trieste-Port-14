@@ -17,6 +17,7 @@
   - type: Body
     prototype: Jellid
     requiredLegs: 2
+  - type: WaterBlocker
   - type: Electrified
     shockTime: 2
   - type: IgnitionSource
