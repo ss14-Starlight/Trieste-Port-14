@@ -3,6 +3,8 @@ using Content.Shared.Damage;
 using Content.Shared.TP.Abyss.Components;
 using Content.Server.Atmos.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Overlays;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -17,6 +19,7 @@ public sealed class WaterInteractionSystem : EntitySystem
     private float _timer = 0f;
 
     [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly IEntityManager _entityManager = default!;
 
  public override void Update(float frameTime)
 {
@@ -28,6 +31,15 @@ public sealed class WaterInteractionSystem : EntitySystem
         foreach (var inGas in EntityManager.EntityQuery<InGasComponent>())
         {
             var uid = inGas.Owner;
+
+            if (inGas.InWater)
+            {
+                EnsureComp<WaterViewerComponent>(uid);
+            }
+            else
+            {
+                _entityManager.RemoveComponent<WaterViewerComponent>(uid);
+            }
 
             if (TryComp<FlammableComponent >(uid, out var flame) && inGas.InWater)
             {
