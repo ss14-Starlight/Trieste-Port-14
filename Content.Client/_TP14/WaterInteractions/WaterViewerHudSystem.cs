@@ -32,8 +32,12 @@ private WaterViewerOverlay _waterViewerOverlay = null!;
     public override void Initialize()
     {
         _waterViewerShader = _prototypeManager.Index<ShaderPrototype>("Cataracts").Instance();
-
         _waterViewerOverlay = new WaterViewerOverlay(_waterViewerShader, _entityManager, _player);
+        
+        SubscribeLocalEvent<WaterViewerComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<WaterViewerComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<WaterBlockerComponent, GotEquippedEvent>(OnEquipped);
+        SubscribeLocalEvent<WaterBlockerComponent, GotUnequippedEvent>(OnUnequipped);
     }
 
 
@@ -43,6 +47,16 @@ private WaterViewerOverlay _waterViewerOverlay = null!;
         {
             _overlayMan.AddOverlay(_waterViewerOverlay);
         }
+    }
+
+    private void OnEquipped(Entity<WaterBlockerComponent> ent, ref GotEquippedEvent args)
+    {
+        EnsureComp<WaterBlockerComponent>(args.Equipee);
+    }
+
+    private void OnUnequipped(Entity<WaterBlockerComponent> ent, ref GotUnequippedEvent args)
+    {
+        _entityManager.RemoveComponent<WaterBlockerComponent>(args.Equipee);
     }
 
     private void OnShutdown(Entity<WaterViewerComponent> ent, ref ComponentShutdown args)
