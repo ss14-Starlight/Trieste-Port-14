@@ -1,6 +1,7 @@
 ﻿using Content.Server.Atmos.Components;
 using Content.Shared.Damage;
 using Content.Shared.TP.Abyss.Components;
+using Content.Server.Atmos.Components;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -9,7 +10,7 @@ namespace Content.Server.TP.Abyss.Systems;
 /// In real terms, this system measures the "depth" of objects, and relates it to their designated crush depths.
 /// If you are deeper than your crush depth and don't have an abyssal hardsuit on. Ruh roh.
 /// </summary>
-public sealed class WaterCrushSystem : EntitySystem
+public sealed class WaterInteractionSystem : EntitySystem
 {
     private const float UpdateTimer = 1f;
     private float _timer = 0f;
@@ -27,7 +28,14 @@ public sealed class WaterCrushSystem : EntitySystem
         {
             var uid = inGas.Owner;
 
-
+            if (TryComp<FlammableComponent >(uid, out var flame) && inGas.InWater)
+            {
+                if (flame.OnFire)
+                {
+                    flame.OnFire = false;
+                }
+            }
+            
             // Ignore those wearing abyssal hardsuits
             if (TryComp<AbyssalProtectedComponent>(uid, out var abyssalProtected))
             {
