@@ -5,6 +5,7 @@ using Content.Server.Atmos.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Overlays;
 using Robust.Shared.Prototypes;
+using Content.Server.Chemistry.EntitySystems;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -34,14 +35,17 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             if (inGas.InWater)
             {
-                if (!TryComp<WaterBlockerComponent >(uid, out var blocker))
+                if (!TryComp<WaterBlockerComponent>(uid, out var blocker))
                 {
                     EnsureComp<WaterViewerComponent>(uid);
                 }
             }
             else
             {
-                _entityManager.RemoveComponent<WaterViewerComponent>(uid);
+                if (!TryComp<JellidComponent>(uid, out var jellid))
+                {
+                    _entityManager.RemoveComponent<WaterViewerComponent>(uid);
+                }
             }
 
             if (TryComp<FlammableComponent >(uid, out var flame) && inGas.InWater)
