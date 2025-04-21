@@ -34,7 +34,10 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             if (inGas.InWater)
             {
-                EnsureComp<WaterViewerComponent>(uid);
+                if (!TryComp<WaterBlockerComponent >(uid, out var blocker))
+                {
+                    EnsureComp<WaterViewerComponent>(uid);
+                }
             }
             else
             {
