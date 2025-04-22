@@ -8,6 +8,7 @@ using Robust.Shared.Prototypes;
 using Content.Server.Chemistry.EntitySystems;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
+using Content.Shared.Silicons.Laws.Components;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -59,7 +60,7 @@ public sealed class WaterInteractionSystem : EntitySystem
             }
             else
             {
-                if (!TryComp<JellidComponent>(uid, out var jellid)) // If not a Jellid, remove the water viewing resistance
+                if (!TryComp<JellidComponent>(uid, out var jellid) && !TryComp<SiliconLawProviderComponent>(uid, out var borg)) // If not a Jellid or borg, remove the water viewing resistance
                 {
                     _entityManager.RemoveComponent<WaterViewerComponent>(uid);
                 }
