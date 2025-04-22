@@ -6,6 +6,8 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Overlays;
 using Robust.Shared.Prototypes;
 using Content.Server.Chemistry.EntitySystems;
+using Robust.Server.Audio;
+using Robust.Shared.Audio;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -18,14 +20,24 @@ public sealed class WaterInteractionSystem : EntitySystem
 {
     private const float UpdateTimer = 1f;
     private float _timer = 0f;
+    private const float NoiseTimer = 1f;
+    private float _Noisetimer = 0f;
 
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly AudioSystem _audio = default!;
 
  public override void Update(float frameTime)
 {
     _timer += frameTime;
-
+    _Noisetimer += NoiseTimer;
+    
+    if (_Noisetimer >= NoiseTimer)
+    {
+        Log.Info($"INSERT SPOOKY OCEAN NOISE HERE");
+        _Noisetimer = 0f;
+    }
+    
     if (_timer >= UpdateTimer)
     {
         // Check all objects affected by water
@@ -35,6 +47,11 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             if (inGas.InWater)
             {
+            
+                // INSERT CONSTANT DEEP RUMBLE LOOP EXACTLY ONE SECOND IN LENGTH
+                _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(1f).WithMaxDistance(0.5f));
+                Log.Info($"Rumbling entity {uid}");
+                
                 if (!TryComp<WaterBlockerComponent>(uid, out var blocker))
                 {
                     EnsureComp<WaterViewerComponent>(uid);
