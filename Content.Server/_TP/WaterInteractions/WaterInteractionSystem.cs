@@ -49,17 +49,17 @@ public sealed class WaterInteractionSystem : EntitySystem
             {
             
                 // INSERT CONSTANT DEEP RUMBLE LOOP EXACTLY ONE SECOND IN LENGTH
-                _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(1f).WithMaxDistance(0.5f));
-                Log.Info($"Rumbling entity {uid}");
+                _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(5f).WithMaxDistance(0.3f));
+                Log.Info($"Rumbling audio for immersed entity {uid}");
                 
-                if (!TryComp<WaterBlockerComponent>(uid, out var blocker))
+                if (!TryComp<WaterBlockerComponent>(uid, out var blocker)) // If not wearing a mask eyes get hurt by water
                 {
                     EnsureComp<WaterViewerComponent>(uid);
                 }
             }
             else
             {
-                if (!TryComp<JellidComponent>(uid, out var jellid))
+                if (!TryComp<JellidComponent>(uid, out var jellid)) // If not a Jellid, remove the water viewing resistance
                 {
                     _entityManager.RemoveComponent<WaterViewerComponent>(uid);
                 }
@@ -67,7 +67,7 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             if (TryComp<FlammableComponent >(uid, out var flame) && inGas.InWater)
             {
-                if (flame.OnFire)
+                if (flame.OnFire) // Put out fire
                 {
                     flame.OnFire = false;
                 }
