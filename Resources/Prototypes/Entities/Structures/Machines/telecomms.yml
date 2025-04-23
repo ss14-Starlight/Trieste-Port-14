@@ -176,8 +176,8 @@
   - type: Relay
   - type: AmbientOnPowered
   - type: AmbientSound
-    volume: -9
-    range: 2
+    volume: -4
+    range: 3
     sound:
       path: /Audio/Ambience/Objects/hdd_buzz.ogg
   - type: Sprite
@@ -188,11 +188,11 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 5
+        damage: 250 # hard to break, but it's not easy to replace either
       behaviors:
       - !type:PlaySoundBehavior
         sound:
-          collection: GlassBreak
+          collection: MetalBreak
           params:
             volume: -4
       - !type:SpawnEntitiesBehavior
