@@ -57,25 +57,45 @@
     range: 5
     sound:
       path: /Audio/Ambience/Objects/buzzing.ogg
-  - type: ExplodeOnTrigger
   - type: Explosive
     explosionType: Default
     totalIntensity: 200
     intensitySlope: 30
     maxIntensity: 120
-  - type: Destructible
+  - type: SpeakOnTrigger
+    pack: StormArrayWarnings
+  - type: Destructible # Gives warnings every 100 damage, eventually exploding
     thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 100
+        behaviors:
+          - !type:TriggerBehavior
+      - trigger:
+          !type:DamageTrigger
+          damage: 400
+        behaviors:
+          - !type:TriggerBehavior
+      - trigger:
+          !type:DamageTrigger
+          damage: 200
+        behaviors:
+          - !type:TriggerBehavior
       - trigger:
           !type:DamageTrigger
           damage: 500
         behaviors:
-          - !type:TriggerBehavior
+          - !type:ExplodeBehavior 
           - !type:DoActsBehavior
             acts: [ "Destruction" ]
       - trigger:
           !type:DamageTrigger
           damage: 300
         behaviors:
+          - !type:PopupBehavior 
+            popup: "The array rumbles and hisses!"
+            popupType: LargeCaution
+          - !type:TriggerBehavior
           - !type:PlaySoundBehavior
             sound:
               collection: MetalBreak
