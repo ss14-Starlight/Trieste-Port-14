@@ -28,22 +28,26 @@
         - WallLayer
   - type: PowerSupplier
     supplyRate: 100000
-  - type: RadiantTemperature
+  - type: RadiantTemperature # Constantly heats the air around it
   - type: GuideHelp
     guides:
     - StormArray
     - Power
+  - type: Damageable
+    damageContainer: StructuralInorganic
+  - type: Anchorable
+    delay: 999999
   - type: Temperature
     heatDamageThreshold: 500
-    coldDamageThreshold: -9999
+    coldDamageThreshold: -9999 # Doesn't take damage from cold
     currentTemperature: 100.15
     specificHeat: 42
     coldDamage:
       types:
-        Cold: 0 #per second, scales with temperature & other constants
+        Cold: 0 
     heatDamage:
       types:
-        Heat: 5 #per second, scales with temperature & other constants
+        Heat: 5 # Recieves 5 heat damage every second it's overheating
   - type: Electrified
     onHandInteract: true
     onInteractUsing: true
@@ -51,8 +55,8 @@
     requirePower: false
     highVoltageNode: input
   - type: Sprite
-    sprite: Structures/Power/Generation/rtg.rsi
-    state: rtg
+    sprite: _TP/Structures/Machines/StormArray.rsi # Might need to make the folder name lowercase, server compresses files weird sometimes.
+    state: storm_array
   - type: DamageVisuals
     thresholds: [100, 200, 400]
     damageDivisor: 4
