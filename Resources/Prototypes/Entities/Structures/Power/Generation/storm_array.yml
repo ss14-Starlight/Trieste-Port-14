@@ -1,3 +1,7 @@
+# This is the Storm Array, a device that "siphons lighting" offscreen.
+# It constantly heats up the room around it, and needs to have it's temperature carefully monitored to prevent a meltdown.
+# It also gives occasional warnings and spawning sparks while taking damage, eventually exploding.
+
 - type: entity
   parent: BaseGenerator
   id: TP14StormArray
