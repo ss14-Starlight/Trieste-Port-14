@@ -1,0 +1,76 @@
+- type: entity
+  parent: BaseGenerator
+  id: TP14StormArray
+  name: storm array
+  description: The core of a massive array of lightning rods, siphoning searing energy from the eternal storm above. Must be kept cool.
+  suffix: 100kW
+  components:
+  - type: PowerSupplier
+    supplyRate: 100000
+  - type: AtmosDevice
+    joinSystem: true
+  - type: ApcPowerReceiver
+    powerDisabled: false
+  - type: SpaceHeater
+    heatingCoefficientOfPerformance: 10
+    autoModeSwitchThreshold: 9999
+    powerConsumption: 0
+  - type: GasThermoMachine
+    temperatureTolerance: 0.2
+    atmospheric: true
+   - type: GuideHelp
+    guides:
+    - StormArray
+    - Power
+  - type: Temperature
+    heatDamageThreshold: 500
+    coldDamageThreshold: -9999
+    currentTemperature: 100.15
+    specificHeat: 42
+    coldDamage:
+      types:
+        Cold: 0 #per second, scales with temperature & other constants
+    heatDamage:
+      types:
+        Heat: 5 #per second, scales with temperature & other constants
+  - type: Electrified
+    onHandInteract: true
+    onInteractUsing: true
+    onBump: true
+    requirePower: true
+    highVoltageNode: input
+  - type: Sprite
+    sprite: Structures/Power/Generation/rtg.rsi
+    state: rtg
+  - type: DamageVisuals
+    thresholds: [100, 200, 400]
+    damageDivisor: 4
+    trackAllDamage: true
+    damageOverlay:
+      sprite: Structures/Windows/cracks.rsi
+  - type: AmbientSound
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/buzzing.ogg
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    totalIntensity: 200
+    intensitySlope: 30
+    maxIntensity: 120
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 500
+        behaviors:
+          - !type:TriggerBehavior
+          - !type:DoActsBehavior
+            acts: [ "Destruction" ]
+      - trigger:
+          !type:DamageTrigger
+          damage: 300
+        behaviors:
+          - !type:PlaySoundBehavior
+            sound:
+              collection: MetalBreak
