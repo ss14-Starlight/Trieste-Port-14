@@ -80,17 +80,32 @@
           !type:DamageTrigger
           damage: 100
         behaviors:
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              EffectSparks:
+                min: 1
+                max: 5
           - !type:TriggerBehavior
       - trigger:
           !type:DamageTrigger
           damage: 400
         behaviors:
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              EffectSparks:
+                min: 1
+                max: 5
           - !type:TriggerBehavior
       - trigger:
           !type:DamageTrigger
           damage: 200
         behaviors:
           - !type:TriggerBehavior
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              EffectSparks:
+                min: 1
+                max: 5
       - trigger:
           !type:DamageTrigger
           damage: 500
@@ -109,6 +124,11 @@
             popup: "The array rumbles and hisses!"
             popupType: LargeCaution
           - !type:TriggerBehavior
+          - !type:SpawnEntitiesBehavior
+            spawn:
+              EffectSparks:
+                min: 1
+                max: 5
           - !type:PlaySoundBehavior
             sound:
               collection: MetalBreak
