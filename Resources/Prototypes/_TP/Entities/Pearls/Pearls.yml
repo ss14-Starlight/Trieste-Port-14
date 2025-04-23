@@ -7,7 +7,7 @@
   - type: Pearl
     pearlMessage: "This pearl is completely blank."
   - type: Sprite
-    sprite: _TP/Objects/Pearl.rsi
+    sprite: _TP/Objects/pearl.rsi
     state: icon
     color: "#Ffffff"
   - type: Item
@@ -38,7 +38,7 @@
   description: 'A plain purple data pearl, devoid of any etchings or imperfections.'
   components:
   - type: Sprite
-    sprite: _TP/Objects/Pearl.rsi
+    sprite: _TP/Objects/pearl.rsi
     state: icon
     color: "#800080"
   - type: Pearl
