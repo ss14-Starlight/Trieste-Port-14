@@ -7,18 +7,8 @@
   components:
   - type: PowerSupplier
     supplyRate: 100000
-  - type: AtmosDevice
-    joinSystem: true
-  - type: ApcPowerReceiver
-    powerDisabled: false
-  - type: SpaceHeater
-    heatingCoefficientOfPerformance: 10
-    autoModeSwitchThreshold: 9999
-    powerConsumption: 0
-  - type: GasThermoMachine
-    temperatureTolerance: 0.2
-    atmospheric: true
-   - type: GuideHelp
+  - type: RadiantTemperature
+  - type: GuideHelp
     guides:
     - StormArray
     - Power
