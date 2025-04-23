@@ -4,7 +4,22 @@
   name: storm array
   description: The core of a massive array of lightning rods, siphoning searing energy from the eternal storm above. Must be kept cool.
   suffix: 100kW
+  placement:
+    mode: AlignTileAny
   components:
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.5,-1.5,1.5,1.5"
+        density: 50
+        mask:
+        - LargeMobMask
+        layer:
+        - WallLayer
   - type: PowerSupplier
     supplyRate: 100000
   - type: RadiantTemperature
@@ -27,7 +42,7 @@
     onHandInteract: true
     onInteractUsing: true
     onBump: true
-    requirePower: true
+    requirePower: false
     highVoltageNode: input
   - type: Sprite
     sprite: Structures/Power/Generation/rtg.rsi
