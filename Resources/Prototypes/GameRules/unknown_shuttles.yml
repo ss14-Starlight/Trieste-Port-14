@@ -12,25 +12,25 @@
  #   children:
 #    - id: UnknownShuttleSyndieEvacPod
 
-- type: entityTable
-  id: UnknownShuttlesHostileTable
-  table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
-    children:
-    - id: UnknownShuttleInstigator
+#- type: entityTable
+ # id: UnknownShuttlesHostileTable
+ # table: !type:AllSelector # we need to pass a list of rules, since rules have further restrictions to consider via StationEventComp
+ #   children:
+ #   - id: UnknownShuttleInstigator
    # - id: UnknownShuttlePirate
 
 # Shuttle Game Rules
 
-- type: entity
-  id: UnknownShuttleInstigator
-  parent: BaseUnknownShuttleRule
-  components:
-  - type: StationEvent
-    startAnnouncement: null #dont nark on antags
-    weight: 1 #  lower because antags.
-    earliestStart: 50 # late to hopefully have enough ghosts to fill all roles quickly (3) and because antags
-  - type: LoadMapRule
-    preloadedGrid: Instigator
+#- type: entity
+ # id: UnknownShuttleInstigator
+ # parent: BaseUnknownShuttleRule
+#  components:
+ # - type: StationEvent
+#    startAnnouncement: null #dont nark on antags
+ #   weight: 1 #  lower because antags.
+ #   earliestStart: 50 # late to hopefully have enough ghosts to fill all roles quickly (3) and because antags
+ # - type: LoadMapRule
+#    preloadedGrid: Instigator
 
 #- type: entity
 #  id: UnknownShuttlePirate

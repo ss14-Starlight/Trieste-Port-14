@@ -15,7 +15,7 @@ public sealed partial class RadiantTemperatureComponent : Component
     /// The temperature that the entity will try to reach
     /// </summary>
     [DataField]
-    public float GoalTemperature = Atmospherics.T800C;
+    public float GoalTemperature = 800f;
 
     /// <summary>
     /// How much energy (in joules) to add to or remove from the surrounding air per second

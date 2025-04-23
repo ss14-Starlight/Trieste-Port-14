@@ -1006,6 +1006,12 @@
   id: Plunger
 
 - type: Tag
+  id: PearlEditor
+
+- type: Tag
+  id: PearlReader
+
+- type: Tag
   id: PlushieCarp
 
 - type: Tag
