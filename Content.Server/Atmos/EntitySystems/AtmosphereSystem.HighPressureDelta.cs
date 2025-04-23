@@ -139,7 +139,10 @@ namespace Content.Server.Atmos.EntitySystems
             // No atmos yeets, return early.
             if (!SpaceWind)
                 return;
-
+            if (tile.Air == null)
+            {
+                return;
+            }
             if (tile.Air.GetMoles(9) <= 150) // Make sure water is involved in the space wind
             {
 
