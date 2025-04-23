@@ -69,7 +69,7 @@ namespace Content.Server.Falling
                 return;
             }
 
-            if (HasComp<TriesteComponent>(args.OldParent))
+            if (HasComp<TriesteComponent>(args.Transform.ParentUid))
             {
 
                 var destination = EntityManager.EntityQuery<FallingDestinationComponent>().FirstOrDefault();
