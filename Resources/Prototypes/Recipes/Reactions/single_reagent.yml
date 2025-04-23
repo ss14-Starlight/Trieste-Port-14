@@ -21,7 +21,7 @@
   - !type:CreateGas
     gas: WaterVapor
   products:
-    TableSalt: 1
+    TableSalt: 0.5
 
 # VOLATILES EXPLODING
 
