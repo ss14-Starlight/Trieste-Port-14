@@ -9,6 +9,12 @@
   components:
   - type: Physics
     bodyType: Static
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - Engineering
+  - type: ActiveRadio
+    channels:
+    - Engineering
   - type: Fixtures
     fixtures:
       fix1:
