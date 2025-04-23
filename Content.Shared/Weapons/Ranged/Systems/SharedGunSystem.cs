@@ -34,6 +34,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
+using Content.Server.Atmos.Components;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -231,6 +232,17 @@ public abstract partial class SharedGunSystem : EntitySystem
             !_actionBlockerSystem.CanAttack(user))
         {
             return;
+        }
+
+        // Prevent the gun from firing if underwater if not waterproof
+        if (TryComp<InGasComponent>(user, out var water) && !gun.Waterproof)
+        {
+            if (water.InWater)
+            {
+                PopupSystem.PopupEntity(Loc.GetString("waterlogged-gun"), user, PopupType.Small);
+                Audio.PlayPredicted(gun.SoundEmpty, gunUid, user);
+                return;
+            }
         }
 
         var toCoordinates = gun.ShootCoordinates;
