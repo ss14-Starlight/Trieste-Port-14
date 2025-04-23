@@ -21,6 +21,7 @@ guide-entry-jobs = Jobs
 guide-entry-cargo = Cargo
 guide-entry-cargo-bounties = Cargo Bounties
 guide-entry-salvage = Salvage
+guide-entry-storm-array = Storm Array
 guide-entry-survival = Survival
 guide-entry-lore = Lore
 guide-entry-janitorial = Janitorial
