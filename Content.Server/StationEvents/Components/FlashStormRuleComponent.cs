@@ -3,6 +3,7 @@ using Robust.Shared.Prototypes;
 using Content.Shared.Weather;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
+using Robust.Shared.Audio;
 
 
 namespace Content.Server.StationEvents.Components;
@@ -22,5 +23,8 @@ public sealed partial class FlashStormRuleComponent : Component
 
    [DataField("flickering")]
    public bool Flickering = false;
+
+     [DataField("stormMusic")]
+     public SoundSpecifier StormMusic = new SoundCollectionSpecifier("StormMusic");
 }
 }
