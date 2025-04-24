@@ -74,7 +74,6 @@ public sealed class ThunderSystem : EntitySystem
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
 
                 Spawn(entity.LightningPrototype, newCoords);
-                Log.Info($"Striking lightning at {newCoords}");
             }
 
             _updateTimer = 0;
