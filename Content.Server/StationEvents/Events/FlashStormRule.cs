@@ -73,7 +73,7 @@ namespace Content.Server.StationEvents.Events
               thunder.ThunderFrequency = 2f; // Increase thunder frequency
             }
             
-            comp.Flickering = true;
+            comp.Flickering = false;
             while (!comp.Flickering)
             {
                 var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
