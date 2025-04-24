@@ -53,7 +53,7 @@ namespace Content.Server.StationEvents.Events
                 var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
                 var startTime = gameRule.ActivatedAt;
 
-                var difference = currentTime - startTime;
+                var difference = currentTime.TotalSeconds - startTime.TotalSeconds;
 
                 if (difference.TotalSeconds >= 100)
                 {
