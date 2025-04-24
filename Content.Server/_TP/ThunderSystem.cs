@@ -36,7 +36,8 @@ public sealed class ThunderSystem : EntitySystem
 
     public override void Update(float frameTime)
     {
-        var ThunderInterval = CfgManager.GetCVar(CCVars.ThunderFrequency);
+        var CustomThunder = CfgManager.GetCVar(CCVars.CustomThunder);
+        
         base.Update(frameTime);
 
         _updateTimer += frameTime;
@@ -48,8 +49,18 @@ public sealed class ThunderSystem : EntitySystem
                 var entityUid = entity.Owner;
                 var transform = Transform(entityUid);
                 var coords = transform.Coordinates;
-                float ThunderRange = CfgManager.GetCVar(CCVars.ThunderRange);
 
+                if (CustomThunder)
+                {
+                    float ThunderRange = CfgManager.GetCVar(CCVars.ThunderRange);
+                    var ThunderInterval = CfgManager.GetCVar(CCVars.ThunderFrequency);
+                }
+                else
+                {
+                    float ThunderRange = entity.ThunderRange;
+                    float ThunderInterval = entity.ThunderFrequency;
+                }
+                
                 Vector2 offset;
                 EntityCoordinates newCoords;
 
