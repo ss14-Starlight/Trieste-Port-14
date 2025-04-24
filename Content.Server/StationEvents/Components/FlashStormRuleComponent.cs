@@ -11,10 +11,13 @@ namespace Content.Server.StationEvents.Components;
 [RegisterComponent, Access(typeof(FlashStormRule))]
 public sealed partial class FlashStormRuleComponent : Component
 {
-   [DataField("stormWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
-   public string StormWeather = string.Empty;
 
+   // The weather that is enabled during the storm
+   [DataField("stormWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
+   public string StormWeather = "Storm";
+
+   // The weather it will revert to at the end of the storm
    [DataField("normalWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
-   public string NormalWeather = string.Empty;
+   public string NormalWeather = "Rain";
 }
 }
