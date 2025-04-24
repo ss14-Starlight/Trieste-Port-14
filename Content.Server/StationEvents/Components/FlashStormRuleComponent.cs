@@ -19,5 +19,8 @@ public sealed partial class FlashStormRuleComponent : Component
    // The weather it will revert to at the end of the storm
    [DataField("normalWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
    public string NormalWeather = "Rain";
+
+   [DataField("flickering")]
+   public bool Flickering = false;
 }
 }
