@@ -22,7 +22,8 @@ using Content.Shared.Audio;
 
 //Summary
 // This code controls "Flash Storms", which are dangerous, violent storms that berate Trieste for about 3 minutes.
-// At the start of the storm, lightning increases intensity and nearness to Trieste, and rain picks up into a full Storm
+// At the start of the storm, lightning increases intensity and nearness to Trieste, and rain picks up into a full Storm.
+// It also disables the bell.
 // Halfway into the storm, every light on the platform will begin flickering and freaking out, before eventually fully shutting off.
 // After this, the storm will begin tapering off, eventually returning to the normal levels of rain and lightning.
 //Summary
