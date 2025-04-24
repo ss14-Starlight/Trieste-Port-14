@@ -4,7 +4,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared.Gravity
 {
     [RegisterComponent]
-    public sealed partial class TriesteComponent : Component
+    public sealed partial class UnderRoofComponent : Component
     {
     }
 }

@@ -7,7 +7,7 @@
     sprite: /Textures/Objects/Fun/goldbikehorn.rsi
     visible: false
     state: icon
-  - type: TriggerOnSpawn   
+  - type: TriggerOnSpawn
   - type: TimedDespawn
     lifetime: 5
 
@@ -27,9 +27,9 @@
   components:
   - type: FlashOnTrigger
     range: 7
-  - type: SpawnOnTrigger 
+  - type: SpawnOnTrigger
     proto: GrenadeFlashEffect
-  
+
 - type: entity
   id: AdminInstantEffectSmoke3
   suffix: Smoke (03 sec)
@@ -43,7 +43,7 @@
   - type: TimerTriggerVisuals
     primingSound:
       path: /Audio/Effects/Smoke-grenade.ogg
-  
+
 - type: entity
   id: AdminInstantEffectSmoke10
   suffix: Smoke (10 sec)
@@ -57,7 +57,7 @@
   - type: TimerTriggerVisuals
     primingSound:
       path: /Audio/Effects/Smoke-grenade.ogg
-  
+
 - type: entity
   id: AdminInstantEffectSmoke30
   suffix: Smoke (30 sec)
@@ -86,10 +86,32 @@
         Quantity: 50
 
 - type: entity
+  id: AdminInstantEffectThunder
+  suffix: Thunder
+  parent: AdminInstantEffectBase
+  components:
+  - type: PointLight
+    energy: 4
+    enabled: true
+    radius: 100
+    softness: 1000
+ # - type: AmbientSound
+  #  enabled: true
+  #  volume: -5
+  #  range: 14
+  #  sound:
+  #    path: /Audio/Effects/tesla_collapse.ogg
+  - type: SoundOnTrigger
+    sound: //Audio/Effects/tesla_collapse.ogg
+  - type: TriggerOnSpawn
+  - type: TimedDespawn
+    lifetime: 0.2
+
+- type: entity
   id: AdminInstantEffectGravityWell
   suffix: Gravity Well
   parent: AdminInstantEffectBase
-  components: 
+  components:
   - type: SoundOnTrigger
     removeOnTrigger: true
     sound:
@@ -109,4 +131,4 @@
   - type: SingularityDistortion
     intensity: 10
     falloffPower: 1.5
-      
+
