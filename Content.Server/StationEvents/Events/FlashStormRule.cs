@@ -8,11 +8,20 @@ using Content.Server._TP;
 using Robust.Shared.Map;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
+﻿using Content.Server.Ghost;
+using Content.Server.Light.Components;
+using Content.Server.Chat.Systems;
+using Content.Server.Event.Systems;
 
 namespace Content.Server.StationEvents.Events
 {
     public sealed class FlashStormRule : StationEventSystem<FlashStormRuleComponent>
     {
+
+        [Dependency] private readonly GhostSystem _ghost = default!;
+        [Dependency] private readonly EntityLookupSystem _lookup = default!;
+
+        
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
             base.Started(uid, comp, gameRule, args);
@@ -34,6 +43,18 @@ namespace Content.Server.StationEvents.Events
             {
               thunder.ThunderRange = 50f;
               thunder.ThunderFrequency = 2f;
+            }
+
+            var lights = GetEntityQuery<PoweredLightComponent>();
+            foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+            {
+                if (!lights.HasComponent(light)) // Flicker lights
+                    continue;
+
+                if (!_random.Prob(0.5f))
+                    continue;
+
+                _ghost.DoGhostBooEvent(light);
             }
 
         }
