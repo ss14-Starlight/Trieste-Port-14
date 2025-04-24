@@ -14,6 +14,13 @@ using Content.Server.Chat.Systems;
 using Content.Server.Event.Systems;
 using Robust.Shared.Timing;
 
+
+//Summary
+// This code controls "Flash Storms", which are dangerous, violent storms that berate Trieste for about 3 minutes.
+// At the start of the storm, lightning increases intensity and nearness to Trieste, and rain picks up into a full Storm
+// Halfway into the storm, every light on the platform will begin flickering and freaking out, before eventually fully shutting off.
+// After this, the storm will begin tapering off, eventually returning to the normal levels of rain and lightning.
+//Summary
 namespace Content.Server.StationEvents.Events
 {
     public sealed class FlashStormRule : StationEventSystem<FlashStormRuleComponent>
@@ -73,15 +80,46 @@ namespace Content.Server.StationEvents.Events
              var lights = GetEntityQuery<PoweredLightComponent>();
              while (comp.Flickering)
             {
-                foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                 var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
+                 var startTime = gameRule.ActivatedAt;
+                 var difference = currentTime.TotalSeconds - startTime.TotalSeconds;
+
+                 if (difference.TotalSeconds >= 250)
                 {
-                    if (!lights.HasComponent(light)) // Flicker lights
-                        continue;
+                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    {
+                         if (!lights.HasComponent(light))
+                         continue;
 
-                    if (!_random.Prob(0.5f))
-                        continue;
+                         light.On = true;
+                         comp.Flickering = false;
+                         Log.Info("Turning the lights on!");
+                    }
+                }
 
-                    _ghost.DoGhostBooEvent(light);
+                if (difference.TotalSeconds >= 200)
+                {
+                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    {
+                         if (!lights.HasComponent(light))
+                         continue;
+                         Log.Info("Turning the lights off!");
+                         light.On = false;
+                    }
+                }
+                else
+                {
+                
+                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    {
+                        if (!lights.HasComponent(light)) // Flicker lights
+                            continue;
+
+                        if (!_random.Prob(0.5f))
+                            continue;
+                        
+                        _ghost.DoGhostBooEvent(light);
+                    }
                 }
             }
          
