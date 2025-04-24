@@ -55,7 +55,7 @@ namespace Content.Server.StationEvents.Events
 
                 var difference = currentTime - startTime;
 
-                if (difference >= 100)
+                if (difference.TotalSeconds >= 100)
                 {
                     comp.Flickering = true;
                     BeginFlicker(uid, comp, gameRule, station);
