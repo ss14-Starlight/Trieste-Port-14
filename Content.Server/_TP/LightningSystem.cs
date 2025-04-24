@@ -39,7 +39,7 @@ public sealed class ThunderSystem : EntitySystem
         var ThunderInterval = CfgManager.GetCVar(CCVars.ThunderFrequency);
         base.Update(frameTime);
 
-        _updateTimer += frameTime;
+     //   _updateTimer += frameTime;
 
         if (_updateTimer >= ThunderInterval)
         {
