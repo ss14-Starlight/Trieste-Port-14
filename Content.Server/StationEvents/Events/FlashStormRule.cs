@@ -12,6 +12,7 @@ using Robust.Shared.Random;
 using Content.Server.Light.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.Event.Systems;
+using Robust.Shared.Timing;
 
 namespace Content.Server.StationEvents.Events
 {
@@ -20,6 +21,7 @@ namespace Content.Server.StationEvents.Events
 
         [Dependency] private readonly GhostSystem _ghost = default!;
         [Dependency] private readonly EntityLookupSystem _lookup = default!;
+        [Dependency] private readonly SharedGameTicker _gameTicker = default!;
 
         
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
@@ -46,9 +48,30 @@ namespace Content.Server.StationEvents.Events
             }
             
             comp.Flickering = true;
-            
-            var lights = GetEntityQuery<PoweredLightComponent>();
-            while (comp.Flickering)
+            while (!comp.Flickering)
+            {
+                var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
+                var startTime = gameRule.ActivatedAt;
+
+                var difference = currentTime - startTime;
+
+                if (difference >= 100)
+                {
+                    comp.Flickering = true;
+                    BeginFlicker(uid, comp, gameRule, station);
+                    break;
+                }
+                else
+                {
+                    Log.Info($"Not time for flickering. Difference is {difference});
+                }
+            }
+
+        }
+         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, EntityUid station)
+         {
+             var lights = GetEntityQuery<PoweredLightComponent>();
+             while (comp.Flickering)
             {
                 foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
                 {
@@ -61,9 +84,8 @@ namespace Content.Server.StationEvents.Events
                     _ghost.DoGhostBooEvent(light);
                 }
             }
-
-        }
-
+         
+         }
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
             base.Ended(uid, comp, gameRule, args);
