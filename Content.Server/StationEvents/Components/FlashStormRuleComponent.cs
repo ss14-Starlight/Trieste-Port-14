@@ -13,5 +13,8 @@ public sealed partial class FlashStormRuleComponent : Component
 {
    [DataField("stormWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
    public string StormWeather = string.Empty;
+
+   [DataField("normalWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
+   public string NormalWeather = string.Empty;
 }
 }
