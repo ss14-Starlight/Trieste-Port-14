@@ -43,7 +43,8 @@ namespace Content.Server.StationEvents.Events
         {
             base.Started(uid, comp, gameRule, args);
 
-            _sound.DispatchStationEventMusic(uid, comp.StormMusic, StationEventMusicType.Storm); // Play the music
+            _stormSong = _audio.GetSound(component.StormMusic);
+            _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
 
             var bells = GetEntityQuery<BellComponent>();
             foreach (var bell in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
