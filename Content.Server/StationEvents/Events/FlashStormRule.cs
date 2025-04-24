@@ -69,8 +69,8 @@ namespace Content.Server.StationEvents.Events
 
             foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
             {
-              thunder.ThunderRange = 50f;
-              thunder.ThunderFrequency = 2f;
+              thunder.ThunderRange = 50f; // Decrease thunder range
+              thunder.ThunderFrequency = 2f; // Increase thunder frequency
             }
             
             comp.Flickering = true;
