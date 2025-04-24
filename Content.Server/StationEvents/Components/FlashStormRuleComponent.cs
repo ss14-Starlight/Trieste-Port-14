@@ -6,10 +6,12 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 
 namespace Content.Server.StationEvents.Components;
+{
 
 [RegisterComponent, Access(typeof(FlashStormRule))]
 public sealed partial class FlashStormRuleComponent : Component
 {
    [DataField("stormWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
    public string StormWeather = string.Empty;
+}
 }
