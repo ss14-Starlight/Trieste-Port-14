@@ -11,11 +11,11 @@ namespace Content.Shared.Gravity
         public string LightningPrototype = "AdminInstantEffectThunder";
 
         // The range in which lightning will occur
-        [DataField("lightingRange")]
-        public float LightningRange = 70f;
+        [DataField("thunderRange")]
+        public float ThunderRange = 70f;
 
         // How often (in seconds) the lightning will occur
-        [DataField("lightingFrequency")]
-        public float LightningFrequency = 8f;
+        [DataField("thunderFrequency")]
+        public float ThunderFrequency = 8f;
     }
 }
