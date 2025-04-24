@@ -13,6 +13,11 @@ using Content.Server.Light.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.Event.Systems;
 using Robust.Shared.Timing;
+using Content.Shared.TP14.Bell.Components;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
+using Content.Server.Audio;
+using Content.Shared.Audio;
 
 
 //Summary
@@ -29,11 +34,24 @@ namespace Content.Server.StationEvents.Events
         [Dependency] private readonly GhostSystem _ghost = default!;
         [Dependency] private readonly EntityLookupSystem _lookup = default!;
         [Dependency] private readonly SharedGameTicker _gameTicker = default!;
+        [Dependency] private readonly SharedAudioSystem _audio = default!;
+        [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
 
         
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
             base.Started(uid, comp, gameRule, args);
+
+            _sound.DispatchStationEventMusic(uid, "countdown.ogg", StationEventMusicType.Storm); // Play the music
+
+            var bells = GetEntityQuery<BellComponent>();
+            foreach (var bell in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+            {
+                         if (!bells.HasComponent(bell))
+                         continue;
+
+                         bell.CanMove = false; // Prevent bells from being operated
+            }
 
             if (!TryGetRandomStation(out var station))
             {
@@ -127,6 +145,15 @@ namespace Content.Server.StationEvents.Events
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
             base.Ended(uid, comp, gameRule, args);
+
+            var bells = GetEntityQuery<BellComponent>();
+            foreach (var bell in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+            {
+                         if (!bells.HasComponent(bell))
+                         continue;
+
+                         bell.CanMove = true; // Allow bells to move again
+            }
 
              foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
             {
