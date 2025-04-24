@@ -44,17 +44,22 @@ namespace Content.Server.StationEvents.Events
               thunder.ThunderRange = 50f;
               thunder.ThunderFrequency = 2f;
             }
-
+            
+            comp.Flickering = true;
+            
             var lights = GetEntityQuery<PoweredLightComponent>();
-            foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+            while (comp.Flickering)
             {
-                if (!lights.HasComponent(light)) // Flicker lights
-                    continue;
+                foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                {
+                    if (!lights.HasComponent(light)) // Flicker lights
+                        continue;
 
-                if (!_random.Prob(0.5f))
-                    continue;
+                    if (!_random.Prob(0.5f))
+                        continue;
 
-                _ghost.DoGhostBooEvent(light);
+                    _ghost.DoGhostBooEvent(light);
+                }
             }
 
         }
@@ -81,6 +86,8 @@ namespace Content.Server.StationEvents.Events
             }
 
             weather.Weather = comp.NormalWeather; // End storm
+
+            comp.Flickering = false;
             
         }
     }
