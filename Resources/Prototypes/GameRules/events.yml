@@ -596,4 +596,6 @@
       path: /Audio/Announcements/attention.ogg
     endAnnouncement: station-event-flash-storm-end-announcement
     weight: 4
+    duration: 181
+    maxOccurrences: 2
   - type: FlashStormRule
