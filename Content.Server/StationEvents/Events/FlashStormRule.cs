@@ -19,6 +19,7 @@ using Robust.Shared.Audio.Systems;
 using Content.Server.Audio;
 using Content.Shared.Audio;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 
 
 //Summary
@@ -39,13 +40,14 @@ namespace Content.Server.StationEvents.Events
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+        [Dependency] private readonly IRobustRandom _random = default!;
 
         
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
             base.Started(uid, comp, gameRule, args);
 
-            _stormSong = _audio.GetSound(component.StormMusic);
+            _stormSong = _audio.GetSound(comp.StormMusic);
             _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
 
 
@@ -53,26 +55,27 @@ namespace Content.Server.StationEvents.Events
             {
                 return;
             }
+
+            var trueStation = null;
             if (station.HasValue)
             {
-                var trueStation = station.Value
+                trueStation = station.Value;
             }
             else
             {
                 Log.Error("No station foundeth");
             }
 
-            var Map = Transform(station).ParentUid;
+            var Map = Transform(trueStation).ParentUid;
 
             var StationCoords = Transform(trueStation).Coordinates;
             
-            var bells = GetEntityQuery<BellComponent>();
-            foreach (var bell in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
+            foreach (var bell in EntityManager.EntityQuery<BellComponent>())
             {
-                         if (!bells.HasComponent(bell))
-                         continue;
+                if (!EntityManager.HasComponent<BellComponent>(bell.Owner))
+                continue;
 
-                        // bell.CanMove = false; // Prevent bells from being operated
+                // bell.CanMove = false; // Prevent bells from being operated
             }
 
             if (!TryComp<WeatherComponent>(Map, out var weather))
@@ -112,7 +115,7 @@ namespace Content.Server.StationEvents.Events
                 }
                 else
                 {
-                    Log.Info($"Not time for flickering. Difference is {difference});
+                    Log.Info($"Not time for flickering. Difference is {difference}");
                 }
             }
 
@@ -170,13 +173,12 @@ namespace Content.Server.StationEvents.Events
         {
             base.Ended(uid, comp, gameRule, args);
 
-            var bells = GetEntityQuery<BellComponent>();
-            foreach (var bell in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+            foreach (var bell in EntityManager.EntityQuery<BellComponent>())
             {
-                         if (!bells.HasComponent(bell))
-                         continue;
+            if (!EntityManager.HasComponent<BellComponent>(bell.Owner))
+                continue;
 
-                        // bell.CanMove = true; // Allow bells to move again
+            // bell.CanMove = true;
             }
 
              foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
