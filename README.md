@@ -7,7 +7,7 @@ Our community discord where we announce events and playtests: https://discord.gg
 
 TRIESTE PORT is also open-source, so anyone is free to contribute to the project! If you have questions or need help, don't hesitate to ask in the discord!
 
-I also absolutely don't mind if other forks wish to use our code for their own projects. After all, SS14 is all about collaboration! As long as it's not code ported over from another fork, of course. See attributions.
+I also absolutely don't mind if other forks wish to use our code for their own projects. After all, SS14 is all about collaboration! As long as it's not code ported over from another fork, of course. See attributions about that.
 
 ## Building
 
@@ -50,7 +50,7 @@ Lupino - Debugging, General help
 
 McJak - Antagonist Music
 
-Målingen - Spriting, Lore help, General help
+Målingen - Spriting, General help
 
 Quri1q - Spriting
 
