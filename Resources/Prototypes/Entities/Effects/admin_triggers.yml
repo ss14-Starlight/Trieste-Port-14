@@ -86,28 +86,6 @@
         Quantity: 50
 
 - type: entity
-  id: AdminInstantEffectThunder
-  suffix: Thunder
-  parent: AdminInstantEffectBase
-  components:
-  - type: PointLight
-    energy: 4
-    enabled: true
-    radius: 100
-    softness: 1000
- # - type: AmbientSound
-  #  enabled: true
-  #  volume: -5
-  #  range: 14
-  #  sound:
-  #    path: /Audio/Effects/tesla_collapse.ogg
-  - type: SoundOnTrigger
-    sound: //Audio/Effects/tesla_collapse.ogg
-  - type: TriggerOnSpawn
-  - type: TimedDespawn
-    lifetime: 0.2
-
-- type: entity
   id: AdminInstantEffectGravityWell
   suffix: Gravity Well
   parent: AdminInstantEffectBase
