@@ -31,7 +31,7 @@ public sealed class WaterInteractionSystem : EntitySystem
  public override void Update(float frameTime)
 {
     _timer += frameTime;
-    _Noisetimer += NoiseTimer;
+    _Noisetimer += frameTime;
     
     if (_Noisetimer >= NoiseTimer)
     {
