@@ -12,6 +12,7 @@ using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Maps;
+using Robust.Shared.Map;
 using Content.Shared.Nuke;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
@@ -27,12 +28,18 @@ using Robust.Shared.Utility;
 ﻿using Content.Server.Ghost;
 using Content.Server.Light.Components;
 using Content.Server.Event.Components;
+using Content.Shared.Anomaly;
+using Content.Shared.Anomaly.Components;
+using Content.Shared.Anomaly.Effects;
+using Content.Shared.Anomaly.Effects.Components;
+
 
 namespace Content.Server.Nuke;
 
 public sealed class NukeSystem : EntitySystem
 {
     [Dependency] private readonly AlertLevelSystem _alertLevel = default!;
+    [Dependency] private readonly SharedAnomalySystem _anomaly = default!;
     [Dependency] private readonly ChatSystem _chatSystem = default!;
     [Dependency] private readonly ExplosionSystem _explosions = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
@@ -51,6 +58,8 @@ public sealed class NukeSystem : EntitySystem
     [Dependency] private readonly AppearanceSystem _appearance = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly GhostSystem _ghost = default!;
+    [Dependency] private readonly TileSystem _tile = default!;
+    
 
     /// <summary>
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
@@ -606,6 +615,29 @@ public sealed class NukeSystem : EntitySystem
                     continue;
 
                  _ghost.DoGhostBooEvent(light);
+            }
+
+            if (!HasComp<TileSpawnAnomalyComponent>(tileChanger))
+            {
+                return;
+            }
+
+            var xform = Transform(anomaly);
+            if (!TryComp<MapGridComponent>(xform.GridUid, out var grid))
+                return;
+                
+            foreach (var entry in tileChanger.Entries)
+            {
+            
+                var tiles = _anomaly.GetSpawningPoints(uid, 0f, 100f, entry.Settings, 100f);
+                if (tiles == null)
+                return;
+
+                foreach (var tileref in tiles)
+                {
+                    var tile = (ContentTileDefinition) _tiledef[entry.Floor]; // Rips the Sweetwater tiles into eldritch chromite
+                    _tile.ReplaceTile(tileref, tile);
+                }
             }
 
             // TODO: Add logic to switch Trieste lightning with Eldrich lightning once merged
