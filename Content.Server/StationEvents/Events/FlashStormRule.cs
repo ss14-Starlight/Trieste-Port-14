@@ -111,10 +111,6 @@ namespace Content.Server.StationEvents.Events
             Timer.Spawn(TimeSpan.FromSeconds(30), () =>
                 {
                     comp.Flickering = true;
-                }
-                else
-                {
-                    Log.Info($"Not time for flickering. Difference is {difference}");
                 });
                 
                 while (comp.flickering)
