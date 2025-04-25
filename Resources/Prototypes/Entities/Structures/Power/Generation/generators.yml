@@ -336,6 +336,14 @@
   - type: PowerMonitoringDevice
     sprite: Structures/Power/Generation/rtg.rsi
     state: rtg_damaged
+  - type: TileSpawnAnomaly
+    entries:
+    - settings:
+        spawnOnPulse: false
+        minAmount: 100
+        maxAmount: 200
+        maxRange: 300
+      floor: FloorChromite
   - type: RadiationSource
     intensity: 10
   - type: LightningArcShooter
