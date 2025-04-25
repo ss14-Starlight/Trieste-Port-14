@@ -98,21 +98,17 @@ namespace Content.Server.StationEvents.Events
               thunder.ThunderFrequency = 2f; // Increase thunder frequency
             }
             
-             BeginFlicker(uid, comp, gameRule);
-
+            Timer.Spawn(TimeSpan.FromSeconds(60), () =>
+            {
+                comp.Flickering = false;)
+            }
         }
          protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule)
          {
 
+            var lights = GetEntityQuery<PoweredLightComponent>();
             comp.Flickering = false;
-            while (!comp.Flickering)
-            {
-                var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
-                var startTime = gameRule.ActivatedAt;
-
-                var difference = currentTime.TotalSeconds - startTime.TotalSeconds;
-
-                if (difference.TotalSeconds >= 100)
+            Timer.Spawn(TimeSpan.FromSeconds(30), () =>
                 {
                     comp.Flickering = true;
                     break;
@@ -121,42 +117,10 @@ namespace Content.Server.StationEvents.Events
                 {
                     Log.Info($"Not time for flickering. Difference is {difference}");
                 }
-            }
-
-             var lights = GetEntityQuery<PoweredLightComponent>();
-             while (comp.Flickering)
-            {
-                 var currentTime = _gameTiming.CurTime.Subtract(_gameTicker.RoundStartTimeSpan);
-                 var startTime = gameRule.ActivatedAt;
-                 var difference = currentTime.TotalSeconds - startTime.TotalSeconds;
-
-                 if (difference.TotalSeconds >= 250)
-                {
-                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
-                    {
-                         if (!lights.HasComponent(light))
-                         continue;
-
-                         light.On = true;
-                         comp.Flickering = false;
-                         Log.Info("Turning the lights on!");
-                    }
-                }
-
-                if (difference.TotalSeconds >= 200)
-                {
-                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
-                    {
-                         if (!lights.HasComponent(light))
-                         continue;
-                         Log.Info("Turning the lights off!");
-                         light.On = false;
-                    }
-                }
-                else
-                {
                 
-                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
+                while (comp.flickering)
+                {
+                 foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
                     {
                         if (!lights.HasComponent(light)) // Flicker lights
                             continue;
@@ -167,9 +131,33 @@ namespace Content.Server.StationEvents.Events
                         _ghost.DoGhostBooEvent(light);
                     }
                 }
+
+                Timer.Spawn(TimeSpan.FromSeconds(15), () =>
+                {
+                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
+                    {
+                         if (!lights.HasComponent(light))
+                         continue;
+                         Log.Info("Turning the lights off!");
+                         light.On = false;)
+                    }
+                 }
+
+                 Timer.Spawn(TimeSpan.FromSeconds(15), () =>
+                {
+
+                     foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
+                    {
+                         if (!lights.HasComponent(light))
+                         continue;
+
+                         light.On = true;
+                         comp.Flickering = false;
+                         Log.Info("Turning the lights on!"));
+                    }
+                }
             }
-         
-         }
+        }
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
             base.Ended(uid, comp, gameRule, args);
