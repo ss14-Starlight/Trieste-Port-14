@@ -101,7 +101,7 @@ namespace Content.Server.StationEvents.Events
             Timer.Spawn(TimeSpan.FromSeconds(60), () =>
             {
                 comp.Flickering = false;
-            })
+            });
         }
          protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule)
          {
@@ -115,7 +115,7 @@ namespace Content.Server.StationEvents.Events
                 else
                 {
                     Log.Info($"Not time for flickering. Difference is {difference}");
-                })
+                });
                 
                 while (comp.flickering)
                 {
@@ -140,7 +140,7 @@ namespace Content.Server.StationEvents.Events
                          Log.Info("Turning the lights off!");
                          light.On = false;
                     }
-                 })
+                 });
 
                  Timer.Spawn(TimeSpan.FromSeconds(15), () =>
                 {
@@ -154,7 +154,7 @@ namespace Content.Server.StationEvents.Events
                          comp.Flickering = false;
                          Log.Info("Turning the lights on!");
                     }
-                })
+                });
             }
         }
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
