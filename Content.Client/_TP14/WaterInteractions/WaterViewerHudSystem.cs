@@ -101,13 +101,13 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
 {
     private readonly ShaderInstance _shaderInstance;
     private readonly IEntityManager _entityManager;
-    private readonly IPlayerManager _playerManager;
+    private readonly IPlayerManager _player;
 
     public WaterViewerOverlay(ShaderInstance shaderInstance, IEntityManager entityManager, IPlayerManager playerManager)
     {
         _shaderInstance = shaderInstance;
         _entityManager = entityManager;
-        _playerManager = playerManager;
+        _player = playerManager;
     }
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
@@ -115,7 +115,7 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        var playerEntity = _playerManager.LocalEntity;
+        var playerEntity = _player.LocalEntity;
 
         if (!playerEntity.HasValue)
             return false;
@@ -134,7 +134,7 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
        if (ScreenTexture == null)
                 return;
 
-            var playerEntity = _playerManager.LocalSession?.AttachedEntity;
+            var playerEntity = _player.LocalSession?.AttachedEntity;
 
             var worldHandle = args.WorldHandle;
             var viewport = args.WorldBounds;
