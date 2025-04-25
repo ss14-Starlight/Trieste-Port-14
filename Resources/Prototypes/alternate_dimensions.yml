@@ -1,7 +1,7 @@
 
 - type: alternateDimension
   id: Shadowlands
-  defaultTile: FloorSteelDirty
+  defaultTile: FloorChromite
   mapComponents:
   - type: Parallax
     parallax: Blank
