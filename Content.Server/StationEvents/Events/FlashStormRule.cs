@@ -18,6 +18,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Content.Server.Audio;
 using Content.Shared.Audio;
+using Robust.Shared.Prototypes;
 
 
 //Summary
@@ -37,6 +38,7 @@ namespace Content.Server.StationEvents.Events
         [Dependency] private readonly SharedGameTicker _gameTicker = default!;
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
+        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
         
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
@@ -79,7 +81,14 @@ namespace Content.Server.StationEvents.Events
               return;
             }
 
-            weather.Weather = comp.StormWeather; // Initiate storm
+            if (_prototypeManager.TryIndex<WeatherPrototype>(comp.StormWeather, out var stormWeatherProto))
+            {
+                weather.Weather = stormWeatherProto; // Assign the actual prototype
+            }
+            else
+            {
+                Log.Error($"Weather prototype '{comp.StormWeather}' not found.");
+            }
 
             foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
             {
@@ -189,7 +198,14 @@ namespace Content.Server.StationEvents.Events
               return;
             }
 
-            weather.Weather = comp.NormalWeather; // End storm
+             if (_prototypeManager.TryIndex<WeatherPrototype>(comp.NormalWeather, out var normalWeatherProto))
+            {
+                weather.Weather = normalWeatherProto;
+            }
+            else
+            {
+                Log.Error($"Weather prototype '{comp.NormalWeather}' not found.");
+            }
 
             comp.Flickering = false;
             
