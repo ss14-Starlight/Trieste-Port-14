@@ -1,10 +1,10 @@
 
 - type: alternateDimension
   id: Shadowlands
-  defaultTile: FloorChromite
+  defaultTile: FloorSteelDirty
   mapComponents:
   - type: Parallax
-    parallax: Sea
+    parallax: Blank
   gridComponents:
   - type: Gravity
     enabled: true
