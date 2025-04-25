@@ -10,10 +10,12 @@ using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
+using Content.Shared.Singularity.Components;
 using Content.Shared.Maps;
 using Content.Shared.Nuke;
 using Content.Shared.Popups;
 using Robust.Server.GameObjects;
+using Content.Server.Tesla.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -22,6 +24,9 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
+﻿using Content.Server.Ghost;
+using Content.Server.Light.Components;
+using Content.Server.Event.Components;
 
 namespace Content.Server.Nuke;
 
@@ -44,6 +49,8 @@ public sealed class NukeSystem : EntitySystem
     [Dependency] private readonly StationSystem _station = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly AppearanceSystem _appearance = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly GhostSystem _ghost = default!;
 
     /// <summary>
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
@@ -569,6 +576,43 @@ public sealed class NukeSystem : EntitySystem
         if (component.Exploded)
             return;
 
+        if (component.IsArtifact)
+        {
+            // Artifact meltdown logic
+            if (!HasComp<LightningArcShooter>(lightning))
+            {
+                return;
+            }
+            lightning.arcDepth = 8f;
+            lightning.maxLightningArc = 12f;
+            lightning.shootMinInterval = 1f;
+            lightning.shootMaxInterval = 2f;
+            lightning.shootRange = 55f;
+
+            if (!HasComp<SingularityDistortion>(distort))
+            {
+                return;
+            }
+            distort.falloffPower = 1f;
+            distort.intensity = 300f;
+
+            var lights = GetEntityQuery<PoweredLightComponent>();
+            foreach (var light in _lookup.GetEntitiesInRange(uid, 100f, LookupFlags.StaticSundries))
+            {
+                if (!lights.HasComponent(light))
+                continue;
+
+                if (!_random.Prob(0.6f))
+                    continue;
+
+                 _ghost.DoGhostBooEvent(light);
+            }
+
+            // TODO: Add logic to switch Trieste lightning with Eldrich lightning once merged
+        }
+        else
+        {
+        
         component.Exploded = true;
 
         _explosions.QueueExplosion(uid,
@@ -584,6 +628,7 @@ public sealed class NukeSystem : EntitySystem
 
         _sound.StopStationEventMusic(uid, StationEventMusicType.Nuke);
         Del(uid);
+    }
     }
 
     /// <summary>
