@@ -74,7 +74,7 @@ guide-entry-special = Special
 guide-entry-others = Others
 
 guide-entry-antagonists = Antagonists
-guide-entry-nuclear-operatives = Nuclear Operatives
+guide-entry-nuclear-operatives = Cascade Operatives
 guide-entry-traitors = Traitors
 guide-entry-zombies = Zombies
 guide-entry-revolutionaries = Revolutionaries
