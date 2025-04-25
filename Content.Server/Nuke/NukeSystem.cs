@@ -146,14 +146,12 @@ public sealed class NukeSystem : EntitySystem
     private void OnRemove(EntityUid uid, NukeComponent component, ComponentRemove args)
     {
         _itemSlots.RemoveItemSlot(uid, component.DiskSlot);
+        _itemSlots.RemoveItemSlot(uid, component.ResonanceSlot);
     }
 
     private void OnItemSlotChanged(EntityUid uid, NukeComponent component, ContainerModifiedMessage args)
     {
         if (!component.Initialized)
-            return;
-
-        if (args.Container.ID != component.DiskSlot.ID)
             return;
 
         UpdateStatus(uid, component);
