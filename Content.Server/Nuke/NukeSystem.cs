@@ -9,6 +9,7 @@ using Content.Shared.Audio;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.DoAfter;
+using Content.Shared.Radiation.Components;
 using Content.Shared.Examine;
 using Content.Shared.Singularity.Components;
 using Content.Shared.Maps;
@@ -515,6 +516,35 @@ public sealed class NukeSystem : EntitySystem
         component.Status = NukeStatus.ARMED;
         UpdateUserInterface(uid, component);
         UpdateAppearance(uid, component);
+
+        if (component.IsArtifact)
+        {
+            // Artifact meltdown logic
+            if (!HasComp<LightningArcShooter>(lightning))
+            {
+                return;
+            }
+            lightning.ArcDepth = 0f;
+            lightning.MaxLightningArc = 0f;
+            lightning.ShootMinInterval = 0f;
+            lightning.ShootMaxInterval = 0f;
+            lightning.ShootRange = 0f;
+
+            if (!HasComp<SingularityDistortion>(distort))
+            {
+                return;
+            }
+            distort.FalloffPower = 0f;
+            distort.Intensity = 0f;
+
+            if (!HasComp<RadiationSource>(radiation))
+            {
+                return;
+            }
+
+            radiation.Intensity = 0f;
+        }
+
     }
 
     /// <summary>
@@ -557,6 +587,34 @@ public sealed class NukeSystem : EntitySystem
 
         UpdateUserInterface(uid, component);
         UpdateAppearance(uid, component);
+
+        if (component.IsArtifact)
+        {
+            // Artifact disarm logic
+            if (!HasComp<LightningArcShooter>(lightning))
+            {
+                return;
+            }
+            lightning.ArcDepth = 4f;
+            lightning.MaxLightningArc = 5f;
+            lightning.ShootMinInterval = 2f;
+            lightning.ShootMaxInterval = 4f;
+            lightning.ShootRange = 7f;
+
+            if (!HasComp<SingularityDistortion>(distort))
+            {
+                return;
+            }
+            distort.FalloffPower = 2f;
+            distort.Intensity = -1000f;
+
+            if (!HasComp<RadiationSource>(radiation))
+            {
+                return;
+            }
+
+            radiation.Intensity = 10f;
+        }
     }
 
     /// <summary>
@@ -592,18 +650,18 @@ public sealed class NukeSystem : EntitySystem
             {
                 return;
             }
-            lightning.arcDepth = 8f;
-            lightning.maxLightningArc = 12f;
-            lightning.shootMinInterval = 1f;
-            lightning.shootMaxInterval = 2f;
-            lightning.shootRange = 55f;
+            lightning.ArcDepth = 8f;
+            lightning.MaxLightningArc = 12f;
+            lightning.ShootMinInterval = 1f;
+            lightning.ShootMaxInterval = 2f;
+            lightning.ShootRange = 55f;
 
             if (!HasComp<SingularityDistortion>(distort))
             {
                 return;
             }
-            distort.falloffPower = 1f;
-            distort.intensity = 300f;
+            distort.FalloffPower = 1f;
+            distort.Intensity = 300f;
 
             var lights = GetEntityQuery<PoweredLightComponent>();
             foreach (var light in _lookup.GetEntitiesInRange(uid, 100f, LookupFlags.StaticSundries))
