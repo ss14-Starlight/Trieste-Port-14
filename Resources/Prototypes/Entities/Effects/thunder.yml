@@ -1,0 +1,37 @@
+- type: entity
+  id: AdminInstantEffectThunder
+  suffix: Thunder
+  parent: AdminInstantEffectBase
+  components:
+  - type: PointLight
+    energy: 4
+    enabled: true
+    radius: 100
+    softness: 1000
+  - type: SoundOnTrigger
+    sound: //Audio/Effects/tesla_collapse.ogg
+  - type: TriggerOnSpawn
+  - type: TimedDespawn
+    lifetime: 0.2
+
+- type: entity
+  id: Eldritch // Used after Artifact meltdown
+  suffix: Thunder
+  parent: AdminInstantEffectThunder
+  components:
+  - type: PointLight
+    energy: 5
+    enabled: true
+    radius: 200
+    softness: 10
+    color: "#CBC3E3"
+  - type: ExplodeOnTrigger
+  - type: EmpOnTriggerComponent 
+    range: 3
+    disableDuration: 5
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 10
+    intensitySlope: 3
+    totalIntensity: 60 # about a ~4 tile radius
+    canCreateVacuum: false
