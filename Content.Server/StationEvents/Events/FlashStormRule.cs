@@ -46,21 +46,34 @@ namespace Content.Server.StationEvents.Events
             _stormSong = _audio.GetSound(component.StormMusic);
             _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
 
-            var bells = GetEntityQuery<BellComponent>();
-            foreach (var bell in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
-            {
-                         if (!bells.HasComponent(bell))
-                         continue;
-
-                         bell.CanMove = false; // Prevent bells from being operated
-            }
 
             if (!TryGetRandomStation(out var station))
             {
                 return;
             }
+            if (station.HasValue)
+            {
+                var trueStation = station.Value
+            }
+            else
+            {
+                Log.Error("No station foundeth");
+            }
 
-            if (!TryComp<WeatherComponent>(station, out var weather))
+            var Map = Transform(station).ParentUid;
+
+            var StationCoords = Transform(trueStation).Coordinates;
+            
+            var bells = GetEntityQuery<BellComponent>();
+            foreach (var bell in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
+            {
+                         if (!bells.HasComponent(bell))
+                         continue;
+
+                        // bell.CanMove = false; // Prevent bells from being operated
+            }
+
+            if (!TryComp<WeatherComponent>(Map, out var weather))
             {
               Log.Error($"WeatherComponent not found");
               return;
@@ -85,7 +98,7 @@ namespace Content.Server.StationEvents.Events
                 if (difference.TotalSeconds >= 100)
                 {
                     comp.Flickering = true;
-                    BeginFlicker(uid, comp, gameRule, station);
+                    BeginFlicker(uid, comp, gameRule, StationCoords);
                     break;
                 }
                 else
@@ -95,7 +108,7 @@ namespace Content.Server.StationEvents.Events
             }
 
         }
-         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, EntityUid station)
+         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, Vector2 StationCoords)
          {
              var lights = GetEntityQuery<PoweredLightComponent>();
              while (comp.Flickering)
@@ -106,7 +119,7 @@ namespace Content.Server.StationEvents.Events
 
                  if (difference.TotalSeconds >= 250)
                 {
-                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
                     {
                          if (!lights.HasComponent(light))
                          continue;
@@ -119,7 +132,7 @@ namespace Content.Server.StationEvents.Events
 
                 if (difference.TotalSeconds >= 200)
                 {
-                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
                     {
                          if (!lights.HasComponent(light))
                          continue;
@@ -130,7 +143,7 @@ namespace Content.Server.StationEvents.Events
                 else
                 {
                 
-                    foreach (var light in _lookup.GetEntitiesInRange(station, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
                     {
                         if (!lights.HasComponent(light)) // Flicker lights
                             continue;
@@ -154,7 +167,7 @@ namespace Content.Server.StationEvents.Events
                          if (!bells.HasComponent(bell))
                          continue;
 
-                         bell.CanMove = true; // Allow bells to move again
+                        // bell.CanMove = true; // Allow bells to move again
             }
 
              foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
@@ -168,7 +181,9 @@ namespace Content.Server.StationEvents.Events
                 return;
             }
 
-            if (!TryComp<WeatherComponent>(station, out var weather))
+            var Map = Transform(station).ParentUid;
+
+            if (!TryComp<WeatherComponent>(Map, out var weather))
             {
               Log.Error($"WeatherComponent not found");
               return;
