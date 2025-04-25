@@ -56,19 +56,18 @@ namespace Content.Server.StationEvents.Events
                 return;
             }
 
-            var trueStation = null;
             if (station.HasValue)
             {
-                trueStation = station.Value;
+                comp.trueStation = station.Value;
             }
             else
             {
                 Log.Error("No station foundeth");
             }
 
-            var Map = Transform(trueStation).ParentUid;
+            var Map = Transform(comp.trueStation).ParentUid;
 
-            var StationCoords = Transform(trueStation).Coordinates;
+            var StationCoords = Transform(comp.trueStation).Coordinates;
             
             foreach (var bell in EntityManager.EntityQuery<BellComponent>())
             {
@@ -99,6 +98,12 @@ namespace Content.Server.StationEvents.Events
               thunder.ThunderFrequency = 2f; // Increase thunder frequency
             }
             
+             BeginFlicker(uid, comp, gameRule);
+
+        }
+         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule)
+         {
+
             comp.Flickering = false;
             while (!comp.Flickering)
             {
@@ -110,7 +115,6 @@ namespace Content.Server.StationEvents.Events
                 if (difference.TotalSeconds >= 100)
                 {
                     comp.Flickering = true;
-                    BeginFlicker(uid, comp, gameRule, StationCoords);
                     break;
                 }
                 else
@@ -119,9 +123,6 @@ namespace Content.Server.StationEvents.Events
                 }
             }
 
-        }
-         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, Vector2 StationCoords)
-         {
              var lights = GetEntityQuery<PoweredLightComponent>();
              while (comp.Flickering)
             {
@@ -131,7 +132,7 @@ namespace Content.Server.StationEvents.Events
 
                  if (difference.TotalSeconds >= 250)
                 {
-                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
                     {
                          if (!lights.HasComponent(light))
                          continue;
@@ -144,7 +145,7 @@ namespace Content.Server.StationEvents.Events
 
                 if (difference.TotalSeconds >= 200)
                 {
-                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
                     {
                          if (!lights.HasComponent(light))
                          continue;
@@ -155,7 +156,7 @@ namespace Content.Server.StationEvents.Events
                 else
                 {
                 
-                    foreach (var light in _lookup.GetEntitiesInRange(StationCoords, 200f, LookupFlags.StaticSundries ))
+                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
                     {
                         if (!lights.HasComponent(light)) // Flicker lights
                             continue;
