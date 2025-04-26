@@ -7,7 +7,7 @@ using Robust.Shared.Audio;
 
 
 namespace Content.Server.StationEvents.Components;
-{
+
 
 [RegisterComponent, Access(typeof(FlashStormRule))]
 public sealed partial class FlashStormRuleComponent : Component
@@ -30,4 +30,4 @@ public sealed partial class FlashStormRuleComponent : Component
      [DataField("stormMusic")]
      public SoundSpecifier StormMusic = new SoundCollectionSpecifier("StormMusic");
 }
-}
+

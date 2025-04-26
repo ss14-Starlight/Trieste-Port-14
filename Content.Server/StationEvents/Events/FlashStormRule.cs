@@ -8,7 +8,7 @@ using Content.Server._TP;
 using Robust.Shared.Map;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
-﻿using Content.Server.Ghost;
+using Content.Server.Ghost;
 using Content.Server.Light.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.Event.Systems;
@@ -17,9 +17,13 @@ using Content.Shared.TP14.Bell.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Content.Server.Audio;
+using Content.Server.Weather;
 using Content.Shared.Audio;
+using Content.Shared.GameTicking;
+using Content.Shared.Gravity;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Serilog;
 
 
 //Summary
@@ -41,55 +45,47 @@ namespace Content.Server.StationEvents.Events
         [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRobustRandom _random = default!;
+        [Dependency] private readonly SharedWeatherSystem _weather = default!;
 
-        
+        private float _updateTimer = 0f;
+        private const float UpdateInterval = 1f;
+        public EntityUid _flickerUid = new EntityUid();
+        private FlashStormRuleComponent _flickerComp = new FlashStormRuleComponent();
+        private GameRuleComponent _flickerGameRule = new GameRuleComponent();
+
+
         protected override void Started(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
             base.Started(uid, comp, gameRule, args);
+            Log.Error("Flash Storm Started");
 
-            _stormSong = _audio.GetSound(comp.StormMusic);
-            _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
+            // Update the entity UID and components
+            _flickerUid = uid;
+            _flickerComp = comp;
+            _flickerGameRule = gameRule;
+
+            //var _stormSong = _audio.GetSound(comp.StormMusic);
+           // _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
 
 
-            if (!TryGetRandomStation(out var station))
+
+
+            foreach (var weather in EntityManager.EntityQuery<WeatherComponent>())
             {
-                return;
-            }
+                var target = weather.Owner;
+                if (!_prototypeManager.TryIndex<WeatherPrototype>(comp.StormWeather, out var stormWeatherProto))
+                {
+                    Log.Error("Weather prototype not found!");
+                    return;
+                }
+                var state = new WeatherState();
+                var data = new WeatherData();
 
-            if (station.HasValue)
-            {
-                comp.trueStation = station.Value;
-            }
-            else
-            {
-                Log.Error("No station foundeth");
-            }
+                var mapId = Transform(target).MapID;
 
-            var Map = Transform(comp.trueStation).ParentUid;
 
-            var StationCoords = Transform(comp.trueStation).Coordinates;
-            
-            foreach (var bell in EntityManager.EntityQuery<BellComponent>())
-            {
-                if (!EntityManager.HasComponent<BellComponent>(bell.Owner))
-                continue;
-
-                // bell.CanMove = false; // Prevent bells from being operated
-            }
-
-            if (!TryComp<WeatherComponent>(Map, out var weather))
-            {
-              Log.Error($"WeatherComponent not found");
-              return;
-            }
-
-            if (_prototypeManager.TryIndex<WeatherPrototype>(comp.StormWeather, out var stormWeatherProto))
-            {
-                weather.Weather = stormWeatherProto; // Assign the actual prototype
-            }
-            else
-            {
-                Log.Error($"Weather prototype '{comp.StormWeather}' not found.");
+                _weather.SetWeather(mapId, stormWeatherProto, TimeSpan.FromMinutes(1));
+                Log.Error("Weather set");
             }
 
             foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
@@ -97,62 +93,47 @@ namespace Content.Server.StationEvents.Events
               thunder.ThunderRange = 50f; // Decrease thunder range
               thunder.ThunderFrequency = 2f; // Increase thunder frequency
             }
-            
-            Timer.Spawn(TimeSpan.FromSeconds(60), () =>
-            {
-                comp.Flickering = false;
-            });
+
+            BeginFlicker(comp, gameRule);
         }
-         protected override void BeginFlicker(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule)
-         {
 
-            var lights = GetEntityQuery<PoweredLightComponent>();
-            comp.Flickering = false;
-            Timer.Spawn(TimeSpan.FromSeconds(30), () =>
-                {
-                    comp.Flickering = true;
-                });
-                
-                while (comp.flickering)
-                {
-                 foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
-                    {
-                        if (!lights.HasComponent(light)) // Flicker lights
-                            continue;
+        public override void Update(float frameTime)
+        {
+            base.Update(frameTime);
 
-                        if (!_random.Prob(0.5f))
-                            continue;
-                        
-                        _ghost.DoGhostBooEvent(light);
-                    }
-                }
-
-                Timer.Spawn(TimeSpan.FromSeconds(15), () =>
-                {
-                    foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
-                    {
-                         if (!lights.HasComponent(light))
-                         continue;
-                         Log.Info("Turning the lights off!");
-                         light.On = false;
-                    }
-                 });
-
-                 Timer.Spawn(TimeSpan.FromSeconds(15), () =>
-                {
-
-                     foreach (var light in _lookup.GetEntitiesInRange(comp.trueStation, 200f, LookupFlags.StaticSundries ))
-                    {
-                         if (!lights.HasComponent(light))
-                         continue;
-
-                         light.On = true;
-                         comp.Flickering = false;
-                         Log.Info("Turning the lights on!");
-                    }
-                });
+            _updateTimer += frameTime;
+            Log.Error("Update called");
+            if (_updateTimer >= UpdateInterval)
+            {
+                BeginFlicker(_flickerComp, _flickerGameRule);
+                Log.Error("Flicker has been called");
+                _updateTimer = 0f;
             }
         }
+
+        private void BeginFlicker(FlashStormRuleComponent comp, GameRuleComponent gameRule)
+        {
+            Log.Error("beginning flicker");
+
+            var lights = GetEntityQuery<PoweredLightComponent>();
+            comp.Flickering = true;
+
+            foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
+            {
+                var thunderSite = thunder.Owner;
+
+                foreach (var light in _lookup.GetEntitiesInRange(thunderSite, 200f, LookupFlags.StaticSundries))
+                {
+                    if (!lights.HasComponent(light)) // Flicker lights
+                        continue;
+                    Log.Error("flickering");
+
+                    _ghost.DoGhostBooEvent(light);
+                }
+            }
+
+        }
+
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
             base.Ended(uid, comp, gameRule, args);
@@ -176,25 +157,30 @@ namespace Content.Server.StationEvents.Events
                 return;
             }
 
-            var Map = Transform(station).ParentUid;
-
-            if (!TryComp<WeatherComponent>(Map, out var weather))
+            if (station.HasValue)
             {
-              Log.Error($"WeatherComponent not found");
-              return;
+                comp.trueStation = station.Value;
             }
 
-             if (_prototypeManager.TryIndex<WeatherPrototype>(comp.NormalWeather, out var normalWeatherProto))
+            foreach (var weather in EntityManager.EntityQuery<WeatherComponent>())
             {
-                weather.Weather = normalWeatherProto;
-            }
-            else
-            {
-                Log.Error($"Weather prototype '{comp.NormalWeather}' not found.");
+                var target = weather.Owner;
+                if (!_prototypeManager.TryIndex<WeatherPrototype>(comp.NormalWeather, out var calmWeatherProto))
+                {
+                    Log.Error("Weather prototype not found!");
+                    return;
+                }
+                var state = new WeatherState();
+                var data = new WeatherData();
+
+                var mapId = Transform(target).MapID;
+
+
+                _weather.SetWeather(mapId, calmWeatherProto, TimeSpan.FromMinutes(1));
+                Log.Error("Weather set");
             }
 
             comp.Flickering = false;
-            
         }
     }
 }

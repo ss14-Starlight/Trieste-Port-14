@@ -598,4 +598,10 @@
     weight: 4
     duration: 181
     maxOccurrences: 2
+  - type: GameRule
+    delay:
+      min: 5
+      max: 10
   - type: FlashStormRule
+    stormWeather: "Storm"
+    normalWeather: "Rain"

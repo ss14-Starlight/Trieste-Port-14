@@ -9,7 +9,7 @@
     radius: 100
     softness: 1000
   - type: SoundOnTrigger
-    sound: //Audio/Effects/tesla_collapse.ogg
+    sound: /Audio/Effects/tesla_collapse.ogg
   - type: TriggerOnSpawn
   - type: TimedDespawn
     lifetime: 0.2
@@ -26,7 +26,7 @@
     softness: 10
     color: "#CBC3E3"
   - type: ExplodeOnTrigger
-  - type: EmpOnTriggerComponent 
+  - type: EmpOnTrigger
     range: 3
     disableDuration: 5
   - type: Explosive
