@@ -19,7 +19,7 @@ I also absolutely don't mind if other forks wish to use our code for their own p
 
 ## License
 
-All code for the content repository is licensed under [MIT](https://github.com/space-wizards/space-station-14/blob/master/LICENSE.TXT).
+All code for the content repository is licensed under [MIT](https://github.com/space-wizards/space-station-14/blob/master/LICENSE.TXT) unless stated otherwise in Attributions.
 
 Code ported over from other forks is not owned by Trieste Port-14 and any modifications made to it must comply with the original license. For more information, see the Attributions section.
 
