@@ -11,6 +11,16 @@
   - UplinkNtWeaponry
 
 - type: listing
+  id: UplinkAtreides
+  name: uplink-atreides-name
+  description: uplink-atreides-desc
+  productEntity: WeaponSubMachineGunAtreides
+  cost:
+    BluespaceCrystal: 8
+  categories:
+  - UplinkNtWeaponry
+  
+- type: listing
   id: UplinkEnergyCarbine
   name: uplink-carbine-name
   description: uplink-carbine-desc
@@ -105,12 +115,22 @@
   - UplinkNtAmmo
 
 - type: listing
+  id: Uplink35Auto
+  name: uplink-35auto-name
+  description: uplink-35auto-desc
+  productEntity: BoxMagazinePistolSubMachineGun
+  cost:
+    BluespaceCrystal: 5
+  categories:
+  - UplinkNtAmmo
+
+- type: listing
   id: UplinkMagCellDisabler
   name: uplink-disabler-name
   description: uplink-disabler-desc
   productEntity: TP14MagCellDisabler
   cost:
-    BluespaceCrystal: 6
+    BluespaceCrystal: 5
   categories:
   - UplinkNtAmmo
 
