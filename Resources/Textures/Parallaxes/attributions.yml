@@ -3,6 +3,11 @@
   copyright: "Made by Pixeltheaertist for Trieste Port"
   source: "PixeltheAertist"
 
+- files: ["Trieste.png"]
+  license: "CC-BY-NC-SA-3.0"
+  copyright: "Made by Pixeltheaertist for Trieste Port"
+  source: "PixeltheAertist"
+
 - files: ["KettleParallaxNeb.png", "KettleParallaxBG.png", "AspidParallaxBG.png", "AspidParallaxBG.png"]
   license: "CC0-1.0"
   copyright: "adapted from Screaming Brain Studios"
