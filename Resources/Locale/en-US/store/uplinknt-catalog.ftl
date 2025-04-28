@@ -7,6 +7,12 @@ uplink-pistol-Mk58-desc = A standard NT pistol issued to security officers. Warr
 uplink-CaptainSabre-name = Corporate saber
 uplink-CaptainSabre-desc = A blade normally bestowed to NT captains, however this one's owner was underperforming. High-quality guaranteed!
 
+uplink-rpg-name = Multi-RPG Launcher
+uplink-rpg-desc = A handheld, multiple rocket-propelled grenade launcher
+
+uplink-rocket-name = RPG Shell
+uplink-rocket-desc = A shell designed for a RPG-class weapon
+
 uplink-35auto-name = .35 auto box
 uplink-35auto-desc = A box containing 3 .35 auto magazines
 
