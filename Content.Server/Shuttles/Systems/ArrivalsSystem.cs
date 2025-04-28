@@ -113,7 +113,7 @@ public sealed class ArrivalsSystem : EntitySystem
         Enabled = _cfgManager.GetCVar(CCVars.ArrivalsShuttles);
         ArrivalsGodmode = _cfgManager.GetCVar(CCVars.GodmodeArrivals);
 
-        _cfgManager.OnValueChanged(CCVars.ArrivalsShuttles, SetArrivals);
+        _cfgManager.OnValueChanged(CCVars.SweetwaterEnabled, SetArrivals);
         _cfgManager.OnValueChanged(CCVars.GodmodeArrivals, b => ArrivalsGodmode = b);
 
         // Command so admins can set these for funsies
@@ -158,10 +158,10 @@ public sealed class ArrivalsSystem : EntitySystem
         switch (args[0])
         {
             case "enable":
-                _cfgManager.SetCVar(CCVars.ArrivalsShuttles, true);
+                _cfgManager.SetCVar(CCVars.SweetwaterEnabled, true);
                 break;
             case "disable":
-                _cfgManager.SetCVar(CCVars.ArrivalsShuttles, false);
+                _cfgManager.SetCVar(CCVars.SweetwaterEnabled, false);
                 break;
             case "returns":
                 var existing = _cfgManager.GetCVar(CCVars.ArrivalsReturns);
