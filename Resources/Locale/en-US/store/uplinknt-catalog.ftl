@@ -7,6 +7,9 @@ uplink-pistol-Mk58-desc = A standard NT pistol issued to security officers. Warr
 uplink-CaptainSabre-name = Corporate saber
 uplink-CaptainSabre-desc = A blade normally bestowed to NT captains, however this one's owner was underperforming. High-quality guaranteed!
 
+uplink-35auto-name = .35 auto box
+uplink-35auto-desc = A box containing 3 .35 auto magazines
+
 uplink-blaster-name = BM-138 power blaster
 uplink-blaster-desc = A robust energy weapon that utilizes MagCells to accelerate charged particles. Comes with a MagCell slot and a free MagCell.
 
