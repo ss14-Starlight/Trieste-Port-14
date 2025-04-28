@@ -13,6 +13,9 @@ uplink-blaster-desc = A robust energy weapon that utilizes MagCells to accelerat
 uplink-carbine-name = NT-331 energy carbine
 uplink-carbine-desc = The follower of the BM-138, capable of energizing particles at a faster rate. Comes with a MagCell slot.
 
+uplink-atreides-name = Atreides
+uplink-atreides-desc = A compact submachine gun, packing a serious short-term punch. Uses .35 auto ammo.
+
 uplink-bluehardsuit-name = Storm-blue pressure suit
 uplink-bluehardsuit-desc = A NT-Certified pressure suit graded for 11 kilometers of ocean pressure. Painted in NT Storm Blue.
 
