@@ -61,8 +61,12 @@ public sealed class WaterInteractionSystem : EntitySystem
                     return;
                 }
 
-                var FillerSolution = solution.Solution;
-                var FillAmount = FillerSolution.Volume;
+                if (!_solution.TryGetSolution(uid, solution.Solution, out _, out var actualSolution))
+                {
+                    return;
+                }
+
+                var FillAmount = actualSolution.Volume;
                 
                 _solution.RemoveSolution(FillAmount);
                 _solution.AddReagent(water, water.ID, FillAmount);
