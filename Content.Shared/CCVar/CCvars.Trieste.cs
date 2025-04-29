@@ -12,4 +12,7 @@ public sealed partial class CCVars
 
     public static readonly CVarDef<float> ThunderRange =
         CVarDef.Create("trieste.ThunderRange", 50f, CVar.SERVERONLY);
+
+     public static readonly CVarDef<bool> SweetwaterEnabled =
+        CVarDef.Create("trieste.Sweetwater", true, CVar.SERVERONLY);
 }
