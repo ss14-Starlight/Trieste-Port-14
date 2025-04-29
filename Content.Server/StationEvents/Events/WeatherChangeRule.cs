@@ -6,6 +6,7 @@ using Robust.Shared.Random;
 using Content.Shared.Weather;
 using Content.Server._TP;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
 using Content.Server.Ghost;
@@ -26,6 +27,11 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Serilog;
+using Content.Server.Parallax;
+using Content.Shared.Parallax.Biomes;
+using Content.Shared.Parallax.Biomes.Layers;
+using Content.Shared.Parallax.Biomes.Markers;
+
 
 
 //Summary
@@ -66,8 +72,27 @@ namespace Content.Server.StationEvents.Events
                 var data = new WeatherData();
 
                 var mapId = Transform(target).MapID;
+                var mapUid = Transform(target).MapUid;
 
                 _weather.SetWeather(mapId, targetWeather, TimeSpan.FromMinutes(99999));
+
+                if (comp.Sunlight)
+                {
+                    EnsureComp<MapGridComponent>(mapUid);
+                    EnsureComp<MetaDataComponent>(mapUid);
+
+                    if !TryComp<MetaDataComponent>(uid, out var metadata)
+                    {
+                        Log.Error("Metadata component not found");
+                        return;
+                    }
+                    
+                    var light = EnsureComp<MapLightComponent>(mapUid);
+                    light.AmbientLightColor = comp.SunlightColor;
+                    
+                    Dirty(mapUid, light, metadata);
+                }
+                
                 Log.Info("Weather set");
             }
 
@@ -97,9 +122,16 @@ namespace Content.Server.StationEvents.Events
                 var data = new WeatherData();
 
                 var mapId = Transform(target).MapID;
+                var mapUid = Transform(target).MapUid;
 
                 _weather.SetWeather(mapId, returnWeather, TimeSpan.FromMinutes(99999));
                 Log.Info("Weather set");
+
+                if (comp.Sunlight)
+                {
+                    _entManager.RemoveComponent<MapLightComponent>(mapUid);
+                    // Dirty(mapUid, light, metadata);
+                }
             }
 
             if (!comp.Lightning)
