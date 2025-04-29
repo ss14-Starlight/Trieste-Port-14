@@ -70,6 +70,15 @@ namespace Content.Server.StationEvents.Events
                 _weather.SetWeather(mapId, targetWeather, TimeSpan.FromMinutes(99999));
                 Log.Info("Weather set");
             }
+
+            if (!comp.Lightning)
+            {
+                 foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
+                {
+                      thunder.Cleared = true;
+                }
+            }
+
         }
 
         protected override void Ended(EntityUid uid, WeatherChangeRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
@@ -91,6 +100,14 @@ namespace Content.Server.StationEvents.Events
 
                 _weather.SetWeather(mapId, returnWeather, TimeSpan.FromMinutes(99999));
                 Log.Info("Weather set");
+            }
+
+            if (!comp.Lightning)
+            {
+                 foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
+                {
+                    thunder.Cleared = false;
+                }
             }
 
         }
