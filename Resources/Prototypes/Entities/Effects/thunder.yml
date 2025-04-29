@@ -20,18 +20,18 @@
   parent: AdminInstantEffectThunder
   components:
   - type: PointLight
-    energy: 5
+    energy: 100
     enabled: true
     radius: 200
-    softness: 10
+    softness: -100
     color: "#CBC3E3"
   - type: ExplodeOnTrigger
   - type: EmpOnTrigger
-    range: 3
-    disableDuration: 5
+    range: 5
+    disableDuration: 3
   - type: Explosive
     explosionType: Default
-    maxIntensity: 10
+    maxIntensity: 7
     intensitySlope: 3
-    totalIntensity: 60 # about a ~4 tile radius
+    totalIntensity: 30 # about a ~4 tile radius
     canCreateVacuum: false
