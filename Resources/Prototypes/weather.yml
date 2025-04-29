@@ -127,6 +127,17 @@
       volume: -6
 
 - type: weather
+  id: CloudStorm
+  sprite:
+    sprite: /Textures/Effects/atmospherics.rsi
+    state: water_vapor
+  sound:
+    path: /Audio/Effects/Weather/snowstorm.ogg
+    params:
+      loop: true
+      volume: -6
+
+- type: weather
   id: Storm
   sprite:
     sprite: /Textures/Effects/weather.rsi
