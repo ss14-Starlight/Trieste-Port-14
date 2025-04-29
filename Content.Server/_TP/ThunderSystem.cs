@@ -77,7 +77,7 @@ public sealed class ThunderSystem : EntitySystem
                 }
               while (_entityManager.EntityQuery<UnderRoofComponent>().Any(marker =>
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
-              var LightningType = entity.LightningPrototype // Set default as thunder flash (no strike)
+              var LightningType = entity.BaseLightningPrototype // Set default as thunder flash (no strike)
               
               if (entity.StormMode) // If marker is currently in a "Flash Storm"
               {
