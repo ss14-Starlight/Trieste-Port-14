@@ -10,6 +10,9 @@ namespace Content.Shared.Gravity
         [DataField("lightningPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string LightningPrototype = "AdminInstantEffectThunder";
 
+        [DataField("stormLightningPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        public string StormLightningPrototype = "Eldritch";
+
         // The range in which lightning will occur
         [DataField("thunderRange")]
         public float ThunderRange = 70f;
@@ -17,5 +20,8 @@ namespace Content.Shared.Gravity
         // How often (in seconds) the lightning will occur
         [DataField("thunderFrequency")]
         public float ThunderFrequency = 8f;
+
+        [DataField("stormMode")]
+        public bool StormMode = false;
     }
 }
