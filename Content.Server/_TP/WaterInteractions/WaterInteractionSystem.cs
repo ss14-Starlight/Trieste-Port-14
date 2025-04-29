@@ -74,7 +74,7 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             
                 // INSERT CONSTANT DEEP RUMBLE LOOP EXACTLY ONE SECOND IN LENGTH
-                _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(5f).WithMaxDistance(0.3f));
+                _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(9f).WithMaxDistance(0.4f));
                 Log.Info($"Rumbling audio for immersed entity {uid}");
                 
                 if (!TryComp<WaterBlockerComponent>(uid, out var blocker)) // If not wearing a mask eyes get hurt by water
