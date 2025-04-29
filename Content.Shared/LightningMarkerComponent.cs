@@ -17,6 +17,9 @@ namespace Content.Shared.Gravity
         [DataField("thunderRange")]
         public float ThunderRange = 70f;
 
+        [DataField("cleared")]
+        public bool Cleared = false;
+
         // How often (in seconds) the lightning will occur
         [DataField("thunderFrequency")]
         public float ThunderFrequency = 8f;
