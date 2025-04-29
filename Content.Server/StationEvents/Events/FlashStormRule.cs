@@ -72,10 +72,7 @@ namespace Content.Server.StationEvents.Events
 
             var _stormSong = _audio.GetSound(comp.StormMusic);
             Filter filter;
-            _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal( Filter.Empty().AddAllPlayers(_playerManager), "/Audio/StationEvents/the_approaching_storm.ogg", AudioParams.Default, false);
-
-
-
+            _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal( Filter.Empty().AddAllPlayers(_playerManager), "/Audio/StationEvents/the_approaching_storm.ogg", AudioParams.Default.WithVolume(-5f), false);
 
             foreach (var weather in EntityManager.EntityQuery<WeatherComponent>())
             {
