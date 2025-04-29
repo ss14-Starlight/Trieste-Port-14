@@ -79,6 +79,11 @@ public sealed class ThunderSystem : EntitySystem
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
               var LightningType = entity.BaseLightningPrototype // Set default as thunder flash (no strike)
               
+              if (entity.Cleared) // If the storm is currently cleared, no lightning
+              {
+                  return;
+              }
+              
               if (entity.StormMode) // If marker is currently in a "Flash Storm"
               {
                   var LightningType = entity.StormThunderPrototype
