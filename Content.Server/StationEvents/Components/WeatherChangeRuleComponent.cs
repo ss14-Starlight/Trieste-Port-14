@@ -19,5 +19,9 @@ public sealed partial class WeatherChangeRuleComponent : Component
    // The weather it will revert to at the end of the storm
    [DataField("returnWeather", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
    public string ReturnWeather = "Rain";
+
+   // Is lightning enabled during the storm?
+   [DataField("lightning", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
+   public bool Lightning = true;
 }
 
