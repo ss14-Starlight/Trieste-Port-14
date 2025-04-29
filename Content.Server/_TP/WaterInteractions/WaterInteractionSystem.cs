@@ -9,6 +9,8 @@ using Content.Server.Chemistry.EntitySystems;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Content.Shared.Silicons.Laws.Components;
+using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.Reagent
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -27,6 +29,8 @@ public sealed class WaterInteractionSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly AudioSystem _audio = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
 
  public override void Update(float frameTime)
 {
@@ -48,6 +52,22 @@ public sealed class WaterInteractionSystem : EntitySystem
 
             if (inGas.InWater)
             {
+                if (TryComp<SolutionComponent>(uid, out var solution))
+                {
+
+                if (!_prototypeManager.TryIndex<ReagentPrototype>(solution.FloodReagent, out var water))
+                {
+                    Log.Error("No component for the flooding water!");
+                    return;
+                }
+
+                var FillerSolution = solution.Solution;
+                var FillAmount = FillerSolution.Volume;
+                
+                _solution.RemoveSolution(FillAmount);
+                _solution.AddReagent(water, water.ID, FillAmount);
+                }
+
             
                 // INSERT CONSTANT DEEP RUMBLE LOOP EXACTLY ONE SECOND IN LENGTH
                 _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(5f).WithMaxDistance(0.3f));
