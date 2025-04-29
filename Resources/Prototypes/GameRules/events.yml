@@ -626,3 +626,23 @@
     targetWeather: "null"
     returnWeather: "Rain"
     lightning: false
+
+- type: entity
+  id: CloudStormEvent
+  parent: BaseStationEventShortDelay
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-cloud-storm-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    endAnnouncement: station-event-cloud-storm-end-announcement
+    weight: 3
+    duration: 200
+  - type: GameRule
+    delay:
+      min: 10
+      max: 15
+  - type: WeatherChangeRule
+    targetWeather: "CloudStorm"
+    returnWeather: "Rain"
+    lightning: true
