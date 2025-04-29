@@ -626,6 +626,7 @@
     targetWeather: "null"
     returnWeather: "Rain"
     lightning: false
+    sunlight: true
 
 - type: entity
   id: CloudStormEvent
