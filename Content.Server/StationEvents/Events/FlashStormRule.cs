@@ -91,15 +91,18 @@ namespace Content.Server.StationEvents.Events
                 var mapId = Transform(target).MapID;
 
 
-                _weather.SetWeather(mapId, stormWeatherProto, TimeSpan.FromMinutes(4));
+                _weather.SetWeather(mapId, stormWeatherProto, TimeSpan.FromMinutes(99999));
                 Log.Error("Weather set");
             }
 
             foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
             {
-              thunder.ThunderRange = 40f; // Decrease thunder range
-              thunder.ThunderFrequency = 1f; // Increase thunder frequency
+              thunder.ThunderRange = 50f; // Decrease thunder range
+              thunder.ThunderFrequency = 0.5f; // Increase thunder frequency
+              thunder.StormMode = true;
             }
+
+            BeginFlicker(comp, gameRule);
         }
 
         private void BeginFlicker(FlashStormRuleComponent comp, GameRuleComponent gameRule)
@@ -120,7 +123,6 @@ namespace Content.Server.StationEvents.Events
                     Log.Error("flickering");
 
                     _ghost.DoGhostBooEvent(light);
-                    _updateTimer = 0f;
                 }
             }
 
@@ -146,6 +148,7 @@ namespace Content.Server.StationEvents.Events
             {
               thunder.ThunderRange = 70f; // Normalize lightning range
               thunder.ThunderFrequency = 8f; // Normalize lightning frequency
+              thunder.StormMode = false;
             }
 
             if (!TryGetRandomStation(out var station))
