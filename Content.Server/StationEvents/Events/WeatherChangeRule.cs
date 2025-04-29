@@ -68,8 +68,6 @@ namespace Content.Server.StationEvents.Events
                     Log.Error("Weather prototype not found!");
                     return;
                 }
-                var state = new WeatherState();
-                var data = new WeatherData();
 
                 var mapId = Transform(target).MapID;
                 var mapUid = Transform(target).MapUid;
@@ -81,7 +79,7 @@ namespace Content.Server.StationEvents.Events
                     EnsureComp<MapGridComponent>(mapUid);
                     EnsureComp<MetaDataComponent>(mapUid);
 
-                    if !TryComp<MetaDataComponent>(uid, out var metadata)
+                    if (!TryComp<MetaDataComponent>(mapUid, out var metadata))
                     {
                         Log.Error("Metadata component not found");
                         return;
