@@ -77,11 +77,22 @@ public sealed class ThunderSystem : EntitySystem
                 }
               while (_entityManager.EntityQuery<UnderRoofComponent>().Any(marker =>
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
+              var LightningType = entity.LightningPrototype // Set default as thunder flash (no strike)
+              
+              if (entity.StormMode) // If marker is currently in a "Flash Storm"
+              {
+                  var LightningType = entity.StormThunderPrototype
+                  var strikeChance = _random.Prob(0.3f); // Roll a 30% chance for lightning to strike
+                  if (strikeChance)
+                  {
+                      LightningType = entity.StormLightningPrototype; // Change lightning prototype to a strike prototype
+                  }
+              }
 
-                Spawn(entity.LightningPrototype, newCoords);
+                Spawn(LightningType, newCoords); // Spawn lightning prototype
             }
 
-            _updateTimer = 0;
+            _updateTimer = 0; // Reset lightning timer
         }
     }
 }
