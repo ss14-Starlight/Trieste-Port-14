@@ -21,6 +21,8 @@ using Content.Server.Weather;
 using Content.Shared.Audio;
 using Content.Shared.GameTicking;
 using Content.Shared.Gravity;
+using Robust.Server.Player;
+using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Serilog;
@@ -46,9 +48,11 @@ namespace Content.Server.StationEvents.Events
         [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
         [Dependency] private readonly IRobustRandom _random = default!;
         [Dependency] private readonly SharedWeatherSystem _weather = default!;
+        [Dependency] private readonly IEntityManager _entManager = default!;
+        [Dependency] private readonly IPlayerManager _playerManager = default!;
 
         private float _updateTimer = 0f;
-        private const float UpdateInterval = 1f;
+        private const float UpdateInterval = 2f;
         public EntityUid _flickerUid = new EntityUid();
         private FlashStormRuleComponent _flickerComp = new FlashStormRuleComponent();
         private GameRuleComponent _flickerGameRule = new GameRuleComponent();
@@ -59,13 +63,16 @@ namespace Content.Server.StationEvents.Events
             base.Started(uid, comp, gameRule, args);
             Log.Error("Flash Storm Started");
 
+            _updateTimer = 0f;
+
             // Update the entity UID and components
             _flickerUid = uid;
             _flickerComp = comp;
             _flickerGameRule = gameRule;
 
-            //var _stormSong = _audio.GetSound(comp.StormMusic);
-           // _sound.DispatchStationEventMusic(uid, _stormSong, StationEventMusicType.Storm); // Play the music
+            var _stormSong = _audio.GetSound(comp.StormMusic);
+            Filter filter;
+            _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal( Filter.Empty().AddAllPlayers(_playerManager), "/Audio/StationEvents/the_approaching_storm.ogg", AudioParams.Default, false);
 
 
 
@@ -84,30 +91,14 @@ namespace Content.Server.StationEvents.Events
                 var mapId = Transform(target).MapID;
 
 
-                _weather.SetWeather(mapId, stormWeatherProto, TimeSpan.FromMinutes(1));
+                _weather.SetWeather(mapId, stormWeatherProto, TimeSpan.FromMinutes(4));
                 Log.Error("Weather set");
             }
 
             foreach (var thunder in EntityManager.EntityQuery<LightningMarkerComponent>())
             {
-              thunder.ThunderRange = 50f; // Decrease thunder range
-              thunder.ThunderFrequency = 2f; // Increase thunder frequency
-            }
-
-            BeginFlicker(comp, gameRule);
-        }
-
-        public override void Update(float frameTime)
-        {
-            base.Update(frameTime);
-
-            _updateTimer += frameTime;
-            Log.Error("Update called");
-            if (_updateTimer >= UpdateInterval)
-            {
-                BeginFlicker(_flickerComp, _flickerGameRule);
-                Log.Error("Flicker has been called");
-                _updateTimer = 0f;
+              thunder.ThunderRange = 40f; // Decrease thunder range
+              thunder.ThunderFrequency = 1f; // Increase thunder frequency
             }
         }
 
@@ -129,6 +120,7 @@ namespace Content.Server.StationEvents.Events
                     Log.Error("flickering");
 
                     _ghost.DoGhostBooEvent(light);
+                    _updateTimer = 0f;
                 }
             }
 
@@ -137,6 +129,10 @@ namespace Content.Server.StationEvents.Events
         protected override void Ended(EntityUid uid, FlashStormRuleComponent comp, GameRuleComponent gameRule, GameRuleEndedEvent args)
         {
             base.Ended(uid, comp, gameRule, args);
+
+            _updateTimer = 120f;
+
+            Log.Error("flash storm ended");
 
             foreach (var bell in EntityManager.EntityQuery<BellComponent>())
             {
@@ -176,7 +172,7 @@ namespace Content.Server.StationEvents.Events
                 var mapId = Transform(target).MapID;
 
 
-                _weather.SetWeather(mapId, calmWeatherProto, TimeSpan.FromMinutes(1));
+                _weather.SetWeather(mapId, calmWeatherProto, TimeSpan.FromMinutes(99999));
                 Log.Error("Weather set");
             }
 

@@ -64,6 +64,8 @@ public sealed class ThunderSystem : EntitySystem
                     ThunderInterval = entity.ThunderFrequency;
                 }
 
+                this.ThunderInterval = ThunderInterval;
+
                 Vector2 offset;
                 EntityCoordinates newCoords;
 
