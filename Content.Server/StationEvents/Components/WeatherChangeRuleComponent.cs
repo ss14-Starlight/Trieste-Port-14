@@ -1,6 +1,7 @@
 using Content.Server.StationEvents.Events;
 using Robust.Shared.Prototypes;
 using Content.Shared.Weather;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 using Robust.Shared.Audio;
@@ -21,7 +22,13 @@ public sealed partial class WeatherChangeRuleComponent : Component
    public string ReturnWeather = "Rain";
 
    // Is lightning enabled during the storm?
-   [DataField("lightning", required: true, customTypeSerializer:typeof(PrototypeIdSerializer<WeatherPrototype>))]
+   [DataField("lightning")]
    public bool Lightning = true;
+
+   [DataField("sunlight")]
+   public bool Sunlight = false;
+
+   [DataField("sunlightColor")]
+   public Color SunlightColor = Color.FromHex("#D8B059");
 }
 
