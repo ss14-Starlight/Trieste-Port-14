@@ -136,6 +136,18 @@
     params:
       loop: true
       volume: -6
+      
+- type: weather
+  id: SmogStorm
+  sprite:
+    sprite: /Textures/Effects/atmospherics.rsi
+    state: nitryl
+    color: "#808080" # Test this see if it works
+  sound:
+    path: /Audio/Effects/Weather/snowstorm.ogg
+    params:
+      loop: true
+      volume: -5
 
 - type: weather
   id: Storm
