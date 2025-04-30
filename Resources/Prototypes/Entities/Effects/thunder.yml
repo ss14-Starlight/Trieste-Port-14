@@ -33,7 +33,7 @@
     lifetime: 0.2
 
 - type: entity
-  id: Eldritch // Used after Artifact meltdown
+  id: Eldritch
   suffix: Eldritch Strike
   parent: AdminInstantEffectThunder
   components:
@@ -45,7 +45,7 @@
     color: "#CBC3E3"
   - type: ExplodeOnTrigger
   - type: EmpOnTrigger
-    range: 5
+    range: 3
     disableDuration: 3
   - type: Explosive
     explosionType: Default

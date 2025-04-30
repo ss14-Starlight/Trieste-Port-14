@@ -13,6 +13,9 @@ namespace Content.Shared.Gravity
         [DataField("stormLightningPrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
         public string StormLightningPrototype = "Eldritch";
 
+        [DataField("stormStrikePrototype", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        public string StormStrikePrototype = "Storm";
+
         // The range in which lightning will occur
         [DataField("thunderRange")]
         public float ThunderRange = 70f;

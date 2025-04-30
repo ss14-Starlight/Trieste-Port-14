@@ -623,7 +623,7 @@
       min: 5
       max: 10
   - type: WeatherChangeRule
-    targetWeather: "null"
+    targetWeather: "Clear"
     returnWeather: "Rain"
     lightning: false
     sunlight: true

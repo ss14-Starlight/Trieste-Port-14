@@ -49,6 +49,7 @@ public sealed class ThunderSystem : EntitySystem
                 var entityUid = entity.Owner;
                 var transform = Transform(entityUid);
                 var coords = transform.Coordinates;
+                var LightningType = entity.LightningPrototype;
 
                 float ThunderRange;
                 float ThunderInterval;
@@ -77,20 +78,21 @@ public sealed class ThunderSystem : EntitySystem
                 }
               while (_entityManager.EntityQuery<UnderRoofComponent>().Any(marker =>
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
-              var LightningType = entity.BaseLightningPrototype // Set default as thunder flash (no strike)
-              
+              // Set default as thunder flash (no strike)
+
               if (entity.Cleared) // If the storm is currently cleared, no lightning
               {
                   return;
               }
-              
+
               if (entity.StormMode) // If marker is currently in a "Flash Storm"
               {
-                  var LightningType = entity.StormThunderPrototype
-                  var strikeChance = _random.Prob(0.3f); // Roll a 30% chance for lightning to strike
+                  LightningType = entity.StormStrikePrototype;
+                  var strikeChance = _random.Prob(0.3f); // Roll a 50% chance for lightning to strike
                   if (strikeChance)
                   {
-                      LightningType = entity.StormLightningPrototype; // Change lightning prototype to a strike prototype
+                      LightningType = entity.StormLightningPrototype;
+                      Log.Error("striking lightning fr fr");// Change lightning prototype to a strike prototype
                   }
               }
 

@@ -59,7 +59,7 @@ namespace Content.Server.StationEvents.Events
         protected override void Started(EntityUid uid, WeatherChangeRuleComponent comp, GameRuleComponent gameRule, GameRuleStartedEvent args)
         {
             base.Started(uid, comp, gameRule, args);
-           
+
             foreach (var weather in EntityManager.EntityQuery<WeatherComponent>())
             {
                 var target = weather.Owner;
@@ -76,21 +76,27 @@ namespace Content.Server.StationEvents.Events
 
                 if (comp.Sunlight)
                 {
-                    EnsureComp<MapGridComponent>(mapUid);
-                    EnsureComp<MetaDataComponent>(mapUid);
-
-                    if (!TryComp<MetaDataComponent>(mapUid, out var metadata))
+                    if (mapUid.HasValue)
                     {
-                        Log.Error("Metadata component not found");
-                        return;
+                        var realMapUid = mapUid.Value;
+
+                        EnsureComp<MapGridComponent>(realMapUid);
+                        EnsureComp<MetaDataComponent>(realMapUid);
+
+
+                        if (!TryComp<MetaDataComponent>(mapUid, out var metadata))
+                        {
+                            Log.Error("Metadata component not found");
+                            return;
+                        }
+
+                        var light = EnsureComp<MapLightComponent>(realMapUid);
+                        light.AmbientLightColor = comp.SunlightColor;
+
+                        Dirty(realMapUid, light, metadata);
                     }
-                    
-                    var light = EnsureComp<MapLightComponent>(mapUid);
-                    light.AmbientLightColor = comp.SunlightColor;
-                    
-                    Dirty(mapUid, light, metadata);
                 }
-                
+
                 Log.Info("Weather set");
             }
 
@@ -127,8 +133,12 @@ namespace Content.Server.StationEvents.Events
 
                 if (comp.Sunlight)
                 {
-                    _entManager.RemoveComponent<MapLightComponent>(mapUid);
-                    // Dirty(mapUid, light, metadata);
+                    if (mapUid.HasValue)
+                    {
+                        var realMapUid = mapUid.Value;
+                        _entManager.RemoveComponent<MapLightComponent>(realMapUid);
+                        // Dirty(mapUid, light, metadata);
+                    }
                 }
             }
 

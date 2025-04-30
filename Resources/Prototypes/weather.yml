@@ -130,13 +130,13 @@
   id: CloudStorm
   sprite:
     sprite: /Textures/Effects/atmospherics.rsi
-    state: water_vapor
+    state: nitryl
   sound:
     path: /Audio/Effects/Weather/snowstorm.ogg
     params:
       loop: true
-      volume: -6
-      
+      volume: -4
+
 - type: weather
   id: SmogStorm
   sprite:
@@ -148,6 +148,17 @@
     params:
       loop: true
       volume: -5
+
+- type: weather
+  id: Clear
+  sprite:
+    sprite: /Textures/Effects/atmospherics.rsi
+    state: clear
+  sound:
+    path: /Audio/Effects/Weather/snowstorm.ogg
+    params:
+      loop: true
+      volume: -100
 
 - type: weather
   id: Storm
