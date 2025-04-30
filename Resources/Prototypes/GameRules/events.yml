@@ -598,7 +598,7 @@
     endAnnouncement: station-event-flash-storm-end-announcement
     weight: 5
     duration: 181
-    maxOccurrences: 2
+    maxOccurrences: 1
   - type: GameRule
     delay:
       min: 5
