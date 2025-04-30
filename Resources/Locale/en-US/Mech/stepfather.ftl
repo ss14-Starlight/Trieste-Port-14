@@ -22,5 +22,5 @@ mech-scramble-popup = The mech's circuits are overloaded with electricity!'
 
 pilot-assignment-switch = Switch pilot status
 
-pilot-currently-yes = Pilot authorization: true
-pilot-currently-no = Pilot authorization: false
+pilot-currently-yes = Target pilot status: [color=green]authorized[/color]
+pilot-currently-no = Target pilot status: [color=red]unauthorized[/color]
