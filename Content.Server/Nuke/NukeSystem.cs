@@ -20,6 +20,7 @@ using Robust.Server.GameObjects;
 using Content.Server.Tesla.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
+using Content.Server.Tesla.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -60,7 +61,7 @@ public sealed class NukeSystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly GhostSystem _ghost = default!;
     [Dependency] private readonly TileSystem _tile = default!;
-    
+
 
     /// <summary>
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
@@ -515,33 +516,33 @@ public sealed class NukeSystem : EntitySystem
         UpdateUserInterface(uid, component);
         UpdateAppearance(uid, component);
 
-        if (component.IsArtifact)
-        {
+       // if (component.IsArtifact)
+       // {
             // Artifact meltdown logic
-            if (!HasComp<LightningArcShooter>(lightning))
-            {
-                return;
-            }
-            lightning.ArcDepth = 0f;
-            lightning.MaxLightningArc = 0f;
-            lightning.ShootMinInterval = 0f;
-            lightning.ShootMaxInterval = 0f;
-            lightning.ShootRange = 0f;
+         //   if (!HasComp<LightningArcShooter>(lightning))
+          //  {
+             //   return;
+         //   }
+         //   lightning.ArcDepth = 0f;
+          //  lightning.MaxLightningArc = 0f;
+          //  lightning.ShootMinInterval = 0f;
+          //  lightning.ShootMaxInterval = 0f;
+          //  lightning.ShootRange = 0f;
 
-            if (!HasComp<SingularityDistortion>(distort))
-            {
-                return;
-            }
-            distort.FalloffPower = 0f;
-            distort.Intensity = 0f;
+         //   if (!HasComp<SingularityDistortion>(distort))
+         //   {
+           //     return;
+         //   }
+          //  distort.FalloffPower = 0f;
+          //  distort.Intensity = 0f;
 
-            if (!HasComp<RadiationSource>(radiation))
-            {
-                return;
-            }
+          //  if (!HasComp<RadiationSource>(radiation))
+          //  {
+          //      return;
+          //  }
 
-            radiation.Intensity = 0f;
-        }
+          //  radiation.Intensity = 0f;
+      //  }
 
     }
 
@@ -586,33 +587,33 @@ public sealed class NukeSystem : EntitySystem
         UpdateUserInterface(uid, component);
         UpdateAppearance(uid, component);
 
-        if (component.IsArtifact)
-        {
+       // if (component.IsArtifact)
+       // {
             // Artifact disarm logic
-            if (!HasComp<LightningArcShooter>(lightning))
-            {
-                return;
-            }
-            lightning.ArcDepth = 4f;
-            lightning.MaxLightningArc = 5f;
-            lightning.ShootMinInterval = 2f;
-            lightning.ShootMaxInterval = 4f;
-            lightning.ShootRange = 7f;
+       //     if (!HasComp<LightningArcShooter>(lightning))
+       //     {
+        //        return;
+       //     }
+        //    lightning.ArcDepth = 4f;
+        //    lightning.MaxLightningArc = 5f;
+        //    lightning.ShootMinInterval = 2f;
+        //    lightning.ShootMaxInterval = 4f;
+        //    lightning.ShootRange = 7f;
 
-            if (!HasComp<SingularityDistortion>(distort))
-            {
-                return;
-            }
-            distort.FalloffPower = 2f;
-            distort.Intensity = -1000f;
+        //    if (!HasComp<SingularityDistortion>(distort))
+        //    {
+        //        return;
+        //    }
+        //    distort.FalloffPower = 2f;
+        //    distort.Intensity = -1000f;
 
-            if (!HasComp<RadiationSource>(radiation))
-            {
-                return;
-            }
+        //    if (!HasComp<RadiationSource>(radiation))
+        //    {
+         //       return;
+         //   }
 
-            radiation.Intensity = 10f;
-        }
+           // radiation.Intensity = 10f;
+       // }
     }
 
     /// <summary>
@@ -641,66 +642,66 @@ public sealed class NukeSystem : EntitySystem
         if (component.Exploded)
             return;
 
-        if (component.IsArtifact)
-        {
+      //  if (component.IsArtifact)
+      //  {
             // Artifact meltdown logic
-            if (!HasComp<LightningArcShooter>(lightning))
-            {
-                return;
-            }
-            lightning.ArcDepth = 8f;
-            lightning.MaxLightningArc = 12f;
-            lightning.ShootMinInterval = 1f;
-            lightning.ShootMaxInterval = 2f;
-            lightning.ShootRange = 55f;
+       //     if (!HasComp<LightningArcShooter>(lightning))
+       //     {
+       //         return;
+       //     }
+        //    lightning.ArcDepth = 8f;
+       //     lightning.MaxLightningArc = 12f;
+       //     lightning.ShootMinInterval = 1f;
+      //      lightning.ShootMaxInterval = 2f;
+       //     lightning.ShootRange = 55f;
 
-            if (!HasComp<SingularityDistortion>(distort))
-            {
-                return;
-            }
-            distort.FalloffPower = 1f;
-            distort.Intensity = 300f;
+       //     if (!HasComp<SingularityDistortion>(distort))
+       //     {
+       //         return;
+       //     }
+        //    distort.FalloffPower = 1f;
+       //     distort.Intensity = 300f;
 
-            var lights = GetEntityQuery<PoweredLightComponent>();
-            foreach (var light in _lookup.GetEntitiesInRange(uid, 100f, LookupFlags.StaticSundries))
-            {
-                if (!lights.HasComponent(light))
-                continue;
+         //   var lights = GetEntityQuery<PoweredLightComponent>();
+       //     foreach (var light in _lookup.GetEntitiesInRange(uid, 100f, LookupFlags.StaticSundries))
+       //     {
+       //         if (!lights.HasComponent(light))
+      //          continue;
+//
+       //         if (!_random.Prob(0.6f))
+       //             continue;
 
-                if (!_random.Prob(0.6f))
-                    continue;
+      //           _ghost.DoGhostBooEvent(light);
+      //      }
 
-                 _ghost.DoGhostBooEvent(light);
-            }
+       //     if (!HasComp<TileSpawnAnomalyComponent>(tileChanger))
+      //      {
+      //          return;
+      //      }
 
-            if (!HasComp<TileSpawnAnomalyComponent>(tileChanger))
-            {
-                return;
-            }
+         //   var xform = Transform(anomaly);
+        //    if (!TryComp<MapGridComponent>(xform.GridUid, out var grid))
+        //        return;
 
-            var xform = Transform(anomaly);
-            if (!TryComp<MapGridComponent>(xform.GridUid, out var grid))
-                return;
-                
-            foreach (var entry in tileChanger.Entries)
-            {
-            
-                var tiles = _anomaly.GetSpawningPoints(uid, 0f, 100f, entry.Settings, 100f);
-                if (tiles == null)
-                return;
+       //     foreach (var entry in tileChanger.Entries)
+      //      {
 
-                foreach (var tileref in tiles)
-                {
-                    var tile = (ContentTileDefinition) _tiledef[entry.Floor]; // Rips the Sweetwater tiles into eldritch chromite
-                    _tile.ReplaceTile(tileref, tile);
-                }
-            }
+        //        var tiles = _anomaly.GetSpawningPoints(uid, 0f, 100f, entry.Settings, 100f);
+        //        if (tiles == null)
+       //         return;
+
+        //        foreach (var tileref in tiles)
+        //        {
+        //            var tile = (ContentTileDefinition) _tiledef[entry.Floor]; // Rips the Sweetwater tiles into eldritch chromite
+         //           _tile.ReplaceTile(tileref, tile);
+          //      }
+        //    }
 
             // TODO: Add logic to switch Trieste lightning with Eldrich lightning once merged
-        }
-        else
+       // }
+       // else
         {
-        
+
         component.Exploded = true;
 
         _explosions.QueueExplosion(uid,
