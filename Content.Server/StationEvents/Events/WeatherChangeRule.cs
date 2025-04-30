@@ -35,10 +35,14 @@ using Content.Shared.Parallax.Biomes.Markers;
 
 
 //Summary
-// This system is a simple event that will cause a weather change to occur during the event
-// The "TargetWeather" variable will dictate what weather prototype is active during the event
+// This system is a simple event that will cause a weather change to occur during the event, and shift to another at the end.
+// The "TargetWeather" variable will dictate what weather prototype is active during the event.
 // The "ReturnWeather" variable will dictate what weather it returns to after the event (this is permanent until changed again!)
+// The "Lightning" variable dictates whether or not lightning is allowed to occurr during this event, or if it should be disabled. On by default.
+// The "Sunlight" variable dicatates whether the platform and waste zone will be fully covered in "light"
+// The "SunlightColor" variable takes a hex code to indicate a specific color to bathe the platform in if "Sunlight" is enabled.
 //Summary
+
 namespace Content.Server.StationEvents.Events
 {
     public sealed class WeatherChangeRule : StationEventSystem<WeatherChangeRuleComponent>
