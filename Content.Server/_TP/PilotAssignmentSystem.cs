@@ -14,6 +14,7 @@ using Robust.Shared.Audio.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Plankton;
 using System.Linq;
+using Content.Server.Falling;
 using Content.Shared.Paper;
 using Content.Shared.Humanoid;
 using Content.Server.Roles;
@@ -31,23 +32,17 @@ public sealed class PilotAssignmentSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<HumanoidAppearanceComponent, GetVerbsEvent<UtilityVerb>>(AddScanVerb);
-        SubscribeLocalEvent<HumanoidAppearanceComponent, ExaminedEvent>(OnExamine);
+        SubscribeLocalEvent<HumanoidAppearanceComponent, GetVerbsEvent<ActivationVerb>>(ActivateVerb);
+        SubscribeLocalEvent<FallSystemComponent, ExaminedEvent>(OnExamine);
     }
 
-  
-    private void AddScanVerb(EntityUid uid, HumanoidAppearanceComponent component, GetVerbsEvent<UtilityVerb> args)
-    {
-        if (!args.CanAccess)
-            return;
 
-        if (!TryComp<HumanoidAppearanceComponent>(args.Target, out var target))
-            return;
-            
+    private void ActivateVerb(EntityUid uid, HumanoidAppearanceComponent component, GetVerbsEvent<ActivationVerb> args)
+    {
         if (!TryComp<StepfatherComponent>(args.User, out var stepfather))
             return;
 
-        var verb = new UtilityVerb()
+        var verb = new ActivationVerb()
         {
             Act = () =>
             {
@@ -71,16 +66,16 @@ public sealed class PilotAssignmentSystem : EntitySystem
         }
      }
 
-      private void OnExamine(EntityUid uid, HumanoidAppearanceComponent component, ExaminedEvent args)
+      private void OnExamine(EntityUid uid, FallSystemComponent component, ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
          var text = "pilot-currently-yes";
-        
+
          if (!TryComp<HumanoidAppearanceComponent>(args.Examined, out var target))
             return;
-            
+
         if (!TryComp<StepfatherComponent>(args.Examiner, out var stepfather))
             return;
 
@@ -88,7 +83,7 @@ public sealed class PilotAssignmentSystem : EntitySystem
         {
           text = "pilot-currently-no";
         }
-        
+
         args.PushMarkup(Loc.GetString(text));
     }
 }
