@@ -11,6 +11,7 @@
     - id: CockroachMigration
     - id: GasLeak
     - id: GreytideVirus
+    - id: CloudStormEvent
     - id: RainClear
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
