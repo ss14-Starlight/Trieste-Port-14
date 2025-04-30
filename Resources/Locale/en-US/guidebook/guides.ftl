@@ -2,6 +2,7 @@ guide-entry-ss14 = Platform and Shifts
 guide-entry-engineering = Engineering
 guide-entry-construction = Construction
 guide-entry-airlock-security = Airlock Upgrades
+guide-entry-stepfather = Stepfather Guidelines
 guide-entry-atmospherics = Atmospherics
 guide-entry-flooding = Flooding
 guide-entry-botany = Botany
