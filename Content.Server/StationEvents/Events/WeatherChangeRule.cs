@@ -141,6 +141,7 @@ namespace Content.Server.StationEvents.Events
                     {
                         var realMapUid = mapUid.Value;
                         _entManager.RemoveComponent<MapLightComponent>(realMapUid);
+                        _entManager.RemoveComponent<MapGridComponent>(realMapUid);
                         // Dirty(mapUid, light, metadata);
                     }
                 }
