@@ -1,7 +1,7 @@
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Materials;
 using Robust.Shared.GameStates;
-using Content.Shared.Chemistry.Reagent
+using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 

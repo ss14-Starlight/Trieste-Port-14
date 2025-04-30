@@ -1,3 +1,4 @@
+using Content.Shared.CCVar;
 using Content.Shared.Inventory;
 using Content.Shared.Inventory.Events;
 using Robust.Client.Graphics;
@@ -9,16 +10,19 @@ using Robust.Shared.Timing;
 using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using Content.Shared.Clothing;
+using Robust.Shared.Configuration;
 
 namespace Content.Client.Overlays
 {
     public sealed class WaterViewerHudSystem : EntitySystem
 {
+
     [Dependency] private readonly IOverlayManager _overlayMan = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly IConfigurationManager _configManager = default!;
 
 private ShaderInstance _waterViewerShader = null!;
 private WaterViewerOverlay _waterViewerOverlay = null!;
@@ -38,7 +42,7 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
     {
         IoCManager.InjectDependencies(this);
         _waterViewerShader = _prototypeManager.Index<ShaderPrototype>("Cataracts").InstanceUnique();
-        
+
         _circleMaskShader = _prototypeManager.Index<ShaderPrototype>("CircleMask").InstanceUnique();
         _circleMaskShader.SetParameter("CircleMinDist", 0.0f);
         _circleMaskShader.SetParameter("CirclePow", NoMotion_Pow);
@@ -49,8 +53,8 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
     public override void Initialize()
     {
         _waterViewerShader = _prototypeManager.Index<ShaderPrototype>("Cataracts").Instance();
-        _waterViewerOverlay = new WaterViewerOverlay(_waterViewerShader, _entityManager, _player);
-        
+        _waterViewerOverlay = new WaterViewerOverlay(_waterViewerShader, _entityManager, _player, _waterViewerShader);
+
         SubscribeLocalEvent<WaterViewerComponent, ComponentInit>(OnInit);
         SubscribeLocalEvent<WaterViewerComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<WaterBlockerComponent, GotEquippedEvent>(OnEquipped);
@@ -102,12 +106,14 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
     private readonly ShaderInstance _shaderInstance;
     private readonly IEntityManager _entityManager;
     private readonly IPlayerManager _player;
+    private ShaderInstance? _waterViewerShader;
 
-    public WaterViewerOverlay(ShaderInstance shaderInstance, IEntityManager entityManager, IPlayerManager playerManager)
+    public WaterViewerOverlay(ShaderInstance shaderInstance, IEntityManager entityManager, IPlayerManager playerManager, ShaderInstance? waterViewerShader)
     {
         _shaderInstance = shaderInstance;
         _entityManager = entityManager;
         _player = playerManager;
+        _waterViewerShader = waterViewerShader;
     }
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
@@ -146,29 +152,23 @@ private const float NoMotion_Mult = 0.75f; // Multiplier for the nomotion varian
                 zoom = eyeComponent.Zoom.X;
             }
 
-            // While the cataracts shader is designed to be tame enough to keep motion sickness at bay, the general waviness means that those who are particularly sensitive to motion sickness will probably hurl.
-            // So the reasonable alternative here is to replace it with a static effect! Specifically, one that replicates the blindness effect seen across most SS13 servers.
-            if (_configManager.GetCVar(CCVars.ReducedMotion))
+            if (_waterViewerShader != null)
             {
-                _circleMaskShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
-                _circleMaskShader.SetParameter("Zoom", zoom);
-                _circleMaskShader.SetParameter("CircleRadius", NoMotion_Radius / strength);
+                _waterViewerShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+                _waterViewerShader.SetParameter("LIGHT_TEXTURE",
+                    args.Viewport.LightRenderTarget
+                        .Texture);
 
-                worldHandle.UseShader(_circleMaskShader);
-                worldHandle.DrawRect(viewport, Color.White);
-                worldHandle.UseShader(null);
-                return;
+                _waterViewerShader.SetParameter("Zoom", zoom);
+
+                double Distortion_Pow = 5;
+                _waterViewerShader.SetParameter("DistortionScalar", (float)Math.Pow(strength, Distortion_Pow));
+                double Cloudiness_Pow = 5;
+                _waterViewerShader.SetParameter("CloudinessScalar", (float)Math.Pow(strength, Cloudiness_Pow));
+
+                worldHandle.UseShader(_waterViewerShader);
             }
 
-            _waterViewerShader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
-            _waterViewerShader.SetParameter("LIGHT_TEXTURE", args.Viewport.LightRenderTarget.Texture); // this is a little hacky but we spent way longer than we'd like to admit trying to do this a cleaner way to no avail
-
-            _waterViewerShader.SetParameter("Zoom", zoom);
-
-            _waterViewerShader.SetParameter("DistortionScalar", (float) Math.Pow(strength, Distortion_Pow));
-            _waterViewerShader.SetParameter("CloudinessScalar", (float) Math.Pow(strength, Cloudiness_Pow));
-
-            worldHandle.UseShader(_waterViewerShader);
             worldHandle.DrawRect(viewport, Color.White);
             worldHandle.UseShader(null);
     }

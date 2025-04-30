@@ -10,7 +10,8 @@ using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Chemistry.Components;
-using Content.Shared.Chemistry.Reagent
+using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent;
 
 namespace Content.Server.TP.Abyss.Systems;
 
@@ -36,13 +37,13 @@ public sealed class WaterInteractionSystem : EntitySystem
 {
     _timer += frameTime;
     _Noisetimer += frameTime;
-    
+
     if (_Noisetimer >= NoiseTimer)
     {
         Log.Info($"INSERT SPOOKY OCEAN NOISE HERE");
         _Noisetimer = 0f;
     }
-    
+
     if (_timer >= UpdateTimer)
     {
         // Check all objects affected by water
@@ -61,22 +62,22 @@ public sealed class WaterInteractionSystem : EntitySystem
                     return;
                 }
 
-                if (!_solution.TryGetSolution(uid, solution.Solution, out _, out var actualSolution))
-                {
-                    return;
+               // if (!_solution.TryGetSolution(uid, solution.Solution, out _, out var actualSolution))
+               // {
+               //     return;
+             //   }
+
+             //   var FillAmount = actualSolution.Volume;
+
+             //   _solution.RemoveSolution(FillAmount);
+            //    _solution.AddReagent(water, water.ID, FillAmount);
                 }
 
-                var FillAmount = actualSolution.Volume;
-                
-                _solution.RemoveSolution(FillAmount);
-                _solution.AddReagent(water, water.ID, FillAmount);
-                }
 
-            
                 // INSERT CONSTANT DEEP RUMBLE LOOP EXACTLY ONE SECOND IN LENGTH
                 _audio.PlayPvs(inGas.RumbleSound, uid, AudioParams.Default.WithVolume(9f).WithMaxDistance(0.4f));
                 Log.Info($"Rumbling audio for immersed entity {uid}");
-                
+
                 if (!TryComp<WaterBlockerComponent>(uid, out var blocker)) // If not wearing a mask eyes get hurt by water
                 {
                     EnsureComp<WaterViewerComponent>(uid);
@@ -97,7 +98,7 @@ public sealed class WaterInteractionSystem : EntitySystem
                     flame.OnFire = false;
                 }
             }
-            
+
             // Ignore those wearing abyssal hardsuits
             if (TryComp<AbyssalProtectedComponent>(uid, out var abyssalProtected))
             {
