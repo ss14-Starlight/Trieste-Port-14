@@ -15,9 +15,18 @@ using Robust.Shared.Random;
 using Content.Server.GameTicking.Rules;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
+//Summary
+// This code controls the "thunder' systems on Trieste.
+// Basically, every thunder frequency update (which can be modified by CCVAR if an admin turns on "CustomThunder") the game will spawn a "thunder" prototype near each thunder marker.
+// The coordinates it spawns at is randomized each update, within a modifiable radius (either by admins or by events, see FlashStormRule)
+// This creates the effect of flashing lightning. This also has a "storm mode", in which the thunder frequency gets increased, and becomes a brighter prototype.
+// It also rolls a 30% chance during storms to strike with a damaging prototype, which explodes and EMPs things near the strike zone.
+// LightningMarkers can be modified to include the normal, storm, and strike prototypes. More lightning markers in an area = more general lightning.
+//Summary
 
 
 namespace Content.Server._TP;
+
 public sealed class ThunderSystem : EntitySystem
 {
     [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -49,6 +58,7 @@ public sealed class ThunderSystem : EntitySystem
                 var entityUid = entity.Owner;
                 var transform = Transform(entityUid);
                 var coords = transform.Coordinates;
+                var LightningType = entity.LightningPrototype;
 
                 float ThunderRange;
                 float ThunderInterval;
@@ -77,11 +87,28 @@ public sealed class ThunderSystem : EntitySystem
                 }
               while (_entityManager.EntityQuery<UnderRoofComponent>().Any(marker =>
               Vector2.DistanceSquared(Transform(marker.Owner).Coordinates.Position, newCoords.Position) < 4.5f));
+              // Set default as thunder flash (no strike)
 
-                Spawn(entity.LightningPrototype, newCoords);
+              if (entity.Cleared) // If the storm is currently cleared, no lightning
+              {
+                  return;
+              }
+
+              if (entity.StormMode) // If marker is currently in a "Flash Storm"
+              {
+                  LightningType = entity.StormStrikePrototype;
+                  var strikeChance = _random.Prob(0.3f); // Roll a =30% chance for lightning to strike
+                  if (strikeChance)
+                  {
+                      LightningType = entity.StormLightningPrototype;
+                      Log.Error("striking lightning fr fr");// Change lightning prototype to a strike prototype
+                  }
+              }
+
+                Spawn(LightningType, newCoords); // Spawn lightning prototype
             }
 
-            _updateTimer = 0;
+            _updateTimer = 0; // Reset lightning timer
         }
     }
 }

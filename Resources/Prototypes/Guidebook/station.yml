@@ -8,6 +8,7 @@
   - Antagonists
   - Glossary
   - Lore
+  - Stepfather
 
 - type: guideEntry
   id: Glossary
@@ -18,6 +19,11 @@
   id: Survival
   name: guide-entry-survival
   text: "/ServerInfo/Guidebook/Survival.xml"
+
+- type: guideEntry
+  id: Stepfather
+  name: guide-entry-stepfather
+  text: "/ServerInfo/Guidebook/Stepfather.xml"
 
 - type: guideEntry
   id: Lore

@@ -11,6 +11,8 @@
     - id: CockroachMigration
     - id: GasLeak
     - id: GreytideVirus
+    - id: CloudStormEvent
+    - id: RainClear
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
     - id: MassHallucinations
@@ -595,9 +597,9 @@
     startAudio:
       path: /Audio/Announcements/attention.ogg
     endAnnouncement: station-event-flash-storm-end-announcement
-    weight: 4
+    weight: 5
     duration: 181
-    maxOccurrences: 2
+    maxOccurrences: 1
   - type: GameRule
     delay:
       min: 5
@@ -605,3 +607,44 @@
   - type: FlashStormRule
     stormWeather: "Storm"
     normalWeather: "Rain"
+
+- type: entity
+  id: RainClear
+  parent: BaseStationEventShortDelay
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-rain-clear-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    endAnnouncement: station-event-rain-clear-end-announcement
+    weight: 3
+    duration: 200
+  - type: GameRule
+    delay:
+      min: 5
+      max: 10
+  - type: WeatherChangeRule
+    targetWeather: "Clear"
+    returnWeather: "Rain"
+    lightning: false
+    sunlight: true
+
+- type: entity
+  id: CloudStormEvent
+  parent: BaseStationEventShortDelay
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-cloud-storm-start-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    endAnnouncement: station-event-cloud-storm-end-announcement
+    weight: 3
+    duration: 200
+  - type: GameRule
+    delay:
+      min: 10
+      max: 15
+  - type: WeatherChangeRule
+    targetWeather: "CloudStorm"
+    returnWeather: "Rain"
+    lightning: true
