@@ -8,7 +8,7 @@ alert-level-green-announcement = It is now safe to return to your daily activiti
 alert-level-green-instructions = Proceed as normal.
 
 alert-level-blue = Blue
-alert-level-blue-announcement = There is a confirmed threat to the platform. Law Enforcement should perform random searches. Citizens are advised to be vigilant and report suspicious activity to the nearest Enforcer.
+alert-level-blue-announcement = There is a potential threat onboard the platform. Law Enforcement should perform random searches. Citizens are advised to be vigilant and report suspicious activity to the nearest Enforcer.
 alert-level-blue-instructions = Crewmembers are advised to be vigilant and report suspicious activity to the nearest Enforcer.
 
 alert-level-red = Red
