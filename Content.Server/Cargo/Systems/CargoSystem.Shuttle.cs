@@ -234,7 +234,19 @@ public sealed partial class CargoSystem
 
         foreach (var ent in toSell)
         {
-            Del(ent);
+            var metadata = MetaData(ent);
+            var curTime = Timing.CurTime;
+            
+            var fulton = EnsureComp<FultonedComponent>(ent);
+            fulton.Beacon = gridUid;
+            fulton.FultonDuration = TimeSpan.FromSeconds(999);
+            fulton.NextFulton = Timing.CurTime;
+            fulton.Removeable = false;
+
+           if (fulton.NextFulton < curTime)
+           {
+              Del(ent);
+           }
         }
 
         return true;
