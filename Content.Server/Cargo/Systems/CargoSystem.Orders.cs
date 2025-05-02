@@ -15,6 +15,7 @@ using Content.Shared.Paper;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
+using Content.Shared.Salvage.Fulton;
 
 namespace Content.Server.Cargo.Systems
 {
@@ -507,6 +508,28 @@ namespace Content.Server.Cargo.Systems
 
             // Ensure the item doesn't start anchored
             _transformSystem.Unanchor(item, Transform(item));
+
+            // TRIESTE EDIT!!
+            // This is to make bought objects get "air dropped" onto the order zone. Why? Cuz it's badass.
+            
+            var metadata = MetaData(item);
+            var curTime = Timing.CurTime;
+
+            var landingIndicator = EntityManager.SpawnEntity(paperProto, spawn);
+            
+            var fulton = EnsureComp<FultonedComponent>(item);
+            fulton.Beacon = landingIndicator;
+            fulton.FultonDuration = TimeSpan.FromSeconds(5);
+            fulton.NextFulton = Timing.CurTime;
+            fulton.Removeable = false;
+
+           //  RaiseNetworkEvent(new FultonAnimationMessage()
+            // {
+             //   Entity = GetNetEntity(item, metadata), // commented out for now
+              //  Coordinates = GetNetCoordinates(spawn),
+            // });
+
+            // END OF TRIESTE EDIT!!!
 
             // Create a sheet of paper to write the order details on
             var printed = EntityManager.SpawnEntity(paperProto, spawn);
