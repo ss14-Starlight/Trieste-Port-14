@@ -84,7 +84,7 @@ namespace Content.Server.StationEvents.Events
                     {
                         var realMapUid = mapUid.Value;
 
-                        EnsureComp<MapGridComponent>(realMapUid);
+                        // EnsureComp<MapGridComponent>(realMapUid);
                         EnsureComp<MetaDataComponent>(realMapUid);
 
 
@@ -141,6 +141,7 @@ namespace Content.Server.StationEvents.Events
                     {
                         var realMapUid = mapUid.Value;
                         _entManager.RemoveComponent<MapLightComponent>(realMapUid);
+                        // _entManager.RemoveComponent<MapGridComponent>(realMapUid); // THIS WAS A BAD IDEA OH GOD
                         // Dirty(mapUid, light, metadata);
                     }
                 }
