@@ -232,6 +232,7 @@ public sealed partial class CargoSystem
         var ev = new EntitySoldEvent(toSell);
         RaiseLocalEvent(ref ev);
 
+        
         foreach (var ent in toSell)
         {
             var metadata = MetaData(ent);
@@ -239,7 +240,7 @@ public sealed partial class CargoSystem
             
             var fulton = EnsureComp<FultonedComponent>(ent);
             fulton.Beacon = gridUid;
-            fulton.FultonDuration = TimeSpan.FromSeconds(999);
+            fulton.FultonDuration = TimeSpan.FromMinutes(9999999); // 19 years (should be a negligible amount of lag since they get abstracted)
             fulton.NextFulton = Timing.CurTime;
             fulton.Removeable = false;
 
