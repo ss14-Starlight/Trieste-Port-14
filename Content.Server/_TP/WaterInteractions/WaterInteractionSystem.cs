@@ -40,7 +40,6 @@ public sealed class WaterInteractionSystem : EntitySystem
 
     if (_Noisetimer >= NoiseTimer)
     {
-        Log.Info($"INSERT SPOOKY OCEAN NOISE HERE");
         _Noisetimer = 0f;
     }
 
