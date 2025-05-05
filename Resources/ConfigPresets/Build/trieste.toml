@@ -1,0 +1,50 @@
+
+[log]
+path = "logs"
+format = "log_%(date)s-%(time)s.txt"
+level = 1
+enabled = false
+
+[net]
+tickrate = 30
+port = 1212
+bindto = "::,0.0.0.0"
+max_connections = 70
+
+[status]
+enabled = true
+
+[infolinks]
+github = "https://github.com/Pixeltheaertist/Trieste-Port-14/"
+
+[discord]
+ahelp_webhook = "https://discord.com/api/webhooks/1338209670095044780/AWBGnIof4ErgW1XnScY1zjYV4TUXTb3VmKiq4eV01nb6eHhNsgKOGDmbLo7zZoL1XIej"
+
+[game]
+hostname = "[EN] [MRP] Trieste Port 14"
+desc = "An ex-NT oil rig sitting above an alien ocean. Explore the depths of the sea, dodge vicious thunder storms and survive NanoTrasen agents!"
+panic_bunker.enabled = true
+panic_bunker.disable_with_admins = true
+panic_bunker.enable_without_admins = true
+panic_bunker.custom_reason = "Trieste Port is currently bunkered, as there are no admins currently online. Check the discord for playtest times and to be notified when the server is online!"
+cryo_sleep_rejoining = true
+panic_bunker.min_overall_minutes = 240 # 4 hours, mainly to prevent raiders if no admins are online at the time
+
+[console]
+# If this is true, people connecting from this machine (loopback)
+# will automatically be elevated to full admin privileges.
+# This literally works by checking if address == 127.0.0.1 || address == ::1
+loginlocal = true
+login_host_user = "PixeltheAertist"
+
+[hub]
+advertise = true
+tags = "lang:en,region:eu_w,rp:medium"
+server_url = ""
+# Comma-separated list of URLs of hub servers to advertise to.
+hub_urls = "https://hub.spacestation14.com/"
+
+[build]
+
+[auth]
+
