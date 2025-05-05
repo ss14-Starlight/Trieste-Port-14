@@ -21,6 +21,16 @@
     checkCanInteract: false
 
 - type: entity
+  id: ActionGravityJump
+  name: Jump
+  description: You take a leap forward!
+  components:
+  - type: InstantAction
+    useDelay: 8
+    icon: Interface/Actions/scream.png
+    event: !type:GravityJumpEvent {}
+
+- type: entity
   id: ActionTurnUndead
   name: Turn Undead
   description: Succumb to your infection and become a zombie.
