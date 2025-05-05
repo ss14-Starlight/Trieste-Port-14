@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
 using Content.Server.Cargo.Components;
 using Content.Server.Labels.Components;
 using Content.Server.Station.Components;
@@ -16,6 +17,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Content.Shared.Salvage.Fulton;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Cargo.Systems
 {
@@ -503,33 +505,13 @@ namespace Content.Server.Cargo.Systems
         /// </summary>
         private bool FulfillOrder(CargoOrderData order, EntityCoordinates spawn, string? paperProto)
         {
+
+            var offsetSpawn = spawn.Offset(new Vector2(1000, 1000));
             // Create the item itself
-            var item = Spawn(order.ProductId, spawn);
+            var item = Spawn(order.ProductId, offsetSpawn);
 
             // Ensure the item doesn't start anchored
             _transformSystem.Unanchor(item, Transform(item));
-
-            // TRIESTE EDIT!!
-            // This is to make bought objects get "air dropped" onto the order zone. Why? Cuz it's badass.
-            
-            var metadata = MetaData(item);
-            var curTime = Timing.CurTime;
-
-            var landingIndicator = EntityManager.SpawnEntity(paperProto, spawn);
-            
-            var fulton = EnsureComp<FultonedComponent>(item);
-            fulton.Beacon = landingIndicator;
-            fulton.FultonDuration = TimeSpan.FromSeconds(5);
-            fulton.NextFulton = Timing.CurTime;
-            fulton.Removeable = false;
-
-           //  RaiseNetworkEvent(new FultonAnimationMessage()
-            // {
-             //   Entity = GetNetEntity(item, metadata), // commented out for now
-              //  Coordinates = GetNetCoordinates(spawn),
-            // });
-
-            // END OF TRIESTE EDIT!!!
 
             // Create a sheet of paper to write the order details on
             var printed = EntityManager.SpawnEntity(paperProto, spawn);

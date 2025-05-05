@@ -13,7 +13,7 @@
   icon:
     sprite: Structures/Storage/canister.rsi
     state: grey
-  product: TP14AirCanister
+  product: TP14WaterCanister
   cost: 1500
   category: cargoproduct-category-name-atmospherics
   group: market
