@@ -27,7 +27,9 @@
   components:
   - type: InstantAction
     useDelay: 8
-    icon: Interface/Actions/scream.png
+    icon:
+      sprite: Interface/Actions/actions_mecha.rsi
+      state: mech_savannah
     event: !type:GravityJumpEvent {}
 
 - type: entity
