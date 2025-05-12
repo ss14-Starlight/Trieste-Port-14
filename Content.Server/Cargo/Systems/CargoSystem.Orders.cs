@@ -505,10 +505,8 @@ namespace Content.Server.Cargo.Systems
         /// </summary>
         private bool FulfillOrder(CargoOrderData order, EntityCoordinates spawn, string? paperProto)
         {
-
-            var offsetSpawn = spawn.Offset(new Vector2(1000, 1000));
             // Create the item itself
-            var item = Spawn(order.ProductId, offsetSpawn);
+            var item = Spawn(order.ProductId, spawn);
 
             // Ensure the item doesn't start anchored
             _transformSystem.Unanchor(item, Transform(item));
