@@ -10,7 +10,6 @@
   id: CargoBoardsStatic
   recipes:
   - OreProcessorMachineCircuitboard
-  - SalvageMagnetMachineCircuitboard
 
 ## Dynamic
 

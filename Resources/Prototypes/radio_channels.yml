@@ -73,7 +73,7 @@
 - type: radioChannel
   id: Nanotrasen
   name: chat-radio-nanotrasen
-  keycode: 'x'
+  keycode: 'r'
   frequency: 1257
   color: "#89a8d6"
   longRange: true

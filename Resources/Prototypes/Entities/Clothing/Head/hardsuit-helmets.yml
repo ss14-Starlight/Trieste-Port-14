@@ -1,8 +1,8 @@
 #When adding new hardsuits, please try to keep the organization consistent with hardsuit.yml (if possible.)
 
-#For now, since locational damage is not a thing, all "combat" hardsuits (with the exception of the deathsquad hardsuit) have the equvilent of a helmet in terms of armor.
+#For now, since locational damage is not a thing, all "combat" hardsuits (except the DeathSquad hardsuit) have the equivalent of a helmet in terms of armor.
 #This is so people don't need to wear both regular, on-station helmets and hardsuits to get full protection.
-#Generally, unless you're adding something like caustic damage, you should probably avoid messing with armor here outside of the above scenario.
+#Generally, unless you're adding something like caustic damage, you should probably avoid messing with armor here outside the above scenario.
 
 #CREW HARDSUITS
 #Standard Hardsuit
@@ -845,7 +845,7 @@
     energy: 2
 
 - type: entity
-  parent: ClothingHeadHardsuitWithLightBase
+  parent: [ ClothingHeadHardsuitBase, ClothingHeadSuitWithLightBase ]
   id: ClothingHeadHelmetAbyssal
   name: G.I.L.L.Y abyssal helmet
   description: A heavy helmet designed to withstand indescribable pressure. Utilizes a built-in camera for user vision.

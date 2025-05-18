@@ -20,11 +20,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Linq;
 using System.Text;
-using Content.Server.Store.Components;  // Added for ListenerComponent
-using Content.Shared.Radio.Components;
-using Content.Shared.Dataset;
 using Content.Shared.Implants;
-
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -42,6 +38,8 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
     [Dependency] private readonly SharedRoleCodewordSystem _roleCodewordSystem = default!;
     [Dependency] private readonly SharedRoleSystem _roleSystem = default!;
     [Dependency] private readonly UplinkSystem _uplink = default!;
+
+    private readonly IEntityManager _entityManager = IoCManager.Resolve<IEntityManager>();
 
     public override void Initialize()
     {
@@ -73,16 +71,15 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
         {
             MakeNanoTrasenTraitor(args.EntityUid, ent);
         }
-        MakeTraitor(args.EntityUid, ent);
     }
 
     private void SetCodewords(TraitorRuleComponent component, EntityUid ruleEntity)
     {
-        component.Codewords = GenerateTraitorCodewords(component);
+        component.Codewords = GenerateTraitorCodewords(component, "Syndicate");
         _adminLogger.Add(LogType.EventStarted, LogImpact.Low, $"Codewords generated for game rule {ToPrettyString(ruleEntity)}: {string.Join(", ", component.Codewords)}");
     }
 
-    public string[] GenerateTraitorCodewords(TraitorRuleComponent component)
+    public string[] GenerateTraitorCodewords(TraitorRuleComponent component, String type)
     {
         var adjectives = _prototypeManager.Index(component.CodewordAdjectives).Values;
         var verbs = _prototypeManager.Index(component.CodewordVerbs).Values;
@@ -93,6 +90,16 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
         {
             codewords[i] = Loc.GetString(_random.PickAndTake(codewordPool));
         }
+
+        if (type == "Syndicate")
+        {
+            component.SyndicateCodewords = codewords;
+        }
+        else
+        {
+            component.NanoTrasenCodewords = codewords;
+        }
+
         return codewords;
     }
 
@@ -187,6 +194,89 @@ public sealed class TraitorRuleSystem : GameRuleSystem<TraitorRuleComponent>
         Log.Debug($"MakeTraitor {ToPrettyString(traitor)} - Finished");
         return true;
     }
+
+            public bool MakeNanoTrasenTraitor(EntityUid traitor, TraitorRuleComponent component)
+        {
+            Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - start");
+
+            GenerateTraitorCodewords(component, "NanoTrasen");
+
+            //Grab the mind if it wasn't provided
+            if (!_mindSystem.TryGetMind(traitor, out var mindId, out var mind))
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)}  - failed, no Mind found");
+                return false;
+            }
+
+            var briefing = "";
+
+            if (component.GiveCodewords)
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - added codewords flufftext to briefing");
+                briefing = Loc.GetString("traitor-role-codewords-short", ("codewords", string.Join(", ", component.Codewords)));
+            }
+
+            var issuer = _random.Pick(_prototypeManager.Index(component.ObjectiveIssuers));
+
+            // Uplink code will go here if applicable, but we still need the variable if there aren't any
+            Note[]? code = null;
+
+            if (component.GiveUplinkNT)
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Uplink start");
+                var implantPrototypeId = "UplinkImplantNT";
+                var implantSystem = _entityManager.System<SharedSubdermalImplantSystem>();
+                implantSystem.AddImplants(traitor, new HashSet<string> { implantPrototypeId });
+
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Uplink request completed");
+            }
+
+            string[]? codewords = null;
+            if (component.GiveCodewords)
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - set codewords from component");
+                codewords = component.Codewords;
+            }
+
+            if (component.GiveBriefing)
+            {
+                _antag.SendBriefing(traitor, GenerateBriefing(codewords, code, issuer), null, component.GreetSoundNotificationNT);
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Sent the Briefing");
+            }
+
+            Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Adding TraitorMind");
+            component.TraitorMinds.Add(mindId);
+
+            // Assign briefing
+            //Since this provides neither an antag/job prototype, nor antag status/roletype,
+            //and is intrinsically related to the traitor role
+            //it does not need to be a separate Mind Role Entity
+            _roleSystem.MindHasRole<TraitorRoleComponent>(mindId, out var traitorRole);
+            if (traitorRole is not null)
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Add traitor briefing components");
+                AddComp<RoleBriefingComponent>(traitorRole.Value.Owner);
+                Comp<RoleBriefingComponent>(traitorRole.Value.Owner).Briefing = briefing;
+            }
+            else
+            {
+                Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - did not get traitor briefing");
+            }
+
+            // Send codewords to only the traitor client
+            var color = TraitorCodewordColor; // Fall back to a dark red Syndicate color if a prototype is not found
+
+            RoleCodewordComponent codewordComp = EnsureComp<RoleCodewordComponent>(mindId);
+            _roleCodewordSystem.SetRoleCodewords(codewordComp, "traitor", component.Codewords.ToList(), color);
+
+            // Change the faction
+            Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Change faction");
+            _npcFaction.RemoveFaction(traitor, component.NanoTrasenFaction, false);
+            _npcFaction.AddFaction(traitor, component.NanoTrasenTraitorFaction);
+
+            Log.Debug($"MakeNanoTrasenTraitor {ToPrettyString(traitor)} - Finished");
+            return true;
+        }
 
     private (Note[]?, string) RequestUplink(EntityUid traitor, FixedPoint2 startingBalance, string briefing)
     {

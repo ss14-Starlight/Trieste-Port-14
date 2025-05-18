@@ -203,27 +203,6 @@
     - SuitStorage #Bigger than the other swords, easier to strap to your suit.
   - type: DisarmMalus
 
-- type: entity
-  name: cutlass
-  parent: [ BaseSword, BaseMajorContraband ]
-  id: Cutlass
-  description: A wickedly curved blade, often seen in the hands of pirates. It's widely considered a pirate's most valuable possesion.
-  components:
-  - type: Tag
-    tags:
-    - Machete
-  - type: Sprite
-    sprite: Objects/Weapons/Melee/cutlass.rsi
-  - type: MeleeWeapon
-    damage:
-      types:
-        Slash: 16
-    soundHit:
-      path: /Audio/Weapons/bladeslice.ogg
-  - type: Item
-    sprite: Objects/Weapons/Melee/cutlass.rsi
-  - type: DisarmMalus
-
 #Other/Weird
 - type: entity
   name: throngler
