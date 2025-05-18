@@ -33,14 +33,14 @@ namespace Content.Server.GameTicking.Rules.Components
         [DataField]
         public ProtoId<NpcFactionPrototype> SyndicateFaction = "Syndicate";
 
-        [DataField]
-        public ProtoId<DatasetPrototype> CodewordAdjectives = "adjectives";
-
-        [DataField]
-        public ProtoId<DatasetPrototype> CodewordVerbs = "verbs";
+    [DataField]
+    public ProtoId<LocalizedDatasetPrototype> CodewordAdjectives = "Adjectives";
 
     [DataField]
-    public ProtoId<DatasetPrototype> ObjectiveIssuers = "TraitorCorporations";
+    public ProtoId<LocalizedDatasetPrototype> CodewordVerbs = "Verbs";
+
+    [DataField]
+    public ProtoId<LocalizedDatasetPrototype> ObjectiveIssuers = "TraitorCorporations";
 
     /// <summary>
     /// Give this traitor an Uplink on spawn.

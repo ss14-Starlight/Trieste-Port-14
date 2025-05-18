@@ -16,7 +16,7 @@
     - id: GiftsVendingRestock
 
 # Game Rules
-    
+
 - type: entity
   id: CargoGiftsBase
   parent: BaseGameRule
@@ -213,6 +213,7 @@
       SecurityRiot: 2
       SecurityRestraints: 2
       SecurityNonLethal: 2
+      SecurityNonlethalThrowables: 1
 
 - type: entity
   id: GiftsExpedHarpoons

@@ -2,7 +2,6 @@ using System.Linq;
 using System.Numerics;
 using Content.Server.Administration;
 using Content.Server.Chat.Managers;
-using Content.Server.DeviceNetwork.Components;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
@@ -19,6 +18,7 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Damage.Components;
 using Content.Shared.DeviceNetwork;
+using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Components;
@@ -26,16 +26,17 @@ using Content.Shared.Parallax.Biomes;
 using Content.Shared.Salvage;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Tiles;
-using Robust.Server.GameObjects;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
+using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
-using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
+using Robust.Shared.Utility;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -512,59 +513,51 @@ public sealed class ArrivalsSystem : EntitySystem
         SetupArrivalsStation();
     }
 
-  private void SetupArrivalsStation()
-{
-    // Setup for the first map
-    var mapId1 = _mapManager.CreateMap();
-    var mapUid1 = _mapManager.GetMapEntityId(mapId1);
-    _mapManager.AddUninitializedMap(mapId1);
-
-    if (!_loader.TryLoad(mapId1, _cfgManager.GetCVar(CCVars.ArrivalsMap), out var uids1))
+    private void SetupArrivalsStation()
     {
-        return;
-    }
+        var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
+        var mapUid = _mapSystem.CreateMap(out var mapId, false);
+        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
-    foreach (var id in uids1)
-    {
-        EnsureComp<ArrivalsSourceComponent>(id);
-        EnsureComp<PreventPilotComponent>(id);
-    }
-
-    // Setup planet arrivals for the first map if relevant
-    if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
-    {
-        var template1 = _random.Pick(_arrivalsBiomeOptions);
-        _biomes.EnsurePlanet(mapUid1, _protoManager.Index(template1));
-        var restricted1 = new RestrictedRangeComponent
-        {
-            Range = 32f
-        };
-        AddComp(mapUid1, restricted1);
-    }
-
-    _mapManager.DoMapInitialize(mapId1);
-
-    // Setup for the ocean surface map
-    var mapId2 = _mapManager.CreateMap();
-    var mapUid2 = _mapManager.GetMapEntityId(mapId2);
-    _mapManager.AddUninitializedMap(mapId2);
-
-     if (!_protoManager.TryIndex<BiomeTemplatePrototype>(biomeTemplate, out var biomeProto))
-        {
+        if (!_loader.TryLoadGrid(mapId, path, out var grid))
             return;
+
+        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
+
+        EnsureComp<ArrivalsSourceComponent>(grid.Value);
+        EnsureComp<PreventPilotComponent>(grid.Value);
+
+        // Setup planet for the first map arrivals if relevant
+        if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
+        {
+            var template = _random.Pick(_arrivalsBiomeOptions);
+            _biomes.EnsurePlanet(mapUid, _protoManager.Index(template));
+            var restricted = new RestrictedRangeComponent
+            {
+                Range = 32f
+            };
+            AddComp(mapUid, restricted);
         }
 
-        var biomeSystem = _entManager.System<BiomeSystem>();
-        var mapOceanUid2 = _mapManager.GetMapEntityId(mapId2);
-        biomeSystem.EnsurePlanet(mapOceanUid2, biomeProto); // PLZ WORK
+        _mapSystem.InitializeMap(mapId);
 
-    if (!_loader.TryLoad(mapId2, _cfgManager.GetCVar(CCVars.Arrivals2Map), out var uids2)) // edit here to change the map, bozo
-    {
-        return;
+        // Setup for the ocean surface map
+        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
+        var mapUid2 = _mapSystem.CreateMap(out var mapId2, false);
+
+        if (!_loader.TryLoadGrid(mapId2, path, out var grid2))
+            return;
+
+        _metaData.SetEntityName(mapUid2, "Ocean Surface");
+
+        EnsureComp<ArrivalsSourceComponent>(grid2.Value);
+        EnsureComp<PreventPilotComponent>(grid2.Value);
+
+        if (!_protoManager.TryIndex<BiomeTemplatePrototype>(biomeTemplate, out var biomeProto))
+            return;
+
+        _mapSystem.InitializeMap(mapId2);
     }
-
-    _mapManager.DoMapInitialize(mapId2);
-}
 
     private void SetArrivals(bool obj)
     {
@@ -616,9 +609,9 @@ public sealed class ArrivalsSystem : EntitySystem
         var dummpMapEntity = _mapSystem.CreateMap(out var dummyMapId);
 
         if (TryGetArrivals(out var arrivals) &&
-            _loader.TryLoad(dummyMapId, component.ShuttlePath.ToString(), out var shuttleUids))
+            _loader.TryLoadGrid(dummyMapId, component.ShuttlePath, out var shuttle))
         {
-            component.Shuttle = shuttleUids[0];
+            component.Shuttle = shuttle.Value;
             var shuttleComp = Comp<ShuttleComponent>(component.Shuttle);
             var arrivalsComp = EnsureComp<ArrivalsShuttleComponent>(component.Shuttle);
             arrivalsComp.Station = uid;
