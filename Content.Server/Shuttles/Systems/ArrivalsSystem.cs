@@ -519,13 +519,14 @@ public sealed class ArrivalsSystem : EntitySystem
         var mapUid = _mapSystem.CreateMap(out var mapId, false);
         _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
 
-        if (!_loader.TryLoadGrid(mapId, path, out var grid))
+        if (!_loader.TryLoadMap(path, out _, out var grids))
             return;
 
-        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
-
-        EnsureComp<ArrivalsSourceComponent>(grid.Value);
-        EnsureComp<PreventPilotComponent>(grid.Value);
+        foreach (var id in grids)
+        {
+            EnsureComp<ArrivalsSourceComponent>(id);
+            EnsureComp<PreventPilotComponent>(id);
+        }
 
         // Setup planet for the first map arrivals if relevant
         if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
@@ -542,16 +543,19 @@ public sealed class ArrivalsSystem : EntitySystem
         _mapSystem.InitializeMap(mapId);
 
         // Setup for the ocean surface map
-        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
+        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
         var mapUid2 = _mapSystem.CreateMap(out var mapId2, false);
 
-        if (!_loader.TryLoadGrid(mapId2, path, out var grid2))
+        _metaData.SetEntityName(mapUid2, "OceanSurface");
+
+        if (!_loader.TryLoadMap(path2, out _, out var grids2))
             return;
 
-        _metaData.SetEntityName(mapUid2, "Ocean Surface");
-
-        EnsureComp<ArrivalsSourceComponent>(grid2.Value);
-        EnsureComp<PreventPilotComponent>(grid2.Value);
+        foreach (var id in grids2)
+        {
+            EnsureComp<ArrivalsSourceComponent>(id);
+            EnsureComp<PreventPilotComponent>(id);
+        }
 
         if (!_protoManager.TryIndex<BiomeTemplatePrototype>(biomeTemplate, out var biomeProto))
             return;
