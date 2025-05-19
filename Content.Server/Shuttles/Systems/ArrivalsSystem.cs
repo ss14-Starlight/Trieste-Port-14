@@ -519,6 +519,10 @@ public sealed class ArrivalsSystem : EntitySystem
 
     private void SetupArrivalsStation()
     {
+        // A check to make sure that Sweetwater and the Ocean don't load FOUR TIMES. -Cookie
+        if (EntityQuery<ArrivalsSourceComponent>().Any())
+            return;
+
         // Sweetwater
         var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
         _mapSystem.CreateMap(out var mapId, runMapInit: false);
@@ -543,7 +547,7 @@ public sealed class ArrivalsSystem : EntitySystem
         }
 
         // Ocean
-        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
+        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
         _mapSystem.CreateMap(out var mapId2, runMapInit: false);
         var mapUid2 = _mapSystem.GetMap(mapId2);
 
@@ -564,11 +568,15 @@ public sealed class ArrivalsSystem : EntitySystem
 
     private void SetArrivals(bool obj)
     {
+        if (obj == Enabled)
+            return;
+
         Enabled = obj;
 
         if (Enabled)
         {
-            SetupArrivalsStation();
+            if (!EntityQuery<ArrivalsSourceComponent>().Any())
+                SetupArrivalsStation();
 
             var query = AllEntityQuery<StationArrivalsComponent>();
             while (query.MoveNext(out var sUid, out var comp))
