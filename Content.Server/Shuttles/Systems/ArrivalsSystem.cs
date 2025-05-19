@@ -29,8 +29,10 @@ using Content.Shared.Tiles;
 using Robust.Shared.Collections;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Robust.Shared.EntitySerialization;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -517,17 +519,16 @@ public sealed class ArrivalsSystem : EntitySystem
 
     private void SetupArrivalsStation()
     {
+        // Sweetwater
         var path = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
         _mapSystem.CreateMap(out var mapId, runMapInit: false);
         var mapUid = _mapSystem.GetMap(mapId);
 
-        if (!_loader.TryLoadGrid(mapId, path, out var grid))
+        if (!_loader.TryLoadMap(path, out var map, out var grids))
             return;
 
-        _metaData.SetEntityName(mapUid, Loc.GetString("map-name-terminal"));
-
-        EnsureComp<ArrivalsSourceComponent>(grid.Value);
-        EnsureComp<PreventPilotComponent>(grid.Value);
+        _metaData.SetEntityName(mapUid, "SWEETWATER");
+        _mapSystem.InitializeMap((Entity<MapComponent?>) map!, true);
 
         // Setup planet arrivals if relevant
         if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
@@ -541,30 +542,16 @@ public sealed class ArrivalsSystem : EntitySystem
             AddComp(mapUid, restricted);
         }
 
-        _mapSystem.InitializeMap(mapId);
-
         // Ocean
-        var biomeSystem = _entManager.System<BiomeSystem>();
-        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.Arrivals2Map));
+        var path2 = new ResPath(_cfgManager.GetCVar(CCVars.ArrivalsMap));
         _mapSystem.CreateMap(out var mapId2, runMapInit: false);
         var mapUid2 = _mapSystem.GetMap(mapId2);
 
-        if (!_loader.TryLoadGrid(mapId2, path2, out var grid2))
+        if (!_loader.TryLoadMap(path2, out var map2, out var grids2))
             return;
 
-        _metaData.SetEntityName(mapUid, "OceanSurface");
-
-        EnsureComp<ArrivalsSourceComponent>(grid2.Value);
-        EnsureComp<PreventPilotComponent>(grid2.Value);
-
-        if (!_protoManager.TryIndex<BiomeTemplatePrototype>(BiomeTemplate, out var biomeProto))
-        {
-            return;
-        }
-
-        _mapSystem.InitializeMap(mapId2);
-        biomeSystem.EnsurePlanet(mapUid2, biomeProto); // PLZ WORK
-
+        _metaData.SetEntityName(mapUid2, "OCEAN");
+        _mapSystem.InitializeMap((Entity<MapComponent?>) map2!, true);
 
         // Handle roundstart stations.
         var query = AllEntityQuery<StationArrivalsComponent>();
@@ -582,11 +569,11 @@ public sealed class ArrivalsSystem : EntitySystem
         if (Enabled)
         {
             SetupArrivalsStation();
-            var query = AllEntityQuery<StationArrivalsComponent>();
 
+            var query = AllEntityQuery<StationArrivalsComponent>();
             while (query.MoveNext(out var sUid, out var comp))
             {
-                SetupShuttle(sUid, comp);
+                //SetupShuttle(sUid, comp);
             }
         }
         else
