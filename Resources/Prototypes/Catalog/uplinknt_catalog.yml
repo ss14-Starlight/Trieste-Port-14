@@ -29,7 +29,7 @@
     BluespaceCrystal: 8
   categories:
   - UplinkNtWeaponry
-  
+
 - type: listing
   id: UplinkEnergyCarbine
   name: uplink-carbine-name
@@ -232,7 +232,7 @@
   id: UplinkCrateChemicalLabBundle
   name: uplink-lab-name
   description: uplink-lab-desc
-  productEntity: CrateChemicalLabBundle
+  productEntity: TP14CrateChemicalLabBundle
   cost:
     BluespaceCrystal: 15
   categories:
@@ -254,7 +254,7 @@
   id: UplinkToolboxNanotrasenFilled
   name: uplink-toolboxnt-name
   description: uplink-toolboxnt-desc
-  productEntity: ToolboxNanotrasenFilled
+  productEntity: TP14ToolboxNanoTrasenFilled
   cost:
     BluespaceCrystal: 3
   categories:
@@ -264,7 +264,7 @@
   id: UplinkNanoTraitorLawBoard
   name: uplink-lawboard-name
   description: uplink-lawboard-desc
-  productEntity: NanoTraitorCircuitBoard
+  productEntity: TP14NanoTraitorCircuitBoard
   cost:
     BluespaceCrystal: 8
   categories:

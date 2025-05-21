@@ -1,7 +1,7 @@
 - type: entity
   id: NTDefaultCircuitBoard
   parent: BaseElectronics
-  name: law board (NT Default)
+  name: law board (Trieste Default)
   description: An electronics board containing the NT Default lawset.
   components:
   - type: Sprite

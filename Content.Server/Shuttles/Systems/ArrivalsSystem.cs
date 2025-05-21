@@ -534,7 +534,7 @@ public sealed class ArrivalsSystem : EntitySystem
         _metaData.SetEntityName(mapUid, "SWEETWATER");
         _mapSystem.InitializeMap((Entity<MapComponent?>) map!, true);
 
-        // Setup planet arrivals if relevant
+        // Setup planet arrivals
         if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
         {
             var template = _random.Pick(_arrivalsBiomeOptions);
