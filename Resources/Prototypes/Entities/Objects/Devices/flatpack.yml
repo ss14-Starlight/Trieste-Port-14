@@ -257,7 +257,7 @@
 - type: entity
   parent: FaxMachineFlatpack
   id: ReagentGrinderFlatpack
-  name: reagent grinder flatpack
+  name: fax machine flatpack
   description: A flatpack used for constructing a reagent grinder.
   components:
   - type: Flatpack
@@ -266,7 +266,7 @@
 - type: entity
   parent: FaxMachineFlatpack
   id: HotplateFlatpack
-  name: hotplate flatpack
+  name: fax machine flatpack
   description: A flatpack used for constructing a hotplate.
   components:
   - type: Flatpack
@@ -275,7 +275,7 @@
 - type: entity
   parent: FaxMachineFlatpack
   id: CentrifugeFlatpack
-  name: centrifuge flatpack
+  name: fax machine flatpack
   description: A flatpack used for constructing a centrifuge.
   components:
   - type: Flatpack
