@@ -534,7 +534,7 @@ public sealed class ArrivalsSystem : EntitySystem
         _metaData.SetEntityName(mapUid, "SWEETWATER");
         _mapSystem.InitializeMap((Entity<MapComponent?>) map!, true);
 
-        // Setup planet arrivals if relevant
+        // Setup planet arrivals
         if (_cfgManager.GetCVar(CCVars.ArrivalsPlanet))
         {
             var template = _random.Pick(_arrivalsBiomeOptions);
@@ -617,7 +617,7 @@ public sealed class ArrivalsSystem : EntitySystem
             return;
 
         // Spawn arrivals on a dummy map then dock it to the source.
-        var dummpMapEntity = _mapSystem.CreateMap(out var dummyMapId);
+        var dummyMapEntity = _mapSystem.CreateMap(out var dummyMapId);
 
         if (TryGetArrivals(out var arrivals) &&
             _loader.TryLoadGrid(dummyMapId, component.ShuttlePath, out var shuttle))
@@ -632,7 +632,7 @@ public sealed class ArrivalsSystem : EntitySystem
         }
 
         // Don't start the arrivals shuttle immediately docked so power has a time to stabilise?
-        var timer = AddComp<TimedDespawnComponent>(dummpMapEntity);
+        var timer = AddComp<TimedDespawnComponent>(dummyMapEntity);
         timer.Lifetime = 15f;
     }
 }

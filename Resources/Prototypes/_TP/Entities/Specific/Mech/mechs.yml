@@ -1,4 +1,3 @@
-
 - type: entity
   id: TP14MechStepfather
   parent: [BaseMech, StripableInventoryBase]
@@ -163,7 +162,5 @@
     damageProtection:
       flatReductions:
         Heat: 10 # capable of touching light bulbs and stoves without feeling pain!
-  - type: Alerts
-  # - type: Loadout
-  #   prototypes: [Stepfather] #gives the stepfather the Pilot Pinpointer to find their pilot
-
+  - type: Loadout
+    prototypes: [Stepfather]

@@ -96,13 +96,13 @@
     spawned:
     - id: FoodMeatSlime
       amount: 5
-  - type: Respirator
+  - type: Respirator # Changed to asphyxiation, as burn wasn't working. -Cookie
     damage:
       types:
-        Burn: 1
+        Asphyxiation: 1
     damageRecovery:
       types:
-        Burn: -0.5 # hopefully shouldn't be OP
+        Asphyxiation: -0.5
     maxSaturation: 15
     gaspEmote: Scream
   - type: Inventory

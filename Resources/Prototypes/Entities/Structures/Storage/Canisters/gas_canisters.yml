@@ -649,54 +649,6 @@
   - type: Lock
     locked: true
 
-- type: entity
-  parent: GasCanister
-  id: TP14WaterCanister
-  name: water canister
-  description: It's GAS canister! Who the hell put water in it?
-  components:
-    - type: Sprite
-      layers:
-        - state: yellow # You can replace it with water canister sprite if you'll make one
-    - type: GasCanister
-      gasMixture:
-        volume: 1000
-        moles:
-         - 0 # oxygen
-         - 0 # nitrogen
-         - 0 # CO2
-         - 0 # Plasma
-         - 0 # Tritium
-         - 0 # Water vapor
-         - 0 # Ammonia
-         - 0 # N2O
-         - 0 # Frezon
-         - 1871.71051 # water
-        temperature: 293.15
-    - type: Destructible
-      thresholds:
-      - trigger:
-          !type:DamageTrigger
-          damage: 600
-        behaviors:
-          - !type:DoActsBehavior
-            acts: [ "Destruction" ]
-      - trigger:
-          !type:DamageTrigger
-          damage: 300
-        behaviors:
-        - !type:PlaySoundBehavior
-          sound:
-            collection: MetalBreak
-        - !type:SpawnEntitiesBehavior
-          spawn:
-            WaterCanisterBroken:
-              min: 1
-              max: 1
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-        - !type:DumpCanisterBehavior
-
 # Broke Entities
 
 - type: entity
@@ -841,12 +793,3 @@
   components:
   - type: Sprite
     state: frezon-1
-
-- type: entity
-  parent: GasCanisterBrokenBase
-  id: WatercanisterBroken
-  name: broken water canister
-  noSpawn: true
-  components:
-    - type: Sprite
-      state: yellow-1
