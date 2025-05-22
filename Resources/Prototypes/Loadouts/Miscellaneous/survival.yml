@@ -35,13 +35,6 @@
     - Vox
     - JellidPerson
 
-- type: loadoutEffectGroup
-  id: WaterBreather
-  effects:
-  - !type:SpeciesLoadoutEffect
-    species:
-    - JellidPerson
-
 # Basic
 - type: loadout
   id: EmergencyOxygen
@@ -51,15 +44,6 @@
   storage:
     back:
     - BoxSurvival
-
-- type: loadout
-  id: EmergencyWater
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WaterBreather
-  storage:
-    back:
-    - BoxSurvivalJellid
 
 - type: loadout
   id: EmergencyNitrogen
@@ -221,14 +205,6 @@
     proto: EffectSpeciesVox
   equipment:
     suitstorage: NitrogenTankFilled
-
-- type: loadout
-  id: LoadoutSpeciesJellidWater
-  effects:
-  - !type:GroupLoadoutEffect
-    proto: WaterBreather
-  equipment:
-    suitstorage: TP14WaterTankFilled
 
 # Full EVA Tank, Any Species
 - type: loadout

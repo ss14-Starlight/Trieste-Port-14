@@ -96,7 +96,7 @@
     spawned:
     - id: FoodMeatSlime
       amount: 5
-  - type: Respirator
+  - type: Respirator # TODO - Jellids don't take burn damage! Fix this!
     damage:
       types:
         Burn: 1
