@@ -165,7 +165,7 @@
 
 - type: entity
   name: cargo invoice
-  parent: Paper
+  parent: TP14PaperJellid # TP
   id: PaperCargoInvoice
   description: 'A single unit of bureaucracy.'
   components:
