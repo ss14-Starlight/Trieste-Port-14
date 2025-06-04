@@ -11,13 +11,13 @@
     - id: CockroachMigration
     - id: GasLeak
     - id: GreytideVirus
-    - id: CloudStormEvent
-    - id: RainClear
+    - id: TP14CloudStormEvent
+    - id: TP14RainClear
     - id: IonStorm # its calm like 90% of the time smh
     - id: KudzuGrowth
     - id: MassHallucinations
     - id: MimicVendorRule
-    - id: FlashStorm
+    - id: TP14FlashStorm
     - id: MouseMigration
     - id: PowerGridCheck
     - id: RandomSentience
