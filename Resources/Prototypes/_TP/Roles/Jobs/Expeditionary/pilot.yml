@@ -3,10 +3,6 @@
   name: job-name-pilot
   description: job-description-pilot
   playTimeTracker: JobPilot
-  requirements:
-    - !type:DepartmentTimeRequirement
-     department: Cargo
-     time: 3600 # 1 hr
   icon: "JobIconShaftMiner"
   startingGear: PilotGear
   supervisors: job-supervisors-qm
@@ -14,6 +10,10 @@
   - Salvage
   - Maintenance
   - External
+  requirements:
+  - !type:DepartmentTimeRequirement
+    department: Expeditionary
+    time: 3600 # 1 hr
   special:
   - !type:AddComponentSpecial
     components:
@@ -24,22 +24,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitMercenary
     id: PilotPDA
-    ears: ClothingHeadsetCargo
-    outerClothing: ClothingOuterCoatBomber
+    ears: ClothingHeadsetMining
     gloves: ClothingHandsGlovesFingerless
     head: ClothingHeadHatHardhatArmored # protect the pilot
-    shoes: ClothingShoesLeather
-    back: ClothingBackpackSatchelLeather
-
-- type: roleLoadout
-  id: JobPilot
-  groups:
-  - GroupTankHarness
-  - SalvageSpecialistBackpack
-  - SalvageSpecialistOuterClothing
-  - SalvageSpecialistShoes
-  - Glasses
-  - Survival
-  - Trinkets
-  - GroupSpeciesBreathTool
 
