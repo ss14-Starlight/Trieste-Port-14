@@ -1,3 +1,7 @@
 - type: lobbyBackground
   id: TriestePaint
   background: /Textures/LobbyScreens/triestepaint.webp
+
+- type: lobbyBackground
+  id: TriesteNT
+  background: /Textures/_Starlight/LobbyScreens/trieste-nt.webp
