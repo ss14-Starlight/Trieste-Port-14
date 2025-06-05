@@ -47,7 +47,7 @@
 - type: entity
   id: LockerSalvageSpecialist
   parent: LockerBase
-  name: salvage specialist's equipment
+  name: expeditioneer's equipment # TP
   description: Nevermind the pickaxe.
   components:
   - type: Appearance
