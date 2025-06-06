@@ -1,3 +1,11 @@
 - type: lobbyBackground
   id: TriestePaint
   background: /Textures/LobbyScreens/triestepaint.webp
+
+- type: lobbyBackground
+  id: TriesteNT
+  background: /Textures/LobbyScreens/trieste-nt.webp
+
+- type: lobbyBackground
+  id: TriesteFlashStorm
+  background: /Textures/LobbyScreens/triesteflashstorm.webp
