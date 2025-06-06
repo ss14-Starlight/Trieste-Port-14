@@ -28,7 +28,7 @@ public sealed class PilotAssignmentSystem : EntitySystem
 
     private void ActivateVerb(EntityUid uid, HumanoidAppearanceComponent component, GetVerbsEvent<ActivationVerb> args)
     {
-        if (!TryComp<StepfatherComponent>(args.User, out var stepfather))
+        if (!TryComp<Shared._TP.StepfatherComponent>(args.User, out var stepfather))
             return;
 
         var verb = new ActivationVerb()
@@ -65,7 +65,7 @@ public sealed class PilotAssignmentSystem : EntitySystem
         if (!TryComp<HumanoidAppearanceComponent>(args.Examined, out var target))
             return;
 
-        if (!TryComp<StepfatherComponent>(args.Examiner, out var stepfather))
+        if (!TryComp<Shared._TP.StepfatherComponent>(args.Examiner, out var stepfather))
             return;
 
         if (!TryComp<ExpedPilotComponent>(args.Examined, out var pilotComp))
