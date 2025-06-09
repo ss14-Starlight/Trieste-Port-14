@@ -28,7 +28,7 @@ public sealed partial class SharedJumpAbilitySystem : EntitySystem
 
           if (!entity.IsJumping)
           {
-              return;
+              continue;
           }
           else if (_timing.CurTime >= entity.LastJumped + TimeSpan.FromSeconds(1))
           {
