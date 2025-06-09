@@ -46,12 +46,6 @@ namespace Content.Server.Falling
             {
                 var EntityParent = Transform(entity.Owner).ParentUid;
 
-                var transform = Transform(entity);
-                if (TryComp(transform.GridUid, out var grid)
-                {
-                    return; // If on a grid, no falling allowed
-                }
-
                 if (HasComp<TriesteAirspaceComponent>(EntityParent) && !entity.IsJumping)
                 {
                     if (TryComp<FallSystemComponent>(entity.Owner, out var fallSystemComponent))
